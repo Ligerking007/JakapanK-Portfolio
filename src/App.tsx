@@ -5,7 +5,9 @@ import {
   Linkedin,
   Mail,
   Menu,
+  Moon,
   Send,
+  Sun,
   X,
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
@@ -14,6 +16,8 @@ import { localizedContent, type Language, type LocalizedContent } from './data/i
 import { profile } from './data/profile';
 
 const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+
+type Theme = 'light' | 'dark';
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
@@ -43,6 +47,19 @@ function useMotionSettings() {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('top');
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === 'undefined') {
+      return 'light';
+    }
+
+    const savedTheme = window.localStorage.getItem('portfolio-theme');
+
+    if (savedTheme === 'dark' || savedTheme === 'light') {
+      return savedTheme;
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
   const [language, setLanguage] = useState<Language>(() => {
     if (typeof window === 'undefined') {
       return 'en';
@@ -51,6 +68,12 @@ function App() {
     return window.localStorage.getItem('portfolio-language') === 'th' ? 'th' : 'en';
   });
   const content = localizedContent[language];
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#06101f' : '#f8fafc');
+    window.localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     document.documentElement.lang = language === 'th' ? 'th' : 'en';
@@ -85,8 +108,8 @@ function App() {
   }, [content.navigation]);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <Header activeSection={activeSection} content={content} isMenuOpen={isMenuOpen} language={language} setIsMenuOpen={setIsMenuOpen} setLanguage={setLanguage} />
+    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+      <Header activeSection={activeSection} content={content} isMenuOpen={isMenuOpen} language={language} setIsMenuOpen={setIsMenuOpen} setLanguage={setLanguage} setTheme={setTheme} theme={theme} />
       <main>
         <Hero content={content} />
         <SectionNavigator activeSection={activeSection} content={content} />
@@ -109,9 +132,11 @@ type HeaderProps = {
   language: Language;
   setIsMenuOpen: (value: boolean) => void;
   setLanguage: (value: Language) => void;
+  setTheme: (value: Theme) => void;
+  theme: Theme;
 };
 
-function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, setLanguage }: HeaderProps) {
+function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, setLanguage, setTheme, theme }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-cyan-400/25 bg-[#06101f] shadow-[0_10px_30px_rgba(2,8,23,0.38)]">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -133,6 +158,7 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
 
         <div className="flex items-center gap-3">
           <LanguageToggle language={language} setLanguage={setLanguage} />
+          <ThemeToggle setTheme={setTheme} theme={theme} />
           <button
             type="button"
             className="inline-grid h-10 w-10 place-items-center rounded-lg border border-cyan-300/35 bg-white/[0.06] text-white lg:hidden"
@@ -155,8 +181,9 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
           className="overflow-hidden border-t border-cyan-400/20 bg-[#08172a] px-4 py-4 shadow-2xl lg:hidden"
         >
           <div className="mx-auto grid max-w-7xl gap-2 rounded-lg border border-cyan-300/20 bg-[#0d2036] p-2">
-            <div className="mb-2 border-b border-white/10 pb-3">
+            <div className="mb-2 grid grid-cols-[1fr_auto] gap-2 border-b border-white/10 pb-3">
               <LanguageToggle language={language} setLanguage={setLanguage} expanded />
+              <ThemeToggle setTheme={setTheme} theme={theme} />
             </div>
             {content.navigation.map((item) => (
               <a
@@ -183,6 +210,23 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
         )}
       </AnimatePresence>
     </header>
+  );
+}
+
+function ThemeToggle({ setTheme, theme }: { setTheme: (value: Theme) => void; theme: Theme }) {
+  const nextTheme = theme === 'dark' ? 'light' : 'dark';
+  const Icon = theme === 'dark' ? Sun : Moon;
+
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(nextTheme)}
+      className="inline-grid h-10 w-10 place-items-center rounded-lg border border-cyan-300/30 bg-white/[0.06] text-cyan-100 transition hover:bg-white/[0.12]"
+      aria-label={`Switch to ${nextTheme} theme`}
+      title={`Switch to ${nextTheme} theme`}
+    >
+      <Icon size={18} />
+    </button>
   );
 }
 
@@ -328,7 +372,7 @@ function SectionNavigator({ activeSection, content }: { activeSection: string; c
   const motionSettings = useMotionSettings();
 
   return (
-    <section className="border-b border-slate-200 bg-white py-5">
+    <section className="border-b border-slate-200 bg-white py-5 transition-colors dark:border-slate-800 dark:bg-slate-900">
       <motion.div
         {...motionSettings}
         variants={staggerContainer}
@@ -345,12 +389,12 @@ function SectionNavigator({ activeSection, content }: { activeSection: string; c
               transition={motionSettings.transition}
               className={`rounded-lg border p-4 transition hover:-translate-y-0.5 ${
                 isActive
-                  ? 'border-cyan-300 bg-cyan-50 text-navy-950 shadow-sm'
-                  : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-cyan-200 hover:bg-white'
+                  ? 'border-cyan-300 bg-cyan-50 text-navy-950 shadow-sm dark:border-cyan-400/50 dark:bg-cyan-400/15 dark:text-cyan-50'
+                  : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-cyan-200 hover:bg-white dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:bg-slate-800'
               }`}
             >
               <span className="block text-sm font-bold">{item.label}</span>
-              <span className="mt-1 block text-xs leading-5 text-slate-500">{item.description}</span>
+              <span className="mt-1 block text-xs leading-5 text-slate-500 dark:text-slate-400">{item.description}</span>
             </motion.a>
           );
         })}
@@ -374,9 +418,9 @@ function SectionHeading({
 
   return (
     <div className="mx-auto mb-8 max-w-3xl text-center">
-      <p className={`text-sm font-semibold uppercase tracking-[0.18em] ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>{eyebrow}</p>
-      <h2 className={`mt-2 text-2xl font-bold tracking-tight sm:text-3xl ${isDark ? 'text-white' : 'text-navy-950'}`}>{title}</h2>
-      {description && <p className={`mt-3 text-sm leading-6 sm:text-base ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{description}</p>}
+      <p className={`text-sm font-semibold uppercase tracking-[0.18em] ${isDark ? 'text-cyan-300' : 'text-cyan-700 dark:text-cyan-300'}`}>{eyebrow}</p>
+      <h2 className={`mt-2 text-2xl font-bold tracking-tight sm:text-3xl ${isDark ? 'text-white' : 'text-navy-950 dark:text-white'}`}>{title}</h2>
+      {description && <p className={`mt-3 text-sm leading-6 sm:text-base ${isDark ? 'text-slate-300' : 'text-slate-600 dark:text-slate-300'}`}>{description}</p>}
     </div>
   );
 }
@@ -385,7 +429,7 @@ function About({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="about" className="section bg-white">
+    <section id="about" className="section bg-white transition-colors dark:bg-slate-950">
       <SectionHeading
         eyebrow={content.sections.about.eyebrow}
         title={content.sections.about.title}
@@ -393,38 +437,38 @@ function About({ content }: { content: LocalizedContent }) {
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
         <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
-          <p className="leading-7 text-slate-700">{content.profile.about}</p>
+          <p className="leading-7 text-slate-700 dark:text-slate-300">{content.profile.about}</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {content.strengths.map((strength) => (
-              <div key={strength.label} className="flex items-start gap-3 rounded-lg bg-slate-50 p-3">
-                <strength.icon className="mt-0.5 shrink-0 text-cyan-700" size={20} />
-                <span className="text-sm font-medium leading-6 text-slate-700">{strength.label}</span>
+              <div key={strength.label} className="flex items-start gap-3 rounded-lg bg-slate-50 p-3 dark:bg-slate-800/70">
+                <strength.icon className="mt-0.5 shrink-0 text-cyan-700 dark:text-cyan-300" size={20} />
+                <span className="text-sm font-medium leading-6 text-slate-700 dark:text-slate-300">{strength.label}</span>
               </div>
             ))}
           </div>
         </motion.div>
         <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
-          <h3 className="text-xl font-bold text-navy-950">{content.labels.workFocus}</h3>
+          <h3 className="text-xl font-bold text-navy-950 dark:text-white">{content.labels.workFocus}</h3>
           <div className="mt-5 space-y-5">
             {content.focusItems.map((item) => (
               <div key={item.label}>
                 <div className="mb-2 flex items-center justify-between gap-3">
-                  <span className="flex items-center gap-2 text-sm font-semibold text-slate-800">
-                    <item.icon size={18} className="text-cyan-700" />
+                  <span className="flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
+                    <item.icon size={18} className="text-cyan-700 dark:text-cyan-300" />
                     {item.label}
                   </span>
-                  <span className="text-sm font-bold text-navy-950">{item.value}%</span>
+                  <span className="text-sm font-bold text-navy-950 dark:text-white">{item.value}%</span>
                 </div>
-                <div className="h-3 overflow-hidden rounded-full bg-slate-200">
+                <div className="h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                   <div className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-700" style={{ width: `${item.value}%` }} />
                 </div>
               </div>
             ))}
           </div>
-          <h3 className="mt-7 text-xl font-bold text-navy-950">{content.labels.lifecycle}</h3>
+          <h3 className="mt-7 text-xl font-bold text-navy-950 dark:text-white">{content.labels.lifecycle}</h3>
           <div className="mt-4 flex flex-wrap gap-2">
             {content.lifecycle.map((item) => (
-              <span key={item} className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-800">
+              <span key={item} className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-800 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-100">
                 {item}
               </span>
             ))}
@@ -439,7 +483,7 @@ function Skills({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="skills" className="section bg-slate-50">
+    <section id="skills" className="section bg-slate-50 transition-colors dark:bg-slate-900">
       <SectionHeading
         eyebrow={content.sections.skills.eyebrow}
         title={content.sections.skills.title}
@@ -448,10 +492,10 @@ function Skills({ content }: { content: LocalizedContent }) {
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
         {content.skillCategories.map((category) => (
           <motion.div key={category.title} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
-            <h3 className="text-lg font-bold text-navy-950">{category.title}</h3>
+            <h3 className="text-lg font-bold text-navy-950 dark:text-white">{category.title}</h3>
             <div className="mt-4 flex flex-wrap gap-2">
               {category.skills.map((skill) => (
-                <span key={skill} className="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
+                <span key={skill} className="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">
                   {skill}
                 </span>
               ))}
@@ -467,14 +511,14 @@ function Experience({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="experience" className="section bg-white">
+    <section id="experience" className="section bg-white transition-colors dark:bg-slate-950">
       <SectionHeading
         eyebrow={content.sections.experience.eyebrow}
         title={content.sections.experience.title}
         description={content.sections.experience.description}
       />
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="relative border-l-2 border-cyan-100 pl-6 sm:pl-8">
+        <div className="relative border-l-2 border-cyan-100 pl-6 dark:border-cyan-400/25 sm:pl-8">
           {content.experiences.map((item) => (
             <motion.article
               key={`${item.company}-${item.period}`}
@@ -482,24 +526,24 @@ function Experience({ content }: { content: LocalizedContent }) {
               variants={fadeUp}
               className="relative mb-8 last:mb-0"
             >
-              <span className="absolute -left-[34px] top-2 h-4 w-4 rounded-full border-4 border-white bg-cyan-500 shadow" />
+              <span className="absolute -left-[34px] top-2 h-4 w-4 rounded-full border-4 border-white bg-cyan-500 shadow dark:border-slate-950" />
               <div className="card p-5 sm:p-6">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <p className="text-sm font-semibold text-cyan-700">{item.period}</p>
-                    <h3 className="mt-1 text-xl font-bold text-navy-950">{item.role}</h3>
-                    <p className="mt-1 font-semibold text-slate-700">{item.company}</p>
+                    <p className="text-sm font-semibold text-cyan-700 dark:text-cyan-300">{item.period}</p>
+                    <h3 className="mt-1 text-xl font-bold text-navy-950 dark:text-white">{item.role}</h3>
+                    <p className="mt-1 font-semibold text-slate-700 dark:text-slate-300">{item.company}</p>
                   </div>
-                  <p className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600">{item.location}</p>
+                  <p className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{item.location}</p>
                 </div>
-                <p className="mt-3 text-sm font-semibold text-slate-500">{item.business}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-700 sm:text-base">{item.summary}</p>
-                <div className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50/70 p-3">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-cyan-800">{content.labels.keyAchievements}</p>
+                <p className="mt-3 text-sm font-semibold text-slate-500 dark:text-slate-400">{item.business}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300 sm:text-base">{item.summary}</p>
+                <div className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50/70 p-3 dark:border-cyan-400/20 dark:bg-cyan-400/10">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-cyan-800 dark:text-cyan-200">{content.labels.keyAchievements}</p>
                   <ul className="mt-3 grid gap-2">
                     {item.achievements.map((achievement) => (
-                      <li key={achievement} className="flex gap-2 text-sm leading-6 text-slate-700">
-                        <CheckCircle2 className="mt-0.5 shrink-0 text-cyan-700" size={17} />
+                      <li key={achievement} className="flex gap-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
+                        <CheckCircle2 className="mt-0.5 shrink-0 text-cyan-700 dark:text-cyan-300" size={17} />
                         <span>{achievement}</span>
                       </li>
                     ))}
@@ -507,7 +551,7 @@ function Experience({ content }: { content: LocalizedContent }) {
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {item.technologies.map((tech) => (
-                    <span key={tech} className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-800">
+                    <span key={tech} className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-800 dark:bg-blue-400/10 dark:text-blue-100">
                       {tech}
                     </span>
                   ))}
@@ -565,7 +609,7 @@ function Education({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="education" className="section bg-white">
+    <section id="education" className="section bg-white transition-colors dark:bg-slate-950">
       <SectionHeading
         eyebrow={content.sections.education.eyebrow}
         title={content.sections.education.title}
@@ -575,10 +619,10 @@ function Education({ content }: { content: LocalizedContent }) {
         <div className="grid gap-5 md:grid-cols-2">
           {content.education.map((item) => (
             <motion.div key={item.school} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
-              <p className="text-sm font-semibold text-cyan-700">{item.period}</p>
-              <h3 className="mt-2 text-lg font-bold text-navy-950">{item.school}</h3>
-              <p className="mt-2 font-medium text-slate-700">{item.degree}</p>
-              <p className="mt-2 text-sm text-slate-500">{item.grade} · {item.detail}</p>
+              <p className="text-sm font-semibold text-cyan-700 dark:text-cyan-300">{item.period}</p>
+              <h3 className="mt-2 text-lg font-bold text-navy-950 dark:text-white">{item.school}</h3>
+              <p className="mt-2 font-medium text-slate-700 dark:text-slate-300">{item.degree}</p>
+              <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{item.grade} · {item.detail}</p>
             </motion.div>
           ))}
         </div>
@@ -591,7 +635,7 @@ function Contact({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="contact" className="section bg-slate-50">
+    <section id="contact" className="section bg-slate-50 transition-colors dark:bg-slate-900">
       <SectionHeading
         eyebrow={content.sections.contact.eyebrow}
         title={content.sections.contact.title}
@@ -599,19 +643,19 @@ function Contact({ content }: { content: LocalizedContent }) {
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-4xl gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
         <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={profile.linkedin} target="_blank" rel="noreferrer">
-          <Linkedin className="text-cyan-700" size={26} />
-          <span className="font-bold text-navy-950">{content.labels.linkedin}</span>
-          <span className="text-sm text-slate-600">jakapan-kanta</span>
+          <Linkedin className="text-cyan-700 dark:text-cyan-300" size={26} />
+          <span className="font-bold text-navy-950 dark:text-white">{content.labels.linkedin}</span>
+          <span className="text-sm text-slate-600 dark:text-slate-300">jakapan-kanta</span>
         </motion.a>
         <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={profile.github} target="_blank" rel="noreferrer">
-          <Github className="text-cyan-700" size={26} />
-          <span className="font-bold text-navy-950">{content.labels.github}</span>
-          <span className="text-sm text-slate-600">Ligerking007</span>
+          <Github className="text-cyan-700 dark:text-cyan-300" size={26} />
+          <span className="font-bold text-navy-950 dark:text-white">{content.labels.github}</span>
+          <span className="text-sm text-slate-600 dark:text-slate-300">Ligerking007</span>
         </motion.a>
         <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={`mailto:${profile.email}`}>
-          <Mail className="text-cyan-700" size={26} />
-          <span className="font-bold text-navy-950">{content.labels.email}</span>
-          <span className="break-all text-sm text-slate-600">{profile.email}</span>
+          <Mail className="text-cyan-700 dark:text-cyan-300" size={26} />
+          <span className="font-bold text-navy-950 dark:text-white">{content.labels.email}</span>
+          <span className="break-all text-sm text-slate-600 dark:text-slate-300">{profile.email}</span>
         </motion.a>
       </motion.div>
     </section>

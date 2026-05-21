@@ -10,6 +10,7 @@ Built for GitHub Pages with:
 - Tailwind CSS
 - Lucide React icons
 - English / Thai language toggle
+- Light / Dark theme toggle
 - GitHub Actions deployment
 
 ## Live URL
@@ -83,6 +84,7 @@ src/data/profile.ts
 Update this file to adjust:
 
 - English / Thai display copy
+- Light / Dark theme behavior in `src/App.tsx` and `src/styles.css`
 - Profile summary
 - Work focus
 - Skills
