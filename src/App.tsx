@@ -31,6 +31,15 @@ const navigation = [
   { label: 'Contact', href: '#contact' },
 ];
 
+const sectionSummaries = [
+  { label: 'About', href: '#about', description: 'Overview and SDLC focus' },
+  { label: 'Skills', href: '#skills', description: 'Core stack by category' },
+  { label: 'Experience', href: '#experience', description: 'Timeline and responsibilities' },
+  { label: 'Projects', href: '#projects', description: 'Representative delivery work' },
+  { label: 'Education', href: '#education', description: 'Academic background' },
+  { label: 'Contact', href: '#contact', description: 'Professional links' },
+];
+
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
   visible: { opacity: 1, y: 0 },
@@ -92,6 +101,7 @@ function App() {
       <Header activeSection={activeSection} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <main>
         <Hero />
+        <SectionNavigator activeSection={activeSection} />
         <About />
         <Skills />
         <Experience />
@@ -124,7 +134,8 @@ function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
           </span>
         </a>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-2 lg:flex">
+          <span className="mr-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200/70">Jump to</span>
           {navigation.map((item) => (
             <NavLink key={item.href} item={item} activeSection={activeSection} />
           ))}
@@ -209,19 +220,19 @@ function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-navy-950">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(56,213,255,0.18),transparent_32%),linear-gradient(135deg,rgba(14,165,233,0.14),transparent_45%)]" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:grid-cols-[1.2fr_0.8fr] md:items-center lg:px-8 lg:py-24">
+      <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 md:grid-cols-[1.2fr_0.8fr] md:items-center lg:px-8 lg:py-20">
         <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
           <p className="mb-4 inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-medium text-cyan-200">
             Senior Software Developer · Web · Backend · Mobile
           </p>
-          <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
             {profile.name}
           </motion.h1>
           <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-200 sm:text-2xl">{profile.role}</motion.p>
-          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">{profile.summary}</motion.p>
-          <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a className="btn-primary" href="#education">
-              View Education
+          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">{profile.summary}</motion.p>
+          <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a className="btn-primary" href="#experience">
+              View Experience
               <ArrowRight size={18} />
             </a>
             <a className="btn-secondary" href="#projects">
@@ -255,6 +266,41 @@ function Hero() {
   );
 }
 
+function SectionNavigator({ activeSection }: { activeSection: string }) {
+  const motionSettings = useMotionSettings();
+
+  return (
+    <section className="border-b border-slate-200 bg-white py-5">
+      <motion.div
+        {...motionSettings}
+        variants={staggerContainer}
+        className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-6 lg:px-8"
+      >
+        {sectionSummaries.map((item) => {
+          const isActive = activeSection === item.href.replace('#', '');
+
+          return (
+            <motion.a
+              key={item.href}
+              href={item.href}
+              variants={fadeUp}
+              transition={motionSettings.transition}
+              className={`rounded-lg border p-4 transition hover:-translate-y-0.5 ${
+                isActive
+                  ? 'border-cyan-300 bg-cyan-50 text-navy-950 shadow-sm'
+                  : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-cyan-200 hover:bg-white'
+              }`}
+            >
+              <span className="block text-sm font-bold">{item.label}</span>
+              <span className="mt-1 block text-xs leading-5 text-slate-500">{item.description}</span>
+            </motion.a>
+          );
+        })}
+      </motion.div>
+    </section>
+  );
+}
+
 function SectionHeading({
   eyebrow,
   title,
@@ -269,10 +315,10 @@ function SectionHeading({
   const isDark = tone === 'dark';
 
   return (
-    <div className="mx-auto mb-10 max-w-3xl text-center">
+    <div className="mx-auto mb-8 max-w-3xl text-center">
       <p className={`text-sm font-semibold uppercase tracking-[0.18em] ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>{eyebrow}</p>
-      <h2 className={`mt-3 text-3xl font-bold tracking-tight sm:text-4xl ${isDark ? 'text-white' : 'text-navy-950'}`}>{title}</h2>
-      {description && <p className={`mt-4 text-base leading-7 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{description}</p>}
+      <h2 className={`mt-2 text-2xl font-bold tracking-tight sm:text-3xl ${isDark ? 'text-white' : 'text-navy-950'}`}>{title}</h2>
+      {description && <p className={`mt-3 text-sm leading-6 sm:text-base ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{description}</p>}
     </div>
   );
 }
@@ -284,24 +330,24 @@ function About() {
     <section id="about" className="section bg-white">
       <SectionHeading
         eyebrow="About"
-        title="Engineering leadership with strong hands-on delivery"
-        description="A practical software developer focused on clean implementation, scalable design, and steady delivery across business-critical systems."
+        title="Hands-on engineering leadership"
+        description="Clean implementation, scalable design, and steady delivery across business-critical systems."
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
-        <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-6 sm:p-8">
-          <p className="text-lg leading-8 text-slate-700">{profile.about}</p>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
+          <p className="leading-7 text-slate-700">{profile.about}</p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {strengths.map((strength) => (
-              <div key={strength.label} className="flex items-start gap-3 rounded-lg bg-slate-50 p-4">
+              <div key={strength.label} className="flex items-start gap-3 rounded-lg bg-slate-50 p-3">
                 <strength.icon className="mt-0.5 shrink-0 text-cyan-700" size={20} />
                 <span className="text-sm font-medium leading-6 text-slate-700">{strength.label}</span>
               </div>
             ))}
           </div>
         </motion.div>
-        <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-6 sm:p-8">
+        <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
           <h3 className="text-xl font-bold text-navy-950">Work Focus</h3>
-          <div className="mt-6 space-y-6">
+          <div className="mt-5 space-y-5">
             {focusItems.map((item) => (
               <div key={item.label}>
                 <div className="mb-2 flex items-center justify-between gap-3">
@@ -317,7 +363,7 @@ function About() {
               </div>
             ))}
           </div>
-          <h3 className="mt-8 text-xl font-bold text-navy-950">Full SDLC Coverage</h3>
+          <h3 className="mt-7 text-xl font-bold text-navy-950">Full SDLC Coverage</h3>
           <div className="mt-4 flex flex-wrap gap-2">
             {lifecycle.map((item) => (
               <span key={item} className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-800">
@@ -338,12 +384,12 @@ function Skills() {
     <section id="skills" className="section bg-slate-50">
       <SectionHeading
         eyebrow="Skills"
-        title="Technology stack grouped for delivery"
-        description="Core strengths cover enterprise backend engineering, modern web applications, mobile delivery, DevOps, quality, and architecture."
+        title="Technology stack"
+        description="Grouped by delivery area for quick scanning."
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
         {skillCategories.map((category) => (
-          <motion.div key={category.title} variants={fadeUp} transition={motionSettings.transition} className="card p-6">
+          <motion.div key={category.title} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
             <h3 className="text-lg font-bold text-navy-950">{category.title}</h3>
             <div className="mt-4 flex flex-wrap gap-2">
               {category.skills.map((skill) => (
@@ -366,8 +412,8 @@ function Experience() {
     <section id="experience" className="section bg-white">
       <SectionHeading
         eyebrow="Experience"
-        title="Timeline of enterprise software delivery"
-        description="More than 16 years of development experience across healthcare, leasing, and transportation technology."
+        title="Enterprise software timeline"
+        description="16+ years across healthcare, leasing, and transportation technology."
       />
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="relative border-l-2 border-cyan-100 pl-6 sm:pl-8">
@@ -379,7 +425,7 @@ function Experience() {
               className="relative mb-8 last:mb-0"
             >
               <span className="absolute -left-[34px] top-2 h-4 w-4 rounded-full border-4 border-white bg-cyan-500 shadow" />
-              <div className="card p-6 sm:p-7">
+              <div className="card p-5 sm:p-6">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-cyan-700">{item.period}</p>
@@ -388,9 +434,9 @@ function Experience() {
                   </div>
                   <p className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600">{item.location}</p>
                 </div>
-                <p className="mt-4 text-sm font-semibold text-slate-500">{item.business}</p>
-                <p className="mt-3 leading-7 text-slate-700">{item.summary}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
+                <p className="mt-3 text-sm font-semibold text-slate-500">{item.business}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-700 sm:text-base">{item.summary}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
                   {item.technologies.map((tech) => (
                     <span key={tech} className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-800">
                       {tech}
@@ -413,8 +459,8 @@ function Projects() {
     <section id="projects" className="section bg-navy-950 text-white">
       <SectionHeading
         eyebrow="Projects"
-        title="Representative project work"
-        description="Examples aligned with healthcare communication, AI-assisted quality improvement, and enterprise service engineering."
+        title="Representative projects"
+        description="Healthcare communication, AI-assisted quality, and enterprise service delivery."
         tone="dark"
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -424,12 +470,12 @@ function Projects() {
             variants={fadeUp}
             transition={motionSettings.transition}
             whileHover={{ y: -5 }}
-            className="rounded-lg border border-white/10 bg-white/[0.08] p-6 shadow-card transition hover:bg-white/[0.12]"
+            className="rounded-lg border border-white/10 bg-white/[0.08] p-5 shadow-card transition hover:bg-white/[0.12]"
           >
             <project.icon className="text-cyan-300" size={30} />
-            <h3 className="mt-5 text-xl font-bold text-white">{project.title}</h3>
-            <p className="mt-3 leading-7 text-slate-300">{project.description}</p>
-            <p className="mt-4 rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-4 text-sm font-medium leading-6 text-cyan-100">
+            <h3 className="mt-4 text-xl font-bold text-white">{project.title}</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">{project.description}</p>
+            <p className="mt-4 rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-3 text-sm font-medium leading-6 text-cyan-100">
               {project.impact}
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
@@ -454,12 +500,12 @@ function Education() {
       <SectionHeading
         eyebrow="Education"
         title="Academic background"
-        description="Formal education in information technology management and software-focused IT foundations."
+        description="Information technology management and software-focused foundations."
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2">
           {education.map((item) => (
-            <motion.div key={item.school} variants={fadeUp} transition={motionSettings.transition} className="card p-6">
+            <motion.div key={item.school} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
               <p className="text-sm font-semibold text-cyan-700">{item.period}</p>
               <h3 className="mt-2 text-lg font-bold text-navy-950">{item.school}</h3>
               <p className="mt-2 font-medium text-slate-700">{item.degree}</p>
@@ -479,8 +525,8 @@ function Contact() {
     <section id="contact" className="section bg-slate-50">
       <SectionHeading
         eyebrow="Contact"
-        title="Connect for senior developer opportunities"
-        description="Available for conversations about enterprise software delivery, healthcare technology, .NET engineering, team leadership, and AI-assisted development workflows."
+        title="Connect"
+        description="Enterprise software delivery, healthcare technology, .NET engineering, team leadership, and AI-assisted workflows."
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-4xl gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
         <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={profile.linkedin} target="_blank" rel="noreferrer">
