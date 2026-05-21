@@ -1,5 +1,4 @@
 import {
-  ArrowDownToLine,
   ArrowRight,
   Github,
   Linkedin,
@@ -28,7 +27,7 @@ const navigation = [
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Resume', href: '#resume' },
+  { label: 'Education', href: '#education' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -97,7 +96,7 @@ function App() {
         <Skills />
         <Experience />
         <Projects />
-        <Resume />
+        <Education />
         <Contact />
       </main>
       <Footer />
@@ -132,9 +131,6 @@ function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
         </div>
 
         <div className="flex items-center gap-3">
-          <a className="hidden rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-navy-950 shadow-[0_0_0_1px_rgba(255,255,255,0.15)] transition hover:bg-white lg:inline-flex" href={profile.resumePath} download>
-            Resume
-          </a>
           <button
             type="button"
             className="inline-grid h-10 w-10 place-items-center rounded-lg border border-cyan-300/35 bg-white/[0.06] text-white lg:hidden"
@@ -171,12 +167,8 @@ function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
                 {item.label}
               </a>
             ))}
-            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/10 pt-3">
-              <a className="inline-flex items-center justify-center gap-2 rounded-lg bg-cyan-300 px-3 py-3 text-sm font-bold text-navy-950" href={profile.resumePath} download>
-                <ArrowDownToLine size={16} />
-                Resume
-              </a>
-              <a className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/45 bg-white/[0.04] px-3 py-3 text-sm font-bold text-cyan-100" href="#contact" onClick={() => setIsMenuOpen(false)}>
+            <div className="mt-2 border-t border-white/10 pt-3">
+              <a className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-300/45 bg-white/[0.04] px-3 py-3 text-sm font-bold text-cyan-100" href="#contact" onClick={() => setIsMenuOpen(false)}>
                 <Send size={16} />
                 Contact
               </a>
@@ -228,9 +220,9 @@ function Hero() {
           <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-200 sm:text-2xl">{profile.role}</motion.p>
           <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">{profile.summary}</motion.p>
           <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a className="btn-primary" href={profile.resumePath} download>
-              <ArrowDownToLine size={18} />
-              Download Resume
+            <a className="btn-primary" href="#education">
+              View Education
+              <ArrowRight size={18} />
             </a>
             <a className="btn-secondary" href="#projects">
               View Projects
@@ -454,28 +446,18 @@ function Projects() {
   );
 }
 
-function Resume() {
+function Education() {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="resume" className="section bg-white">
+    <section id="education" className="section bg-white">
       <SectionHeading
-        eyebrow="Resume"
-        title="Resume and education"
-        description="Download the PDF resume and review formal education background."
+        eyebrow="Education"
+        title="Academic background"
+        description="Formal education in information technology management and software-focused IT foundations."
       />
-      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
-        <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-6 sm:p-8">
-          <h3 className="text-2xl font-bold text-navy-950">Download Resume</h3>
-          <p className="mt-4 leading-7 text-slate-600">
-            Place the final resume file at <span className="font-semibold text-slate-900">public/resume.pdf</span>. The button below is ready for GitHub Pages deployment.
-          </p>
-          <a className="btn-primary mt-6 w-full justify-center sm:w-auto" href={profile.resumePath} download>
-            <ArrowDownToLine size={18} />
-            Download Resume
-          </a>
-        </motion.div>
-        <div className="grid gap-5">
+      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-5 md:grid-cols-2">
           {education.map((item) => (
             <motion.div key={item.school} variants={fadeUp} transition={motionSettings.transition} className="card p-6">
               <p className="text-sm font-semibold text-cyan-700">{item.period}</p>

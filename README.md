@@ -1,6 +1,6 @@
 # Jakapan Kanta Portfolio
 
-Professional single-page portfolio and resume website for **Jakapan Kanta**, Senior Software Developer.
+Professional single-page portfolio website for **Jakapan Kanta**, Senior Software Developer.
 
 Built for GitHub Pages with:
 
@@ -54,16 +54,6 @@ Preview the production build:
 npm run preview
 ```
 
-## Resume PDF
-
-Add the final resume PDF at:
-
-```text
-public/resume.pdf
-```
-
-The website's resume buttons are already linked to this file.
-
 ## GitHub Pages Deployment
 
 This project includes a GitHub Actions workflow at:
@@ -104,8 +94,7 @@ Update this file to adjust:
 .
 ├── .github/workflows/deploy.yml
 ├── public/
-│   ├── RESUME_PLACEHOLDER.md
-│   └── resume.pdf
+│   └── .gitkeep
 ├── src/
 │   ├── data/profile.ts
 │   ├── App.tsx

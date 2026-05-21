@@ -55,7 +55,6 @@ export const profile = {
   email: 'pundum_k@hotmail.com',
   linkedin: 'https://www.linkedin.com/in/jakapan-kanta-16199a158/',
   github: 'https://github.com/Ligerking007',
-  resumePath: `${import.meta.env.BASE_URL}resume.pdf`,
   summary:
     'Senior Software Developer and Team Lead with 16+ years of experience delivering scalable web, backend, and mobile applications across healthcare, finance, and transportation domains.',
   about:

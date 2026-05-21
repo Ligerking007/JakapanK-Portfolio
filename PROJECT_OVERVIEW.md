@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This project is a professional portfolio and resume website for **Jakapan Kanta**, a Senior Software Developer with 16+ years of experience across web, backend, mobile, healthcare, finance, and transportation systems.
+This project is a professional portfolio website for **Jakapan Kanta**, a Senior Software Developer with 16+ years of experience across web, backend, mobile, healthcare, finance, and transportation systems.
 
 The site is designed for interviewer presentation and GitHub Pages hosting.
 
@@ -24,7 +24,7 @@ The UI uses a corporate dark navy, blue, and cyan visual system with clean card-
    - Name
    - Role
    - Summary
-   - Resume, Projects, and Contact buttons
+   - Education, Projects, and Contact buttons
 
 2. **About**
    - Professional overview
@@ -52,9 +52,9 @@ The UI uses a corporate dark navy, blue, and cyan visual system with clean card-
    - Code Review AI Pilot
    - Enterprise .NET Core API Services
 
-6. **Resume**
-   - Download button for `public/resume.pdf`
-   - Education summary
+6. **Education**
+   - Master's degree in Information Technology Management
+   - Bachelor's degree in Information Technology
 
 7. **Contact**
    - LinkedIn
@@ -90,4 +90,3 @@ The Vite base path is set to:
 ```ts
 base: '/JakapanK-Portfolio/'
 ```
-
