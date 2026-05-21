@@ -135,7 +135,6 @@ function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
         </a>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <span className="mr-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200/70">Jump to</span>
           {navigation.map((item) => (
             <NavLink key={item.href} item={item} activeSection={activeSection} />
           ))}
