@@ -138,15 +138,15 @@ type HeaderProps = {
 
 function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, setLanguage, setTheme, theme }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-50 border-b border-cyan-400/25 bg-[#06101f] shadow-[0_10px_30px_rgba(2,8,23,0.38)]">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.08)] transition-colors dark:border-cyan-400/25 dark:bg-[#06101f] dark:shadow-[0_10px_30px_rgba(2,8,23,0.38)]">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <a href="#top" className="flex items-center gap-3 text-white">
+        <a href="#top" className="flex items-center gap-3 text-navy-950 dark:text-white">
           <span className="grid h-10 w-10 place-items-center rounded-lg bg-cyan-400 text-sm font-bold text-navy-950">
             JK
           </span>
           <span>
             <span className="block text-sm font-semibold leading-tight">{profile.name}</span>
-            <span className="block text-xs text-slate-300">{profile.role}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-300">{profile.role}</span>
           </span>
         </a>
 
@@ -161,7 +161,7 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
           <ThemeToggle setTheme={setTheme} theme={theme} />
           <button
             type="button"
-            className="inline-grid h-10 w-10 place-items-center rounded-lg border border-cyan-300/35 bg-white/[0.06] text-white lg:hidden"
+            className="inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-navy-950 transition hover:bg-slate-100 dark:border-cyan-300/35 dark:bg-white/[0.06] dark:text-white dark:hover:bg-white/[0.12] lg:hidden"
             aria-label="Toggle navigation"
             aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -178,10 +178,10 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.22, ease: 'easeOut' }}
-          className="overflow-hidden border-t border-cyan-400/20 bg-[#08172a] px-4 py-4 shadow-2xl lg:hidden"
+          className="overflow-hidden border-t border-slate-200 bg-white px-4 py-4 shadow-2xl dark:border-cyan-400/20 dark:bg-[#08172a] lg:hidden"
         >
-          <div className="mx-auto grid max-w-7xl gap-2 rounded-lg border border-cyan-300/20 bg-[#0d2036] p-2">
-            <div className="mb-2 grid grid-cols-[1fr_auto] gap-2 border-b border-white/10 pb-3">
+          <div className="mx-auto grid max-w-7xl gap-2 rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-cyan-300/20 dark:bg-[#0d2036]">
+            <div className="mb-2 grid grid-cols-[1fr_auto] gap-2 border-b border-slate-200 pb-3 dark:border-white/10">
               <LanguageToggle language={language} setLanguage={setLanguage} expanded />
               <ThemeToggle setTheme={setTheme} theme={theme} />
             </div>
@@ -193,14 +193,14 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
                 className={`rounded-lg px-3 py-3 text-sm font-semibold transition ${
                   activeSection === item.href.replace('#', '')
                     ? 'bg-cyan-300 text-navy-950 shadow-sm'
-                    : 'text-slate-100 hover:bg-white/[0.12] hover:text-cyan-200'
+                    : 'text-slate-700 hover:bg-white hover:text-cyan-700 dark:text-slate-100 dark:hover:bg-white/[0.12] dark:hover:text-cyan-200'
                 }`}
               >
                 {item.label}
               </a>
             ))}
-            <div className="mt-2 border-t border-white/10 pt-3">
-              <a className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-300/45 bg-white/[0.04] px-3 py-3 text-sm font-bold text-cyan-100" href="#contact" onClick={() => setIsMenuOpen(false)}>
+            <div className="mt-2 border-t border-slate-200 pt-3 dark:border-white/10">
+              <a className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200 bg-white px-3 py-3 text-sm font-bold text-cyan-800 dark:border-cyan-300/45 dark:bg-white/[0.04] dark:text-cyan-100" href="#contact" onClick={() => setIsMenuOpen(false)}>
                 <Send size={16} />
                 {content.labels.contact}
               </a>
@@ -221,7 +221,7 @@ function ThemeToggle({ setTheme, theme }: { setTheme: (value: Theme) => void; th
     <button
       type="button"
       onClick={() => setTheme(nextTheme)}
-      className="inline-grid h-10 w-10 place-items-center rounded-lg border border-cyan-300/30 bg-white/[0.06] text-cyan-100 transition hover:bg-white/[0.12]"
+      className="inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-cyan-800 transition hover:bg-slate-100 dark:border-cyan-300/30 dark:bg-white/[0.06] dark:text-cyan-100 dark:hover:bg-white/[0.12]"
       aria-label={`Switch to ${nextTheme} theme`}
       title={`Switch to ${nextTheme} theme`}
     >
@@ -240,14 +240,14 @@ function LanguageToggle({
   setLanguage: (value: Language) => void;
 }) {
   return (
-    <div className={`grid grid-cols-2 rounded-lg border border-cyan-300/30 bg-white/[0.06] p-1 ${expanded ? 'w-full' : 'w-[92px]'}`} aria-label="Language selector">
+    <div className={`grid grid-cols-2 rounded-lg border border-slate-200 bg-slate-50 p-1 dark:border-cyan-300/30 dark:bg-white/[0.06] ${expanded ? 'w-full' : 'w-[92px]'}`} aria-label="Language selector">
       {(['en', 'th'] as const).map((option) => (
         <button
           key={option}
           type="button"
           onClick={() => setLanguage(option)}
           className={`rounded-md px-3 py-2 text-xs font-bold transition ${
-            language === option ? 'bg-cyan-300 text-navy-950' : 'text-cyan-100 hover:bg-white/[0.12]'
+            language === option ? 'bg-cyan-300 text-navy-950' : 'text-slate-600 hover:bg-white hover:text-cyan-800 dark:text-cyan-100 dark:hover:bg-white/[0.12]'
           }`}
         >
           {option.toUpperCase()}
@@ -270,8 +270,8 @@ function NavLink({ item, activeSection }: { item: NavItem; activeSection: string
       href={item.href}
       className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
         isActive
-          ? 'bg-cyan-300 text-navy-950 shadow-[0_0_0_1px_rgba(255,255,255,0.14)]'
-          : 'text-slate-100 hover:bg-white/[0.12] hover:text-cyan-200'
+          ? 'bg-cyan-300 text-navy-950 shadow-[0_0_0_1px_rgba(15,23,42,0.08)]'
+          : 'text-slate-700 hover:bg-slate-100 hover:text-cyan-800 dark:text-slate-100 dark:hover:bg-white/[0.12] dark:hover:text-cyan-200'
       }`}
     >
       {item.label}
@@ -283,18 +283,18 @@ function Hero({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="top" className="relative overflow-hidden bg-navy-950">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(56,213,255,0.18),transparent_32%),linear-gradient(135deg,rgba(14,165,233,0.14),transparent_45%)]" />
+    <section id="top" className="relative overflow-hidden bg-slate-50 transition-colors dark:bg-navy-950">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(8,145,178,0.14),transparent_34%),linear-gradient(135deg,rgba(14,165,233,0.10),transparent_45%)] dark:bg-[radial-gradient(circle_at_20%_20%,rgba(56,213,255,0.18),transparent_32%),linear-gradient(135deg,rgba(14,165,233,0.14),transparent_45%)]" />
       <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 md:grid-cols-[1.2fr_0.8fr] md:items-center lg:px-8 lg:py-20">
         <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
-          <p className="mb-4 inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-medium text-cyan-200">
+          <p className="mb-4 inline-flex rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-medium text-cyan-800 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-200">
             {content.hero.eyebrow}
           </p>
-          <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="max-w-4xl text-4xl font-bold tracking-tight text-navy-950 dark:text-white sm:text-5xl">
             {profile.name}
           </motion.h1>
-          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-200 sm:text-2xl">{content.hero.role}</motion.p>
-          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">{content.hero.summary}</motion.p>
+          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-800 dark:text-cyan-200 sm:text-2xl">{content.hero.role}</motion.p>
+          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-5 max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300 sm:text-lg">{content.hero.summary}</motion.p>
           <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a className="btn-primary" href="#experience">
               {content.hero.viewExperience}
@@ -315,7 +315,7 @@ function Hero({ content }: { content: LocalizedContent }) {
           <motion.div
             variants={fadeUp}
             transition={motionSettings.transition}
-            className="rounded-lg border border-cyan-300/20 bg-white/[0.08] p-5 shadow-card backdrop-blur"
+            className="rounded-lg border border-slate-200 bg-white p-5 shadow-card backdrop-blur dark:border-cyan-300/20 dark:bg-white/[0.08]"
           >
             <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left md:flex-col md:text-center xl:flex-row xl:text-left">
               <div className="relative shrink-0">
@@ -330,17 +330,17 @@ function Hero({ content }: { content: LocalizedContent }) {
                 />
               </div>
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">{content.hero.portfolio}</p>
-                <p className="mt-2 text-xl font-bold text-white">{profile.name}</p>
-                <p className="mt-1 text-sm leading-6 text-slate-300">{content.hero.role}</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-800 dark:text-cyan-200">{content.hero.portfolio}</p>
+                <p className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{profile.name}</p>
+                <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{content.hero.role}</p>
                 <div className="mt-4 flex justify-center gap-3 sm:justify-start md:justify-center xl:justify-start">
-                  <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-white/15 bg-white/[0.06] text-cyan-100 transition hover:bg-white/[0.12]" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                  <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-cyan-800 transition hover:bg-cyan-50 dark:border-white/15 dark:bg-white/[0.06] dark:text-cyan-100 dark:hover:bg-white/[0.12]" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                     <Linkedin size={18} />
                   </a>
-                  <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-white/15 bg-white/[0.06] text-cyan-100 transition hover:bg-white/[0.12]" href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+                  <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-cyan-800 transition hover:bg-cyan-50 dark:border-white/15 dark:bg-white/[0.06] dark:text-cyan-100 dark:hover:bg-white/[0.12]" href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub">
                     <Github size={18} />
                   </a>
-                  <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-white/15 bg-white/[0.06] text-cyan-100 transition hover:bg-white/[0.12]" href={`mailto:${profile.email}`} aria-label="Email">
+                  <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-cyan-800 transition hover:bg-cyan-50 dark:border-white/15 dark:bg-white/[0.06] dark:text-cyan-100 dark:hover:bg-white/[0.12]" href={`mailto:${profile.email}`} aria-label="Email">
                     <Mail size={18} />
                   </a>
                 </div>
@@ -354,11 +354,11 @@ function Hero({ content }: { content: LocalizedContent }) {
               variants={fadeUp}
               transition={motionSettings.transition}
               whileHover={{ y: -5 }}
-              className="rounded-lg border border-white/10 bg-white/[0.08] p-5 backdrop-blur transition hover:bg-white/[0.12]"
+              className="rounded-lg border border-slate-200 bg-white p-5 shadow-card backdrop-blur transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-none dark:hover:bg-white/[0.12]"
             >
-              <metric.icon className="mb-4 text-cyan-300" size={26} />
-              <p className="text-2xl font-bold text-white">{metric.value}</p>
-              <p className="mt-1 text-sm text-slate-300">{metric.label}</p>
+              <metric.icon className="mb-4 text-cyan-700 dark:text-cyan-300" size={26} />
+              <p className="text-2xl font-bold text-navy-950 dark:text-white">{metric.value}</p>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{metric.label}</p>
             </motion.div>
           ))}
           </div>
