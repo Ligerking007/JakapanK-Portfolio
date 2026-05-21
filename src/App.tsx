@@ -663,8 +663,10 @@ function Contact({ content }: { content: LocalizedContent }) {
 
 function Footer() {
   return (
-    <footer className="bg-navy-950 px-4 py-8 text-center text-sm text-slate-400">
-      <p>© {new Date().getFullYear()} {profile.name}. Built with React, Vite, TypeScript, Tailwind CSS, and GitHub Pages.</p>
+    <footer className="border-t border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-500 transition-colors dark:border-slate-800 dark:bg-navy-950 dark:text-slate-400">
+      <p>
+        © {new Date().getFullYear()} <span className="font-semibold text-navy-950 dark:text-white">{profile.name}</span>. Built with React, Vite, TypeScript, Tailwind CSS, and GitHub Pages.
+      </p>
     </footer>
   );
 }
