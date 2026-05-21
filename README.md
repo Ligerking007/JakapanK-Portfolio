@@ -1,0 +1,118 @@
+# Jakapan Kanta Portfolio
+
+Professional single-page portfolio and resume website for **Jakapan Kanta**, Senior Software Developer.
+
+Built for GitHub Pages with:
+
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+- Lucide React icons
+- GitHub Actions deployment
+
+## Live URL
+
+Expected GitHub Pages URL:
+
+```text
+https://ligerking007.github.io/jakapank-portfolio/
+```
+
+The Vite base path is configured in `vite.config.ts`:
+
+```ts
+base: '/jakapank-portfolio/'
+```
+
+If the repository name changes, update this value before deploying.
+
+## Local Setup
+
+Install dependencies:
+
+```bash
+nvm use
+npm install
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## Resume PDF
+
+Add the final resume PDF at:
+
+```text
+public/resume.pdf
+```
+
+The website's resume buttons are already linked to this file.
+
+## GitHub Pages Deployment
+
+This project includes a GitHub Actions workflow at:
+
+```text
+.github/workflows/deploy.yml
+```
+
+Deployment steps:
+
+1. Push the repository to GitHub as `jakapank-portfolio`.
+2. Go to repository **Settings > Pages**.
+3. Set **Source** to **GitHub Actions**.
+4. Push to the `main` branch.
+5. GitHub Actions will build the Vite app and deploy the `dist` artifact.
+
+## Content Updates
+
+Most portfolio content is stored in:
+
+```text
+src/data/profile.ts
+```
+
+Update this file to adjust:
+
+- Profile summary
+- Work focus
+- Skills
+- Experience timeline
+- Projects
+- Education
+- Contact links
+
+## Project Structure
+
+```text
+.
+├── .github/workflows/deploy.yml
+├── public/
+│   ├── RESUME_PLACEHOLDER.md
+│   └── resume.pdf
+├── src/
+│   ├── data/profile.ts
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── styles.css
+├── index.html
+├── tailwind.config.ts
+├── vite.config.ts
+└── PROJECT_OVERVIEW.md
+```

@@ -1,0 +1,532 @@
+import {
+  ArrowDownToLine,
+  ArrowRight,
+  Github,
+  Linkedin,
+  Mail,
+  Menu,
+  Send,
+  X,
+} from 'lucide-react';
+import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import {
+  education,
+  experiences,
+  focusItems,
+  lifecycle,
+  metrics,
+  profile,
+  projects,
+  skillCategories,
+  strengths,
+} from './data/profile';
+
+const navigation = [
+  { label: 'Home', href: '#top' },
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Resume', href: '#resume' },
+  { label: 'Contact', href: '#contact' },
+];
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+function useMotionSettings() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return {
+    initial: shouldReduceMotion ? false : 'hidden',
+    whileInView: shouldReduceMotion ? undefined : 'visible',
+    viewport: { once: true, amount: 0.18 },
+    transition: { duration: 0.55, ease: 'easeOut' as const },
+  };
+}
+
+function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('top');
+
+  useEffect(() => {
+    const sectionIds = navigation.map((item) => item.href.replace('#', ''));
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry?.target.id) {
+          setActiveSection(visibleEntry.target.id);
+        }
+      },
+      {
+        rootMargin: '-30% 0px -55% 0px',
+        threshold: [0.1, 0.25, 0.5, 0.75],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <Header activeSection={activeSection} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Resume />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+type HeaderProps = {
+  activeSection: string;
+  isMenuOpen: boolean;
+  setIsMenuOpen: (value: boolean) => void;
+};
+
+function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
+  return (
+    <header className="sticky top-0 z-50 border-b border-cyan-400/25 bg-[#06101f] shadow-[0_10px_30px_rgba(2,8,23,0.38)]">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a href="#top" className="flex items-center gap-3 text-white">
+          <span className="grid h-10 w-10 place-items-center rounded-lg bg-cyan-400 text-sm font-bold text-navy-950">
+            JK
+          </span>
+          <span>
+            <span className="block text-sm font-semibold leading-tight">{profile.name}</span>
+            <span className="block text-xs text-slate-300">{profile.role}</span>
+          </span>
+        </a>
+
+        <div className="hidden items-center gap-1 lg:flex">
+          {navigation.map((item) => (
+            <NavLink key={item.href} item={item} activeSection={activeSection} />
+          ))}
+        </div>
+
+        <div className="flex items-center gap-3">
+          <a className="hidden rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-navy-950 shadow-[0_0_0_1px_rgba(255,255,255,0.15)] transition hover:bg-white lg:inline-flex" href={profile.resumePath} download>
+            Resume
+          </a>
+          <button
+            type="button"
+            className="inline-grid h-10 w-10 place-items-center rounded-lg border border-cyan-300/35 bg-white/[0.06] text-white lg:hidden"
+            aria-label="Toggle navigation"
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </nav>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.22, ease: 'easeOut' }}
+          className="overflow-hidden border-t border-cyan-400/20 bg-[#08172a] px-4 py-4 shadow-2xl lg:hidden"
+        >
+          <div className="mx-auto grid max-w-7xl gap-2 rounded-lg border border-cyan-300/20 bg-[#0d2036] p-2">
+            {navigation.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
+                className={`rounded-lg px-3 py-3 text-sm font-semibold transition ${
+                  activeSection === item.href.replace('#', '')
+                    ? 'bg-cyan-300 text-navy-950 shadow-sm'
+                    : 'text-slate-100 hover:bg-white/[0.12] hover:text-cyan-200'
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/10 pt-3">
+              <a className="inline-flex items-center justify-center gap-2 rounded-lg bg-cyan-300 px-3 py-3 text-sm font-bold text-navy-950" href={profile.resumePath} download>
+                <ArrowDownToLine size={16} />
+                Resume
+              </a>
+              <a className="inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/45 bg-white/[0.04] px-3 py-3 text-sm font-bold text-cyan-100" href="#contact" onClick={() => setIsMenuOpen(false)}>
+                <Send size={16} />
+                Contact
+              </a>
+            </div>
+          </div>
+        </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
+
+type NavItem = {
+  label: string;
+  href: string;
+};
+
+function NavLink({ item, activeSection }: { item: NavItem; activeSection: string }) {
+  const isActive = activeSection === item.href.replace('#', '');
+
+  return (
+    <a
+      href={item.href}
+      className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
+        isActive
+          ? 'bg-cyan-300 text-navy-950 shadow-[0_0_0_1px_rgba(255,255,255,0.14)]'
+          : 'text-slate-100 hover:bg-white/[0.12] hover:text-cyan-200'
+      }`}
+    >
+      {item.label}
+    </a>
+  );
+}
+
+function Hero() {
+  const motionSettings = useMotionSettings();
+
+  return (
+    <section id="top" className="relative overflow-hidden bg-navy-950">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(56,213,255,0.18),transparent_32%),linear-gradient(135deg,rgba(14,165,233,0.14),transparent_45%)]" />
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:grid-cols-[1.2fr_0.8fr] md:items-center lg:px-8 lg:py-24">
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
+          <p className="mb-4 inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-medium text-cyan-200">
+            Senior Software Developer · Web · Backend · Mobile
+          </p>
+          <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            {profile.name}
+          </motion.h1>
+          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-200 sm:text-2xl">{profile.role}</motion.p>
+          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">{profile.summary}</motion.p>
+          <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a className="btn-primary" href={profile.resumePath} download>
+              <ArrowDownToLine size={18} />
+              Download Resume
+            </a>
+            <a className="btn-secondary" href="#projects">
+              View Projects
+              <ArrowRight size={18} />
+            </a>
+            <a className="btn-ghost" href="#contact">
+              <Send size={18} />
+              Contact Me
+            </a>
+          </motion.div>
+        </motion.div>
+
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid gap-4 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+          {metrics.map((metric) => (
+            <motion.div
+              key={metric.label}
+              variants={fadeUp}
+              transition={motionSettings.transition}
+              whileHover={{ y: -5 }}
+              className="rounded-lg border border-white/10 bg-white/[0.08] p-5 backdrop-blur transition hover:bg-white/[0.12]"
+            >
+              <metric.icon className="mb-4 text-cyan-300" size={26} />
+              <p className="text-2xl font-bold text-white">{metric.value}</p>
+              <p className="mt-1 text-sm text-slate-300">{metric.label}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  tone = 'light',
+}: {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  tone?: 'light' | 'dark';
+}) {
+  const isDark = tone === 'dark';
+
+  return (
+    <div className="mx-auto mb-10 max-w-3xl text-center">
+      <p className={`text-sm font-semibold uppercase tracking-[0.18em] ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>{eyebrow}</p>
+      <h2 className={`mt-3 text-3xl font-bold tracking-tight sm:text-4xl ${isDark ? 'text-white' : 'text-navy-950'}`}>{title}</h2>
+      {description && <p className={`mt-4 text-base leading-7 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{description}</p>}
+    </div>
+  );
+}
+
+function About() {
+  const motionSettings = useMotionSettings();
+
+  return (
+    <section id="about" className="section bg-white">
+      <SectionHeading
+        eyebrow="About"
+        title="Engineering leadership with strong hands-on delivery"
+        description="A practical software developer focused on clean implementation, scalable design, and steady delivery across business-critical systems."
+      />
+      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
+        <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-6 sm:p-8">
+          <p className="text-lg leading-8 text-slate-700">{profile.about}</p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            {strengths.map((strength) => (
+              <div key={strength.label} className="flex items-start gap-3 rounded-lg bg-slate-50 p-4">
+                <strength.icon className="mt-0.5 shrink-0 text-cyan-700" size={20} />
+                <span className="text-sm font-medium leading-6 text-slate-700">{strength.label}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+        <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-6 sm:p-8">
+          <h3 className="text-xl font-bold text-navy-950">Work Focus</h3>
+          <div className="mt-6 space-y-6">
+            {focusItems.map((item) => (
+              <div key={item.label}>
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <span className="flex items-center gap-2 text-sm font-semibold text-slate-800">
+                    <item.icon size={18} className="text-cyan-700" />
+                    {item.label}
+                  </span>
+                  <span className="text-sm font-bold text-navy-950">{item.value}%</span>
+                </div>
+                <div className="h-3 overflow-hidden rounded-full bg-slate-200">
+                  <div className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-blue-700" style={{ width: `${item.value}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <h3 className="mt-8 text-xl font-bold text-navy-950">Full SDLC Coverage</h3>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {lifecycle.map((item) => (
+              <span key={item} className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-800">
+                {item}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+function Skills() {
+  const motionSettings = useMotionSettings();
+
+  return (
+    <section id="skills" className="section bg-slate-50">
+      <SectionHeading
+        eyebrow="Skills"
+        title="Technology stack grouped for delivery"
+        description="Core strengths cover enterprise backend engineering, modern web applications, mobile delivery, DevOps, quality, and architecture."
+      />
+      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
+        {skillCategories.map((category) => (
+          <motion.div key={category.title} variants={fadeUp} transition={motionSettings.transition} className="card p-6">
+            <h3 className="text-lg font-bold text-navy-950">{category.title}</h3>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {category.skills.map((skill) => (
+                <span key={skill} className="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+function Experience() {
+  const motionSettings = useMotionSettings();
+
+  return (
+    <section id="experience" className="section bg-white">
+      <SectionHeading
+        eyebrow="Experience"
+        title="Timeline of enterprise software delivery"
+        description="More than 16 years of development experience across healthcare, leasing, and transportation technology."
+      />
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="relative border-l-2 border-cyan-100 pl-6 sm:pl-8">
+          {experiences.map((item) => (
+            <motion.article
+              key={`${item.company}-${item.period}`}
+              {...motionSettings}
+              variants={fadeUp}
+              className="relative mb-8 last:mb-0"
+            >
+              <span className="absolute -left-[34px] top-2 h-4 w-4 rounded-full border-4 border-white bg-cyan-500 shadow" />
+              <div className="card p-6 sm:p-7">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-cyan-700">{item.period}</p>
+                    <h3 className="mt-1 text-xl font-bold text-navy-950">{item.role}</h3>
+                    <p className="mt-1 font-semibold text-slate-700">{item.company}</p>
+                  </div>
+                  <p className="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600">{item.location}</p>
+                </div>
+                <p className="mt-4 text-sm font-semibold text-slate-500">{item.business}</p>
+                <p className="mt-3 leading-7 text-slate-700">{item.summary}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {item.technologies.map((tech) => (
+                    <span key={tech} className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-800">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Projects() {
+  const motionSettings = useMotionSettings();
+
+  return (
+    <section id="projects" className="section bg-navy-950 text-white">
+      <SectionHeading
+        eyebrow="Projects"
+        title="Representative project work"
+        description="Examples aligned with healthcare communication, AI-assisted quality improvement, and enterprise service engineering."
+        tone="dark"
+      />
+      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+        {projects.map((project) => (
+          <motion.article
+            key={project.title}
+            variants={fadeUp}
+            transition={motionSettings.transition}
+            whileHover={{ y: -5 }}
+            className="rounded-lg border border-white/10 bg-white/[0.08] p-6 shadow-card transition hover:bg-white/[0.12]"
+          >
+            <project.icon className="text-cyan-300" size={30} />
+            <h3 className="mt-5 text-xl font-bold text-white">{project.title}</h3>
+            <p className="mt-3 leading-7 text-slate-300">{project.description}</p>
+            <p className="mt-4 rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-4 text-sm font-medium leading-6 text-cyan-100">
+              {project.impact}
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {project.technologies.map((tech) => (
+                <span key={tech} className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-100">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </motion.article>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+function Resume() {
+  const motionSettings = useMotionSettings();
+
+  return (
+    <section id="resume" className="section bg-white">
+      <SectionHeading
+        eyebrow="Resume"
+        title="Resume and education"
+        description="Download the PDF resume and review formal education background."
+      />
+      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+        <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-6 sm:p-8">
+          <h3 className="text-2xl font-bold text-navy-950">Download Resume</h3>
+          <p className="mt-4 leading-7 text-slate-600">
+            Place the final resume file at <span className="font-semibold text-slate-900">public/resume.pdf</span>. The button below is ready for GitHub Pages deployment.
+          </p>
+          <a className="btn-primary mt-6 w-full justify-center sm:w-auto" href={profile.resumePath} download>
+            <ArrowDownToLine size={18} />
+            Download Resume
+          </a>
+        </motion.div>
+        <div className="grid gap-5">
+          {education.map((item) => (
+            <motion.div key={item.school} variants={fadeUp} transition={motionSettings.transition} className="card p-6">
+              <p className="text-sm font-semibold text-cyan-700">{item.period}</p>
+              <h3 className="mt-2 text-lg font-bold text-navy-950">{item.school}</h3>
+              <p className="mt-2 font-medium text-slate-700">{item.degree}</p>
+              <p className="mt-2 text-sm text-slate-500">{item.grade} · {item.detail}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+function Contact() {
+  const motionSettings = useMotionSettings();
+
+  return (
+    <section id="contact" className="section bg-slate-50">
+      <SectionHeading
+        eyebrow="Contact"
+        title="Connect for senior developer opportunities"
+        description="Available for conversations about enterprise software delivery, healthcare technology, .NET engineering, team leadership, and AI-assisted development workflows."
+      />
+      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-4xl gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
+        <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={profile.linkedin} target="_blank" rel="noreferrer">
+          <Linkedin className="text-cyan-700" size={26} />
+          <span className="font-bold text-navy-950">LinkedIn</span>
+          <span className="text-sm text-slate-600">jakapan-kanta</span>
+        </motion.a>
+        <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={profile.github} target="_blank" rel="noreferrer">
+          <Github className="text-cyan-700" size={26} />
+          <span className="font-bold text-navy-950">GitHub</span>
+          <span className="text-sm text-slate-600">Ligerking007</span>
+        </motion.a>
+        <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={`mailto:${profile.email}`}>
+          <Mail className="text-cyan-700" size={26} />
+          <span className="font-bold text-navy-950">Email</span>
+          <span className="break-all text-sm text-slate-600">{profile.email}</span>
+        </motion.a>
+      </motion.div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="bg-navy-950 px-4 py-8 text-center text-sm text-slate-400">
+      <p>© {new Date().getFullYear()} {profile.name}. Built with React, Vite, TypeScript, Tailwind CSS, and GitHub Pages.</p>
+    </footer>
+  );
+}
+
+export default App;
