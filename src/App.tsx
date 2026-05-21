@@ -569,12 +569,11 @@ function Projects({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="projects" className="section bg-navy-950 text-white">
+    <section id="projects" className="section bg-slate-50 text-slate-900 transition-colors dark:bg-navy-950 dark:text-white">
       <SectionHeading
         eyebrow={content.sections.projects.eyebrow}
         title={content.sections.projects.title}
         description={content.sections.projects.description}
-        tone="dark"
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         {content.projects.map((project) => (
@@ -583,17 +582,17 @@ function Projects({ content }: { content: LocalizedContent }) {
             variants={fadeUp}
             transition={motionSettings.transition}
             whileHover={{ y: -5 }}
-            className="rounded-lg border border-white/10 bg-white/[0.08] p-5 shadow-card transition hover:bg-white/[0.12]"
+            className="rounded-lg border border-slate-200 bg-white p-5 shadow-card transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-card dark:hover:bg-white/[0.12]"
           >
-            <project.icon className="text-cyan-300" size={30} />
-            <h3 className="mt-4 text-xl font-bold text-white">{project.title}</h3>
-            <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">{project.description}</p>
-            <p className="mt-4 rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-3 text-sm font-medium leading-6 text-cyan-100">
+            <project.icon className="text-cyan-700 dark:text-cyan-300" size={30} />
+            <h3 className="mt-4 text-xl font-bold text-navy-950 dark:text-white">{project.title}</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300 sm:text-base">{project.description}</p>
+            <p className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50 p-3 text-sm font-medium leading-6 text-cyan-900 dark:border-cyan-300/20 dark:bg-cyan-300/10 dark:text-cyan-100">
               {project.impact}
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               {project.technologies.map((tech) => (
-                <span key={tech} className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-slate-100">
+                <span key={tech} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-white/10 dark:text-slate-100">
                   {tech}
                 </span>
               ))}
