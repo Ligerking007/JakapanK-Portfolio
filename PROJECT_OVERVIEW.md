@@ -76,18 +76,18 @@ The UI uses a corporate dark navy, blue, and cyan visual system with clean card-
 The project is configured for the GitHub repository name:
 
 ```text
-jakapank-portfolio
+JakapanK-Portfolio
 ```
 
 Expected deployed URL:
 
 ```text
-https://ligerking007.github.io/jakapank-portfolio/
+https://ligerking007.github.io/JakapanK-Portfolio/
 ```
 
 The Vite base path is set to:
 
 ```ts
-base: '/jakapank-portfolio/'
+base: '/JakapanK-Portfolio/'
 ```
 

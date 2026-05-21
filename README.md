@@ -16,13 +16,13 @@ Built for GitHub Pages with:
 Expected GitHub Pages URL:
 
 ```text
-https://ligerking007.github.io/jakapank-portfolio/
+https://ligerking007.github.io/JakapanK-Portfolio/
 ```
 
 The Vite base path is configured in `vite.config.ts`:
 
 ```ts
-base: '/jakapank-portfolio/'
+base: '/JakapanK-Portfolio/'
 ```
 
 If the repository name changes, update this value before deploying.
@@ -74,7 +74,7 @@ This project includes a GitHub Actions workflow at:
 
 Deployment steps:
 
-1. Push the repository to GitHub as `jakapank-portfolio`.
+1. Push the repository to GitHub as `JakapanK-Portfolio`.
 2. Go to repository **Settings > Pages**.
 3. Set **Source** to **GitHub Actions**.
 4. Push to the `main` branch.
