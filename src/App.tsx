@@ -10,36 +10,8 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import {
-  education,
-  experiences,
-  focusItems,
-  lifecycle,
-  metrics,
-  profile,
-  projects,
-  skillCategories,
-  strengths,
-} from './data/profile';
-
-const navigation = [
-  { label: 'Home', href: '#top' },
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
-];
-
-const sectionSummaries = [
-  { label: 'About', href: '#about', description: 'Overview and SDLC focus' },
-  { label: 'Skills', href: '#skills', description: 'Core stack by category' },
-  { label: 'Experience', href: '#experience', description: 'Timeline and responsibilities' },
-  { label: 'Projects', href: '#projects', description: 'Representative delivery work' },
-  { label: 'Education', href: '#education', description: 'Academic background' },
-  { label: 'Contact', href: '#contact', description: 'Professional links' },
-];
+import { localizedContent, type Language, type LocalizedContent } from './data/i18n';
+import { profile } from './data/profile';
 
 const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
@@ -71,9 +43,22 @@ function useMotionSettings() {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('top');
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === 'undefined') {
+      return 'en';
+    }
+
+    return window.localStorage.getItem('portfolio-language') === 'th' ? 'th' : 'en';
+  });
+  const content = localizedContent[language];
 
   useEffect(() => {
-    const sectionIds = navigation.map((item) => item.href.replace('#', ''));
+    document.documentElement.lang = language === 'th' ? 'th' : 'en';
+    window.localStorage.setItem('portfolio-language', language);
+  }, [language]);
+
+  useEffect(() => {
+    const sectionIds = content.navigation.map((item) => item.href.replace('#', ''));
     const sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
@@ -97,20 +82,20 @@ function App() {
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
-  }, []);
+  }, [content.navigation]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
-      <Header activeSection={activeSection} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Header activeSection={activeSection} content={content} isMenuOpen={isMenuOpen} language={language} setIsMenuOpen={setIsMenuOpen} setLanguage={setLanguage} />
       <main>
-        <Hero />
-        <SectionNavigator activeSection={activeSection} />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Education />
-        <Contact />
+        <Hero content={content} />
+        <SectionNavigator activeSection={activeSection} content={content} />
+        <About content={content} />
+        <Skills content={content} />
+        <Experience content={content} />
+        <Projects content={content} />
+        <Education content={content} />
+        <Contact content={content} />
       </main>
       <Footer />
     </div>
@@ -119,11 +104,14 @@ function App() {
 
 type HeaderProps = {
   activeSection: string;
+  content: LocalizedContent;
   isMenuOpen: boolean;
+  language: Language;
   setIsMenuOpen: (value: boolean) => void;
+  setLanguage: (value: Language) => void;
 };
 
-function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
+function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, setLanguage }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-cyan-400/25 bg-[#06101f] shadow-[0_10px_30px_rgba(2,8,23,0.38)]">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -138,12 +126,13 @@ function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
         </a>
 
         <div className="hidden items-center gap-2 lg:flex">
-          {navigation.map((item) => (
+          {content.navigation.map((item) => (
             <NavLink key={item.href} item={item} activeSection={activeSection} />
           ))}
         </div>
 
         <div className="flex items-center gap-3">
+          <LanguageToggle language={language} setLanguage={setLanguage} />
           <button
             type="button"
             className="inline-grid h-10 w-10 place-items-center rounded-lg border border-cyan-300/35 bg-white/[0.06] text-white lg:hidden"
@@ -166,7 +155,10 @@ function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
           className="overflow-hidden border-t border-cyan-400/20 bg-[#08172a] px-4 py-4 shadow-2xl lg:hidden"
         >
           <div className="mx-auto grid max-w-7xl gap-2 rounded-lg border border-cyan-300/20 bg-[#0d2036] p-2">
-            {navigation.map((item) => (
+            <div className="mb-2 border-b border-white/10 pb-3">
+              <LanguageToggle language={language} setLanguage={setLanguage} expanded />
+            </div>
+            {content.navigation.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
@@ -183,7 +175,7 @@ function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
             <div className="mt-2 border-t border-white/10 pt-3">
               <a className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-300/45 bg-white/[0.04] px-3 py-3 text-sm font-bold text-cyan-100" href="#contact" onClick={() => setIsMenuOpen(false)}>
                 <Send size={16} />
-                Contact
+                {content.labels.contact}
               </a>
             </div>
           </div>
@@ -191,6 +183,33 @@ function Header({ activeSection, isMenuOpen, setIsMenuOpen }: HeaderProps) {
         )}
       </AnimatePresence>
     </header>
+  );
+}
+
+function LanguageToggle({
+  expanded = false,
+  language,
+  setLanguage,
+}: {
+  expanded?: boolean;
+  language: Language;
+  setLanguage: (value: Language) => void;
+}) {
+  return (
+    <div className={`grid grid-cols-2 rounded-lg border border-cyan-300/30 bg-white/[0.06] p-1 ${expanded ? 'w-full' : 'w-[92px]'}`} aria-label="Language selector">
+      {(['en', 'th'] as const).map((option) => (
+        <button
+          key={option}
+          type="button"
+          onClick={() => setLanguage(option)}
+          className={`rounded-md px-3 py-2 text-xs font-bold transition ${
+            language === option ? 'bg-cyan-300 text-navy-950' : 'text-cyan-100 hover:bg-white/[0.12]'
+          }`}
+        >
+          {option.toUpperCase()}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -216,7 +235,7 @@ function NavLink({ item, activeSection }: { item: NavItem; activeSection: string
   );
 }
 
-function Hero() {
+function Hero({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
@@ -225,25 +244,25 @@ function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 md:grid-cols-[1.2fr_0.8fr] md:items-center lg:px-8 lg:py-20">
         <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
           <p className="mb-4 inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-medium text-cyan-200">
-            Senior Software Developer · Web · Backend · Mobile
+            {content.hero.eyebrow}
           </p>
           <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
             {profile.name}
           </motion.h1>
-          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-200 sm:text-2xl">{profile.role}</motion.p>
-          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">{profile.summary}</motion.p>
+          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-200 sm:text-2xl">{content.hero.role}</motion.p>
+          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-5 max-w-3xl text-base leading-7 text-slate-300 sm:text-lg">{content.hero.summary}</motion.p>
           <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a className="btn-primary" href="#experience">
-              View Experience
+              {content.hero.viewExperience}
               <ArrowRight size={18} />
             </a>
             <a className="btn-secondary" href="#projects">
-              View Projects
+              {content.hero.viewProjects}
               <ArrowRight size={18} />
             </a>
             <a className="btn-ghost" href="#contact">
               <Send size={18} />
-              Contact Me
+              {content.hero.contactMe}
             </a>
           </motion.div>
         </motion.div>
@@ -267,9 +286,9 @@ function Hero() {
                 />
               </div>
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">Portfolio</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">{content.hero.portfolio}</p>
                 <p className="mt-2 text-xl font-bold text-white">{profile.name}</p>
-                <p className="mt-1 text-sm leading-6 text-slate-300">{profile.role}</p>
+                <p className="mt-1 text-sm leading-6 text-slate-300">{content.hero.role}</p>
                 <div className="mt-4 flex justify-center gap-3 sm:justify-start md:justify-center xl:justify-start">
                   <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-white/15 bg-white/[0.06] text-cyan-100 transition hover:bg-white/[0.12]" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                     <Linkedin size={18} />
@@ -285,7 +304,7 @@ function Hero() {
             </div>
           </motion.div>
           <div className="grid gap-4 sm:grid-cols-2">
-          {metrics.map((metric) => (
+          {content.metrics.map((metric) => (
             <motion.div
               key={metric.label}
               variants={fadeUp}
@@ -305,7 +324,7 @@ function Hero() {
   );
 }
 
-function SectionNavigator({ activeSection }: { activeSection: string }) {
+function SectionNavigator({ activeSection, content }: { activeSection: string; content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
@@ -315,7 +334,7 @@ function SectionNavigator({ activeSection }: { activeSection: string }) {
         variants={staggerContainer}
         className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-6 lg:px-8"
       >
-        {sectionSummaries.map((item) => {
+        {content.sectionSummaries.map((item) => {
           const isActive = activeSection === item.href.replace('#', '');
 
           return (
@@ -362,21 +381,21 @@ function SectionHeading({
   );
 }
 
-function About() {
+function About({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
     <section id="about" className="section bg-white">
       <SectionHeading
-        eyebrow="About"
-        title="Hands-on engineering leadership"
-        description="Clean implementation, scalable design, and steady delivery across business-critical systems."
+        eyebrow={content.sections.about.eyebrow}
+        title={content.sections.about.title}
+        description={content.sections.about.description}
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[1.2fr_0.8fr] lg:px-8">
         <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
-          <p className="leading-7 text-slate-700">{profile.about}</p>
+          <p className="leading-7 text-slate-700">{content.profile.about}</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {strengths.map((strength) => (
+            {content.strengths.map((strength) => (
               <div key={strength.label} className="flex items-start gap-3 rounded-lg bg-slate-50 p-3">
                 <strength.icon className="mt-0.5 shrink-0 text-cyan-700" size={20} />
                 <span className="text-sm font-medium leading-6 text-slate-700">{strength.label}</span>
@@ -385,9 +404,9 @@ function About() {
           </div>
         </motion.div>
         <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
-          <h3 className="text-xl font-bold text-navy-950">Work Focus</h3>
+          <h3 className="text-xl font-bold text-navy-950">{content.labels.workFocus}</h3>
           <div className="mt-5 space-y-5">
-            {focusItems.map((item) => (
+            {content.focusItems.map((item) => (
               <div key={item.label}>
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <span className="flex items-center gap-2 text-sm font-semibold text-slate-800">
@@ -402,9 +421,9 @@ function About() {
               </div>
             ))}
           </div>
-          <h3 className="mt-7 text-xl font-bold text-navy-950">Full SDLC Coverage</h3>
+          <h3 className="mt-7 text-xl font-bold text-navy-950">{content.labels.lifecycle}</h3>
           <div className="mt-4 flex flex-wrap gap-2">
-            {lifecycle.map((item) => (
+            {content.lifecycle.map((item) => (
               <span key={item} className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-800">
                 {item}
               </span>
@@ -416,18 +435,18 @@ function About() {
   );
 }
 
-function Skills() {
+function Skills({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
     <section id="skills" className="section bg-slate-50">
       <SectionHeading
-        eyebrow="Skills"
-        title="Technology stack"
-        description="Grouped by delivery area for quick scanning."
+        eyebrow={content.sections.skills.eyebrow}
+        title={content.sections.skills.title}
+        description={content.sections.skills.description}
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
-        {skillCategories.map((category) => (
+        {content.skillCategories.map((category) => (
           <motion.div key={category.title} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
             <h3 className="text-lg font-bold text-navy-950">{category.title}</h3>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -444,19 +463,19 @@ function Skills() {
   );
 }
 
-function Experience() {
+function Experience({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
     <section id="experience" className="section bg-white">
       <SectionHeading
-        eyebrow="Experience"
-        title="Enterprise software timeline"
-        description="16+ years across healthcare, leasing, and transportation technology."
+        eyebrow={content.sections.experience.eyebrow}
+        title={content.sections.experience.title}
+        description={content.sections.experience.description}
       />
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="relative border-l-2 border-cyan-100 pl-6 sm:pl-8">
-          {experiences.map((item) => (
+          {content.experiences.map((item) => (
             <motion.article
               key={`${item.company}-${item.period}`}
               {...motionSettings}
@@ -476,7 +495,7 @@ function Experience() {
                 <p className="mt-3 text-sm font-semibold text-slate-500">{item.business}</p>
                 <p className="mt-2 text-sm leading-6 text-slate-700 sm:text-base">{item.summary}</p>
                 <div className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50/70 p-3">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-cyan-800">Key Achievements</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-cyan-800">{content.labels.keyAchievements}</p>
                   <ul className="mt-3 grid gap-2">
                     {item.achievements.map((achievement) => (
                       <li key={achievement} className="flex gap-2 text-sm leading-6 text-slate-700">
@@ -502,19 +521,19 @@ function Experience() {
   );
 }
 
-function Projects() {
+function Projects({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
     <section id="projects" className="section bg-navy-950 text-white">
       <SectionHeading
-        eyebrow="Projects"
-        title="Representative projects"
-        description="Healthcare communication, AI-assisted quality, and enterprise service delivery."
+        eyebrow={content.sections.projects.eyebrow}
+        title={content.sections.projects.title}
+        description={content.sections.projects.description}
         tone="dark"
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-        {projects.map((project) => (
+        {content.projects.map((project) => (
           <motion.article
             key={project.title}
             variants={fadeUp}
@@ -542,19 +561,19 @@ function Projects() {
   );
 }
 
-function Education() {
+function Education({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
     <section id="education" className="section bg-white">
       <SectionHeading
-        eyebrow="Education"
-        title="Academic background"
-        description="Information technology management and software-focused foundations."
+        eyebrow={content.sections.education.eyebrow}
+        title={content.sections.education.title}
+        description={content.sections.education.description}
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2">
-          {education.map((item) => (
+          {content.education.map((item) => (
             <motion.div key={item.school} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
               <p className="text-sm font-semibold text-cyan-700">{item.period}</p>
               <h3 className="mt-2 text-lg font-bold text-navy-950">{item.school}</h3>
@@ -568,30 +587,30 @@ function Education() {
   );
 }
 
-function Contact() {
+function Contact({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
     <section id="contact" className="section bg-slate-50">
       <SectionHeading
-        eyebrow="Contact"
-        title="Connect"
-        description="Enterprise software delivery, healthcare technology, .NET engineering, team leadership, and AI-assisted workflows."
+        eyebrow={content.sections.contact.eyebrow}
+        title={content.sections.contact.title}
+        description={content.sections.contact.description}
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-4xl gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
         <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={profile.linkedin} target="_blank" rel="noreferrer">
           <Linkedin className="text-cyan-700" size={26} />
-          <span className="font-bold text-navy-950">LinkedIn</span>
+          <span className="font-bold text-navy-950">{content.labels.linkedin}</span>
           <span className="text-sm text-slate-600">jakapan-kanta</span>
         </motion.a>
         <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={profile.github} target="_blank" rel="noreferrer">
           <Github className="text-cyan-700" size={26} />
-          <span className="font-bold text-navy-950">GitHub</span>
+          <span className="font-bold text-navy-950">{content.labels.github}</span>
           <span className="text-sm text-slate-600">Ligerking007</span>
         </motion.a>
         <motion.a variants={fadeUp} transition={motionSettings.transition} className="contact-card" href={`mailto:${profile.email}`}>
           <Mail className="text-cyan-700" size={26} />
-          <span className="font-bold text-navy-950">Email</span>
+          <span className="font-bold text-navy-950">{content.labels.email}</span>
           <span className="break-all text-sm text-slate-600">{profile.email}</span>
         </motion.a>
       </motion.div>

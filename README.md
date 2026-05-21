@@ -9,6 +9,7 @@ Built for GitHub Pages with:
 - TypeScript
 - Tailwind CSS
 - Lucide React icons
+- English / Thai language toggle
 - GitHub Actions deployment
 
 ## Live URL
@@ -75,11 +76,13 @@ Deployment steps:
 Most portfolio content is stored in:
 
 ```text
+src/data/i18n.ts
 src/data/profile.ts
 ```
 
 Update this file to adjust:
 
+- English / Thai display copy
 - Profile summary
 - Work focus
 - Skills
