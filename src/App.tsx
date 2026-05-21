@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  CheckCircle2,
   Github,
   Linkedin,
   Mail,
@@ -39,6 +40,8 @@ const sectionSummaries = [
   { label: 'Education', href: '#education', description: 'Academic background' },
   { label: 'Contact', href: '#contact', description: 'Professional links' },
 ];
+
+const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
@@ -245,7 +248,43 @@ function Hero() {
           </motion.div>
         </motion.div>
 
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid gap-4 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid gap-4">
+          <motion.div
+            variants={fadeUp}
+            transition={motionSettings.transition}
+            className="rounded-lg border border-cyan-300/20 bg-white/[0.08] p-5 shadow-card backdrop-blur"
+          >
+            <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left md:flex-col md:text-center xl:flex-row xl:text-left">
+              <div className="relative shrink-0">
+                <div className="absolute inset-0 rounded-full bg-cyan-300 blur-2xl opacity-25" />
+                <img
+                  src={assetPath('profile.jpg')}
+                  alt="Jakapan Kanta"
+                  className="relative h-36 w-36 rounded-full border-4 border-cyan-300/35 object-cover shadow-2xl"
+                  onError={(event) => {
+                    event.currentTarget.src = assetPath('profile-avatar.svg');
+                  }}
+                />
+              </div>
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">Portfolio</p>
+                <p className="mt-2 text-xl font-bold text-white">{profile.name}</p>
+                <p className="mt-1 text-sm leading-6 text-slate-300">{profile.role}</p>
+                <div className="mt-4 flex justify-center gap-3 sm:justify-start md:justify-center xl:justify-start">
+                  <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-white/15 bg-white/[0.06] text-cyan-100 transition hover:bg-white/[0.12]" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                    <Linkedin size={18} />
+                  </a>
+                  <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-white/15 bg-white/[0.06] text-cyan-100 transition hover:bg-white/[0.12]" href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+                    <Github size={18} />
+                  </a>
+                  <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-white/15 bg-white/[0.06] text-cyan-100 transition hover:bg-white/[0.12]" href={`mailto:${profile.email}`} aria-label="Email">
+                    <Mail size={18} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+          <div className="grid gap-4 sm:grid-cols-2">
           {metrics.map((metric) => (
             <motion.div
               key={metric.label}
@@ -259,6 +298,7 @@ function Hero() {
               <p className="mt-1 text-sm text-slate-300">{metric.label}</p>
             </motion.div>
           ))}
+          </div>
         </motion.div>
       </div>
     </section>
@@ -435,6 +475,17 @@ function Experience() {
                 </div>
                 <p className="mt-3 text-sm font-semibold text-slate-500">{item.business}</p>
                 <p className="mt-2 text-sm leading-6 text-slate-700 sm:text-base">{item.summary}</p>
+                <div className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50/70 p-3">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-cyan-800">Key Achievements</p>
+                  <ul className="mt-3 grid gap-2">
+                    {item.achievements.map((achievement) => (
+                      <li key={achievement} className="flex gap-2 text-sm leading-6 text-slate-700">
+                        <CheckCircle2 className="mt-0.5 shrink-0 text-cyan-700" size={17} />
+                        <span>{achievement}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {item.technologies.map((tech) => (
                     <span key={tech} className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-800">

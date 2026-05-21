@@ -88,13 +88,27 @@ Update this file to adjust:
 - Education
 - Contact links
 
+Profile and share assets are stored in:
+
+```text
+public/profile.jpg
+public/favicon.svg
+public/og-image.png
+```
+
+Replace `public/profile.jpg` with the final profile photo when needed.
+
 ## Project Structure
 
 ```text
 .
 ├── .github/workflows/deploy.yml
 ├── public/
-│   └── .gitkeep
+│   ├── favicon.svg
+│   ├── og-image.png
+│   ├── og-image.svg
+│   ├── profile-avatar.svg
+│   └── profile.jpg
 ├── src/
 │   ├── data/profile.ts
 │   ├── App.tsx

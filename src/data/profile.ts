@@ -32,6 +32,7 @@ export type ExperienceItem = {
   location: string;
   business: string;
   summary: string;
+  achievements: string[];
   technologies: string[];
 };
 
@@ -111,6 +112,11 @@ export const experiences: ExperienceItem[] = [
     business: 'Hospital, focused on Telemedicine',
     summary:
       'Build and maintain telemedicine capabilities across API, web, Android, and iOS platforms while supporting Agile delivery, Azure integration, and production-grade healthcare workflows.',
+    achievements: [
+      'Delivered telemedicine workflows across API, web, Android, and iOS channels.',
+      'Integrated Azure-backed healthcare communication and operational support.',
+      'Supported Agile delivery with production monitoring and issue resolution.',
+    ],
     technologies: ['.NET Core API', 'React', 'Android Kotlin', 'iOS Swift', 'Azure', 'SQL', 'Node.js', 'GitHub', 'Jira'],
   },
   {
@@ -121,6 +127,11 @@ export const experiences: ExperienceItem[] = [
     business: 'Hire purchase and leasing',
     summary:
       'Led SDLC activities including requirements, planning, design, coding, testing, monitoring, reporting, support, coordination, system architecture, database design, and delivery process improvements.',
+    achievements: [
+      'Led full SDLC delivery from requirements through support and reporting.',
+      'Improved delivery process with Docker, Kubernetes, CI/CD, TeamCity, and Octopus.',
+      'Strengthened quality practices with code review, SonarQube, Selenium, and Agile ceremonies.',
+    ],
     technologies: ['.NET Core', 'C#', 'ASP.NET', 'jQuery', 'MSSQL', 'Docker', 'Kubernetes', 'CI/CD', 'TeamCity', 'Octopus', 'SonarQube', 'Selenium'],
   },
   {
@@ -131,6 +142,11 @@ export const experiences: ExperienceItem[] = [
     business: 'Transportation management and GPS tracking',
     summary:
       'Analyzed customer needs, designed databases, developed tracking systems, coordinated UAT, supported operations, and resolved production issues for GPS and transportation management platforms.',
+    achievements: [
+      'Designed database-backed GPS tracking and transportation management features.',
+      'Coordinated UAT with customers and prepared systems for operations handover.',
+      'Resolved production issues through analysis, team coordination, and user support.',
+    ],
     technologies: ['C#', 'ASP.NET MVC', 'PostgreSQL', 'Google Maps API', 'DevExpress', 'SQLite', '.NET Framework'],
   },
 ];
