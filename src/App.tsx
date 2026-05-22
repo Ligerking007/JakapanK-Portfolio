@@ -13,6 +13,7 @@ import {
   Linkedin,
   Mail,
   Menu,
+  MonitorCog,
   Moon,
   Send,
   Sun,
@@ -131,7 +132,6 @@ function App() {
         <Experience content={content} />
         <Projects content={content} />
         <Certificates content={content} />
-        <Before2021 content={content} />
         <Education content={content} />
         <Contact content={content} />
       </main>
@@ -391,7 +391,7 @@ function SectionNavigator({ activeSection, content }: { activeSection: string; c
       <motion.div
         {...motionSettings}
         variants={staggerContainer}
-        className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8 xl:grid-cols-8"
+        className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8 xl:grid-cols-7"
       >
         {content.sectionSummaries.map((item) => {
           const isActive = activeSection === item.href.replace('#', '');
@@ -582,6 +582,7 @@ function Experience({ content }: { content: LocalizedContent }) {
 
 function Projects({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
+  const evidenceFileCount = legacyProjectGroups.reduce((total, group) => total + group.links.length, 0);
 
   return (
     <section id="projects" className="section bg-slate-50 text-slate-900 transition-colors dark:bg-navy-950 dark:text-white">
@@ -590,30 +591,55 @@ function Projects({ content }: { content: LocalizedContent }) {
         title={content.sections.projects.title}
         description={content.sections.projects.description}
       />
-      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-        {content.projects.map((project) => (
-          <motion.article
-            key={project.title}
-            variants={fadeUp}
-            transition={motionSettings.transition}
-            whileHover={{ y: -5 }}
-            className="rounded-lg border border-slate-200 bg-white p-5 shadow-card transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-card dark:hover:bg-white/[0.12]"
-          >
-            <project.icon className="text-cyan-700 dark:text-cyan-300" size={30} />
-            <h3 className="mt-4 text-xl font-bold text-navy-950 dark:text-white">{project.title}</h3>
-            <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300 sm:text-base">{project.description}</p>
-            <p className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50 p-3 text-sm font-medium leading-6 text-cyan-900 dark:border-cyan-300/20 dark:bg-cyan-300/10 dark:text-cyan-100">
-              {project.impact}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {project.technologies.map((tech) => (
-                <span key={tech} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-white/10 dark:text-slate-100">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </motion.article>
-        ))}
+      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <PeriodHeader
+          eyebrow={content.labels.currentPhase}
+          title={content.labels.currentProjects}
+          stats={[
+            { label: content.labels.sampleProjects, value: content.projects.length, icon: MonitorCog },
+          ]}
+        />
+        <div className="grid gap-5 lg:grid-cols-2">
+          {content.projects.map((project) => (
+            <motion.article
+              key={project.title}
+              variants={fadeUp}
+              transition={motionSettings.transition}
+              whileHover={{ y: -5 }}
+              className="rounded-lg border border-slate-200 bg-white p-5 shadow-card transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-card dark:hover:bg-white/[0.12]"
+            >
+              <project.icon className="text-cyan-700 dark:text-cyan-300" size={30} />
+              <h3 className="mt-4 text-xl font-bold text-navy-950 dark:text-white">{project.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300 sm:text-base">{project.description}</p>
+              <p className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50 p-3 text-sm font-medium leading-6 text-cyan-900 dark:border-cyan-300/20 dark:bg-cyan-300/10 dark:text-cyan-100">
+                {project.impact}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span key={tech} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-white/10 dark:text-slate-100">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+
+        <div className="mt-12">
+          <PeriodHeader
+            eyebrow={content.labels.previousPhase}
+            title={content.labels.earlierProjects}
+            stats={[
+              { label: content.labels.sampleProjects, value: legacyProjectGroups.length, icon: Archive },
+              { label: content.labels.evidenceFiles, value: evidenceFileCount, icon: FileText },
+            ]}
+          />
+          <div className="grid gap-5">
+            {legacyProjectGroups.map((group) => (
+              <LegacyProjectCard key={group.title} group={group} label={content.labels.openFile} motionSettings={motionSettings} />
+            ))}
+          </div>
+        </div>
       </motion.div>
     </section>
   );
@@ -636,15 +662,7 @@ function Certificates({ content }: { content: LocalizedContent }) {
         description={content.sections.certificates.description}
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-3">
-          {stats.map((stat) => (
-            <motion.div key={stat.label} variants={fadeUp} transition={motionSettings.transition} className="rounded-lg border border-cyan-100 bg-cyan-50/70 p-5 dark:border-cyan-400/20 dark:bg-cyan-400/10">
-              <stat.icon className="text-cyan-700 dark:text-cyan-300" size={24} />
-              <p className="mt-4 text-3xl font-bold text-navy-950 dark:text-white">{stat.value}</p>
-              <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">{stat.label}</p>
-            </motion.div>
-          ))}
-        </div>
+        <PeriodHeader eyebrow={content.labels.currentPhase} title={content.labels.recentCredentials} stats={stats} />
 
         <div className="mt-8 grid gap-8">
           {certificateProviders.map((provider) => {
@@ -688,106 +706,119 @@ function Certificates({ content }: { content: LocalizedContent }) {
             );
           })}
         </div>
+
+        <div className="mt-12">
+          <PeriodHeader
+            eyebrow={content.labels.previousPhase}
+            title={content.labels.earlierCredentials}
+            stats={[
+              { label: content.labels.archivedCredentials, value: legacyCredentials.length, icon: Award },
+              { label: content.labels.evidenceFiles, value: legacyCredentials.length, icon: FileText },
+            ]}
+          />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {legacyCredentials.map((credential) => (
+              <motion.a
+                key={credential.file}
+                href={publicAsset(credential.file)}
+                target="_blank"
+                rel="noreferrer"
+                variants={fadeUp}
+                transition={motionSettings.transition}
+                whileHover={{ y: -4 }}
+                className="group flex min-h-32 flex-col justify-between rounded-lg border border-slate-200 bg-slate-50 p-4 transition hover:border-cyan-200 hover:bg-white hover:shadow-card dark:border-slate-700 dark:bg-slate-900/70 dark:hover:border-cyan-500/50 dark:hover:bg-slate-900"
+              >
+                <span>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white px-3 py-1 text-xs font-bold text-cyan-800 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-100">
+                    <CalendarClock size={14} />
+                    {credential.year} · {credential.category}
+                  </span>
+                  <span className="mt-3 block text-base font-bold leading-6 text-navy-950 dark:text-white">{credential.title}</span>
+                </span>
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-cyan-800 transition group-hover:text-cyan-700 dark:text-cyan-200 dark:group-hover:text-cyan-100">
+                  {content.labels.openFile}
+                  <ExternalLink size={15} />
+                </span>
+              </motion.a>
+            ))}
+          </div>
+        </div>
       </motion.div>
     </section>
   );
 }
 
-function Before2021({ content }: { content: LocalizedContent }) {
-  const motionSettings = useMotionSettings();
-  const evidenceFileCount = legacyCredentials.length + legacyProjectGroups.reduce((total, group) => total + group.links.length, 0);
-  const stats = [
-    { label: content.labels.archivedCredentials, value: legacyCredentials.length, icon: Award },
-    { label: content.labels.sampleProjects, value: legacyProjectGroups.length, icon: Archive },
-    { label: content.labels.evidenceFiles, value: evidenceFileCount, icon: FileText },
-  ];
-
+function PeriodHeader({
+  eyebrow,
+  stats,
+  title,
+}: {
+  eyebrow: string;
+  stats: { label: string; value: number | string; icon: LucideIcon }[];
+  title: string;
+}) {
   return (
-    <section id="before-2021" className="section bg-slate-50 transition-colors dark:bg-slate-900">
-      <SectionHeading
-        eyebrow={content.sections.before2021.eyebrow}
-        title={content.sections.before2021.title}
-        description={content.sections.before2021.description}
-      />
-      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-3">
+    <div className="mb-5 rounded-lg border border-cyan-100 bg-cyan-50/70 p-5 dark:border-cyan-400/20 dark:bg-cyan-400/10">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-800 dark:text-cyan-200">{eyebrow}</p>
+          <h3 className="mt-2 text-2xl font-bold text-navy-950 dark:text-white">{title}</h3>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:min-w-[360px]">
           {stats.map((stat) => (
-            <motion.div key={stat.label} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
-              <stat.icon className="text-cyan-700 dark:text-cyan-300" size={24} />
-              <p className="mt-4 text-3xl font-bold text-navy-950 dark:text-white">{stat.value}</p>
-              <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">{stat.label}</p>
-            </motion.div>
+            <div key={stat.label} className="rounded-lg border border-cyan-100 bg-white p-3 dark:border-cyan-400/20 dark:bg-slate-950/40">
+              <stat.icon className="text-cyan-700 dark:text-cyan-300" size={18} />
+              <p className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{stat.value}</p>
+              <p className="text-xs font-semibold text-slate-600 dark:text-slate-300">{stat.label}</p>
+            </div>
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.4fr]">
-          <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
-            <div className="flex items-center gap-3">
-              <div className="grid h-11 w-11 place-items-center rounded-lg bg-cyan-100 text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-200">
-                <CalendarClock size={22} />
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">2012 - 2020</p>
-                <h3 className="text-xl font-bold text-navy-950 dark:text-white">{content.labels.archivedCredentials}</h3>
-              </div>
+function LegacyProjectCard({
+  group,
+  label,
+  motionSettings,
+}: {
+  group: (typeof legacyProjectGroups)[number];
+  label: string;
+  motionSettings: ReturnType<typeof useMotionSettings>;
+}) {
+  return (
+    <motion.article variants={fadeUp} transition={motionSettings.transition} className="card overflow-hidden">
+      <div className="grid gap-0 xl:grid-cols-[0.72fr_1fr]">
+        {group.preview && (
+          <a href={publicAsset(group.preview)} target="_blank" rel="noreferrer" className="block bg-slate-100 dark:bg-slate-800">
+            <img src={publicAsset(group.preview)} alt={group.title} className="h-full min-h-56 w-full object-cover" loading="lazy" />
+          </a>
+        )}
+        <div className={`p-5 sm:p-6 ${group.preview ? '' : 'xl:col-span-2'}`}>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{group.category}</p>
+              <h3 className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{group.title}</h3>
             </div>
-            <div className="mt-5 grid gap-3">
-              {legacyCredentials.map((credential) => (
-                <a
-                  key={credential.file}
-                  href={publicAsset(credential.file)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-start justify-between gap-4 rounded-lg border border-slate-200 bg-slate-50 p-3 transition hover:border-cyan-200 hover:bg-white dark:border-slate-700 dark:bg-slate-800/70 dark:hover:border-cyan-500/50 dark:hover:bg-slate-800"
-                >
-                  <span>
-                    <span className="text-xs font-bold text-cyan-700 dark:text-cyan-300">{credential.year} · {credential.category}</span>
-                    <span className="mt-1 block text-sm font-bold leading-5 text-navy-950 dark:text-white">{credential.title}</span>
-                  </span>
-                  <ExternalLink className="mt-1 shrink-0 text-slate-400 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-300" size={16} />
-                </a>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div variants={staggerContainer} transition={motionSettings.transition} className="grid gap-5">
-            {legacyProjectGroups.map((group) => (
-              <motion.article key={group.title} variants={fadeUp} transition={motionSettings.transition} className="card overflow-hidden">
-                <div className="grid gap-0 xl:grid-cols-[0.72fr_1fr]">
-                  {group.preview && (
-                    <a href={publicAsset(group.preview)} target="_blank" rel="noreferrer" className="block bg-slate-100 dark:bg-slate-800">
-                      <img src={publicAsset(group.preview)} alt={group.title} className="h-full min-h-56 w-full object-cover" loading="lazy" />
-                    </a>
-                  )}
-                  <div className={`p-5 sm:p-6 ${group.preview ? '' : 'xl:col-span-2'}`}>
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{group.category}</p>
-                        <h3 className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{group.title}</h3>
-                      </div>
-                      <span className="rounded-full bg-cyan-50 px-3 py-1.5 text-xs font-bold text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-100">{group.period}</span>
-                    </div>
-                    <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-300">{group.summary}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {group.tags.map((tag) => (
-                        <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                      {group.links.map((link) => (
-                        <ArchiveFileLink key={link.file} link={link} label={content.labels.openFile} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.article>
+            <span className="rounded-full bg-cyan-50 px-3 py-1.5 text-xs font-bold text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-100">{group.period}</span>
+          </div>
+          <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-300">{group.summary}</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {group.tags.map((tag) => (
+              <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                {tag}
+              </span>
             ))}
-          </motion.div>
+          </div>
+          <div className="mt-5 grid gap-2 sm:grid-cols-2">
+            {group.links.map((link) => (
+              <ArchiveFileLink key={link.file} link={link} label={label} />
+            ))}
+          </div>
         </div>
-      </motion.div>
-    </section>
+      </div>
+    </motion.article>
   );
 }
 

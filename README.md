@@ -93,7 +93,6 @@ Update this file to adjust:
 - Experience timeline
 - Projects
 - Certificates
-- Before 2021 archive
 - Education
 - Contact links
 
@@ -105,13 +104,13 @@ public/certificates/
 
 Add new PDF files under the provider folder, then register them in `src/data/certificates.ts`.
 
-Before 2021 credentials and sample project artifacts are stored in:
+Earlier credentials and sample project artifacts are stored in:
 
 ```text
 public/before2021/
 ```
 
-Curated archive items are registered in `src/data/before2021.ts`.
+Curated archive items are registered in `src/data/before2021.ts` and displayed inside the Projects and Certificates sections as the "Up to 2021" career phase.
 
 Profile and share assets are stored in:
 

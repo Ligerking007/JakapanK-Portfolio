@@ -47,7 +47,6 @@ export type LocalizedContent = {
     experience: SectionCopy;
     projects: SectionCopy;
     certificates: SectionCopy;
-    before2021: SectionCopy;
     education: SectionCopy;
     contact: SectionCopy;
   };
@@ -60,6 +59,12 @@ export type LocalizedContent = {
     certificatesCount: string;
     providers: string;
     topics: string;
+    currentPhase: string;
+    previousPhase: string;
+    currentProjects: string;
+    earlierProjects: string;
+    recentCredentials: string;
+    earlierCredentials: string;
     archivedCredentials: string;
     sampleProjects: string;
     evidenceFiles: string;
@@ -95,7 +100,6 @@ const english: LocalizedContent = {
     { label: 'Experience', href: '#experience' },
     { label: 'Projects', href: '#projects' },
     { label: 'Certificates', href: '#certificates' },
-    { label: 'Before 2021', href: '#before-2021' },
     { label: 'Education', href: '#education' },
     { label: 'Contact', href: '#contact' },
   ],
@@ -103,9 +107,8 @@ const english: LocalizedContent = {
     { label: 'About', href: '#about', description: 'Overview and SDLC focus' },
     { label: 'Skills', href: '#skills', description: 'Core stack by category' },
     { label: 'Experience', href: '#experience', description: 'Timeline and responsibilities' },
-    { label: 'Projects', href: '#projects', description: 'Representative delivery work' },
-    { label: 'Certificates', href: '#certificates', description: 'Learning credentials' },
-    { label: 'Before 2021', href: '#before-2021', description: 'Earlier proof of work' },
+    { label: 'Projects', href: '#projects', description: 'Current and previous work' },
+    { label: 'Certificates', href: '#certificates', description: 'Recent and earlier credentials' },
     { label: 'Education', href: '#education', description: 'Academic background' },
     { label: 'Contact', href: '#contact', description: 'Professional links' },
   ],
@@ -137,18 +140,13 @@ const english: LocalizedContent = {
     },
     projects: {
       eyebrow: 'Projects',
-      title: 'Representative projects',
-      description: 'Healthcare communication, AI-assisted quality, and enterprise service delivery.',
+      title: 'Projects by career phase',
+      description: 'A clearer split between the current Bumrungrad phase from 2022 onward and earlier enterprise delivery experience up to 2021.',
     },
     certificates: {
       eyebrow: 'Certificates',
-      title: 'Continuous learning credentials',
-      description: 'Selected certificates across AI, cloud, DevOps, web, mobile, security, testing, and leadership.',
-    },
-    before2021: {
-      eyebrow: 'Before 2021',
-      title: 'Earlier credentials and project archive',
-      description: 'A curated archive of training, awards, academic evidence, enterprise projects, architecture work, and team knowledge-sharing artifacts from earlier career stages.',
+      title: 'Certificates by career phase',
+      description: 'Recent learning from 2022 onward is separated from earlier awards, training, and professional credentials up to 2021.',
     },
     education: {
       eyebrow: 'Education',
@@ -170,6 +168,12 @@ const english: LocalizedContent = {
     certificatesCount: 'Certificates',
     providers: 'Providers',
     topics: 'Topics',
+    currentPhase: '2022 onward · Bumrungrad phase',
+    previousPhase: 'Up to 2021 · Previous experience',
+    currentProjects: 'Current Projects',
+    earlierProjects: 'Earlier Sample Projects',
+    recentCredentials: 'Recent Certificates',
+    earlierCredentials: 'Earlier Credentials',
     archivedCredentials: 'Archived Credentials',
     sampleProjects: 'Sample Projects',
     evidenceFiles: 'Evidence Files',
@@ -317,7 +321,6 @@ const thai: LocalizedContent = {
     { label: 'ประสบการณ์', href: '#experience' },
     { label: 'โปรเจกต์', href: '#projects' },
     { label: 'ใบรับรอง', href: '#certificates' },
-    { label: 'ก่อนปี 2021', href: '#before-2021' },
     { label: 'การศึกษา', href: '#education' },
     { label: 'ติดต่อ', href: '#contact' },
   ],
@@ -325,9 +328,8 @@ const thai: LocalizedContent = {
     { label: 'เกี่ยวกับ', href: '#about', description: 'ภาพรวมและบทบาทใน SDLC' },
     { label: 'ทักษะ', href: '#skills', description: 'เทคโนโลยีหลักตามหมวดงาน' },
     { label: 'ประสบการณ์', href: '#experience', description: 'เส้นทางงานและความรับผิดชอบ' },
-    { label: 'โปรเจกต์', href: '#projects', description: 'ผลงานตัวอย่างที่เกี่ยวข้อง' },
-    { label: 'ใบรับรอง', href: '#certificates', description: 'หลักสูตรและการเรียนรู้' },
-    { label: 'ก่อนปี 2021', href: '#before-2021', description: 'หลักฐานผลงานเดิม' },
+    { label: 'โปรเจกต์', href: '#projects', description: 'งานปัจจุบันและงานก่อนหน้า' },
+    { label: 'ใบรับรอง', href: '#certificates', description: 'หลักสูตรล่าสุดและก่อนหน้า' },
     { label: 'การศึกษา', href: '#education', description: 'ประวัติการศึกษา' },
     { label: 'ติดต่อ', href: '#contact', description: 'ช่องทาง professional' },
   ],
@@ -359,18 +361,13 @@ const thai: LocalizedContent = {
     },
     projects: {
       eyebrow: 'โปรเจกต์',
-      title: 'ผลงานตัวอย่าง',
-      description: 'Healthcare communication, AI-assisted quality และ Enterprise service delivery',
+      title: 'ผลงานตามช่วงอาชีพ',
+      description: 'แยกงานช่วง Bumrungrad ตั้งแต่ปี 2022 ขึ้นไป ออกจากงานองค์กรและตัวอย่างผลงานช่วงก่อนถึงปี 2021',
     },
     certificates: {
       eyebrow: 'ใบรับรอง',
-      title: 'การเรียนรู้อย่างต่อเนื่อง',
-      description: 'ใบรับรองจากหลักสูตร AI, Cloud, DevOps, Web, Mobile, Security, Testing และ Leadership',
-    },
-    before2021: {
-      eyebrow: 'ก่อนปี 2021',
-      title: 'ใบรับรองและตัวอย่างผลงานช่วงก่อนหน้า',
-      description: 'คัดเลือกหลักฐานการอบรม รางวัล เอกสารการศึกษา ตัวอย่างโปรเจกต์องค์กร งานออกแบบระบบ และเอกสารแชร์ความรู้ในทีมจากช่วงก่อนปี 2021',
+      title: 'ใบรับรองตามช่วงอาชีพ',
+      description: 'แยกใบรับรองและการเรียนรู้ตั้งแต่ปี 2022 ขึ้นไป ออกจากรางวัล การอบรม และหลักฐานวิชาชีพช่วงก่อนถึงปี 2021',
     },
     education: {
       eyebrow: 'การศึกษา',
@@ -392,6 +389,12 @@ const thai: LocalizedContent = {
     certificatesCount: 'ใบรับรอง',
     providers: 'ผู้ให้บริการ',
     topics: 'หมวดหมู่',
+    currentPhase: 'ตั้งแต่ปี 2022 · ช่วง Bumrungrad',
+    previousPhase: 'ถึงปี 2021 · ประสบการณ์ก่อนหน้า',
+    currentProjects: 'โปรเจกต์ช่วงปัจจุบัน',
+    earlierProjects: 'ตัวอย่างโปรเจกต์ก่อนหน้า',
+    recentCredentials: 'ใบรับรองล่าสุด',
+    earlierCredentials: 'ใบรับรองและหลักฐานก่อนหน้า',
     archivedCredentials: 'หลักฐานเดิม',
     sampleProjects: 'ตัวอย่างโปรเจกต์',
     evidenceFiles: 'ไฟล์ประกอบ',
