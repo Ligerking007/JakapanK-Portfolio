@@ -182,9 +182,9 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
           <span className="grid h-10 w-10 place-items-center rounded-lg bg-cyan-400 text-sm font-bold text-navy-950">
             JK
           </span>
-          <span className="hidden sm:block">
+          <span className="block">
             <span className="block text-sm font-semibold leading-tight">{profile.name}</span>
-            <span className="block text-xs text-slate-500 dark:text-slate-300">{profile.role}</span>
+            <span className="block text-xs text-slate-500 dark:text-slate-300">Portfolio</span>
           </span>
         </a>
 
