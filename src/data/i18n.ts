@@ -132,7 +132,7 @@ const english: LocalizedContent = {
   },
   heroHighlights: [
     {
-      title: 'Cross-Platform Engineering',
+      title: 'Cross-Platform Development',
       description: 'React web apps, .NET Core and Node.js APIs, Android/iOS, React Native, and Flutter.',
       icon: Smartphone,
     },
@@ -375,7 +375,7 @@ const thai: LocalizedContent = {
   },
   heroHighlights: [
     {
-      title: 'วิศวกรรมซอฟต์แวร์หลายแพลตฟอร์ม',
+      title: 'การพัฒนาหลายแพลตฟอร์ม',
       description: 'React web apps, .NET Core และ Node.js APIs, Android/iOS, React Native และ Flutter',
       icon: Smartphone,
     },
