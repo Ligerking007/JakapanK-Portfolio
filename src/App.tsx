@@ -346,8 +346,8 @@ function Hero({ content }: { content: LocalizedContent }) {
   return (
     <section id="top" className="relative overflow-hidden bg-slate-50 transition-colors dark:bg-navy-950">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(8,145,178,0.14),transparent_34%),linear-gradient(135deg,rgba(14,165,233,0.10),transparent_45%)] dark:bg-[radial-gradient(circle_at_20%_20%,rgba(56,213,255,0.18),transparent_32%),linear-gradient(135deg,rgba(14,165,233,0.14),transparent_45%)]" />
-      <div className="relative mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-4 sm:px-6 sm:pb-14 sm:pt-10 md:grid-cols-[1.2fr_0.8fr] md:items-center lg:px-8 lg:pb-16 lg:pt-4">
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
+      <div className="relative mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-4 sm:px-6 sm:pb-14 sm:pt-10 md:grid-cols-[0.85fr_1.15fr] md:items-center lg:px-8 lg:pb-16 lg:pt-4">
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="order-2">
           <p className="mb-4 hidden rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-medium text-cyan-800 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-200 sm:inline-flex">
             {content.hero.eyebrow}
           </p>
@@ -368,7 +368,7 @@ function Hero({ content }: { content: LocalizedContent }) {
           </motion.div>
         </motion.div>
 
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid gap-4">
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="order-1 grid gap-4">
           <motion.div
             variants={fadeUp}
             transition={motionSettings.transition}
