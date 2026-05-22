@@ -34,12 +34,14 @@ export type LocalizedContent = {
   sectionSummaries: { label: string; href: string; description: string }[];
   hero: {
     eyebrow: string;
+    summaryTitle: string;
     role: string;
     summary: string;
     viewExperience: string;
     viewProjects: string;
     contactMe: string;
     portfolio: string;
+    tagline: string;
   };
   heroHighlights: { title: string; description: string; icon: LucideIcon }[];
   sections: {
@@ -117,7 +119,8 @@ const english: LocalizedContent = {
     { label: 'Contact', href: '#contact', description: 'Professional links' },
   ],
   hero: {
-    eyebrow: 'Full Stack · Front End · Back End · Mobile',
+    eyebrow: 'Full Stack Developer · Web · Mobile · Backend',
+    summaryTitle: 'Enterprise Software Delivery',
     role: 'Senior Software Developer',
     summary:
       'Senior Software Developer and Team Lead with 16+ years of experience delivering scalable web, backend, and mobile applications across healthcare, finance, and transportation domains.',
@@ -125,22 +128,23 @@ const english: LocalizedContent = {
     viewProjects: 'View Projects',
     contactMe: 'Contact Me',
     portfolio: 'Portfolio',
+    tagline: 'AI-assisted engineering for reliable software delivery.',
   },
   heroHighlights: [
     {
-      title: 'Scalable Systems',
-      description: '.NET Core APIs, Node.js APIs, database design, and enterprise integrations.',
-      icon: ServerCog,
-    },
-    {
       title: 'Cross-Platform Delivery',
-      description: 'React web apps, .NET Core and Node.js APIs, Android/iOS delivery, and telemedicine workflow integration.',
+      description: 'React web apps, .NET Core and Node.js APIs, Android/iOS, React Native, and Flutter.',
       icon: Smartphone,
     },
     {
-      title: 'Team & Quality',
-      description: 'Code review, Agile delivery, CI/CD, and production support.',
-      icon: ShieldCheck,
+      title: 'AI Integration & Engineering',
+      description: 'Applying AI to software systems and workflows for code review, error investigation, requirement analysis, and secure process improvement.',
+      icon: Lightbulb,
+    },
+    {
+      title: 'Delivery & DevOps Practice',
+      description: 'Agile delivery, Azure DevOps CI/CD, code review, release coordination, and production support.',
+      icon: ServerCog,
     },
   ],
   sections: {
@@ -358,7 +362,8 @@ const thai: LocalizedContent = {
     { label: 'ติดต่อ', href: '#contact', description: 'ช่องทาง professional' },
   ],
   hero: {
-    eyebrow: 'ทั้งระบบ · หน้าบ้าน · หลังบ้าน · มือถือ',
+    eyebrow: 'นักพัฒนาซอฟต์แวร์ที่ทำงานได้ครบวงจร · เว็บ · มือถือ · หลังบ้าน',
+    summaryTitle: 'การส่งมอบซอฟต์แวร์ระดับองค์กร',
     role: 'นักพัฒนาซอฟต์แวร์อาวุโส',
     summary:
       'นักพัฒนาซอฟต์แวร์อาวุโส และหัวหน้าทีมที่มีประสบการณ์มากกว่า 16 ปี ในการพัฒนาเว็บ ส่วนหลังบ้าน และแอปพลิเคชันมือถือ สำหรับธุรกิจ การดูแลสุขภาพ การเงิน และการขนส่ง',
@@ -366,22 +371,23 @@ const thai: LocalizedContent = {
     viewProjects: 'ดูโปรเจกต์',
     contactMe: 'ติดต่อฉัน',
     portfolio: 'ผลงาน',
+    tagline: 'วิศวกรรมซอฟต์แวร์ที่ใช้ AI ช่วย เพื่อการส่งมอบงานที่เชื่อถือได้',
   },
   heroHighlights: [
     {
-      title: 'ระบบที่ขยายได้',
-      description: '.NET Core API, Node.js API, Database design และ Enterprise integrations',
-      icon: ServerCog,
-    },
-    {
       title: 'ส่งมอบหลายแพลตฟอร์ม',
-      description: 'React web apps, .NET Core และ Node.js APIs, Android/iOS delivery และ Telemedicine workflow integration',
+      description: 'React web apps, .NET Core และ Node.js APIs, Android/iOS, React Native และ Flutter',
       icon: Smartphone,
     },
     {
-      title: 'ทีมและคุณภาพ',
-      description: 'Code review, Agile delivery, CI/CD และ Production support',
-      icon: ShieldCheck,
+      title: 'การเชื่อมต่อ AI และงานวิศวกรรมซอฟต์แวร์',
+      description: 'ประยุกต์ใช้ AI กับระบบและ workflow เพื่อช่วย review code, วิเคราะห์ error, วิเคราะห์ requirement และปรับปรุงกระบวนการอย่างปลอดภัย',
+      icon: Lightbulb,
+    },
+    {
+      title: 'การส่งมอบงานและ DevOps',
+      description: 'Agile delivery, Azure DevOps CI/CD, Code review, Release coordination และ Production support',
+      icon: ServerCog,
     },
   ],
   sections: {

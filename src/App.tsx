@@ -356,21 +356,20 @@ function Hero({ content }: { content: LocalizedContent }) {
           <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-cyan-400 via-sky-300 to-transparent opacity-80" />
           <div className="relative z-10 flex h-full flex-col justify-between gap-7">
             <div>
-              <motion.div variants={fadeUp} transition={motionSettings.transition} className="hidden items-center gap-3 sm:flex">
-                <span className="inline-grid h-11 w-11 place-items-center rounded-lg border border-cyan-200 bg-cyan-50 text-cyan-800 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100">
-                  <MonitorCog size={22} />
+              <motion.div variants={fadeUp} transition={motionSettings.transition} className="flex items-start gap-3">
+                <span className="inline-grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-cyan-200 bg-cyan-50 text-cyan-800 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100 sm:h-11 sm:w-11">
+                  <MonitorCog size={20} />
                 </span>
-                <span className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
+                <span className="min-w-0 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-semibold leading-5 text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200 sm:rounded-full sm:px-4 sm:text-sm">
                   {content.hero.eyebrow}
                 </span>
               </motion.div>
 
-              <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="mt-0 max-w-4xl text-4xl font-bold tracking-tight text-navy-950 dark:text-white sm:mt-8 sm:text-5xl">
-                {content.profile.name}
-              </motion.h1>
-              <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-3 hidden text-xl font-semibold text-cyan-800 dark:text-cyan-200 sm:block sm:text-2xl">{content.hero.role}</motion.p>
+              <motion.h2 variants={fadeUp} transition={motionSettings.transition} className="mt-6 text-2xl font-bold tracking-tight text-navy-950 dark:text-white sm:mt-8 sm:text-3xl">
+                {content.hero.summaryTitle}
+              </motion.h2>
 
-              <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-6 rounded-lg border border-slate-200 bg-slate-50/80 p-4 dark:border-white/10 dark:bg-navy-900/60 sm:p-5">
+              <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-5 rounded-lg border border-slate-200 bg-slate-50/80 p-4 dark:border-white/10 dark:bg-navy-900/60 sm:p-5">
                 <p className="text-base leading-7 text-slate-700 dark:text-slate-300 sm:text-lg">{content.hero.summary}</p>
               </motion.div>
             </div>
@@ -408,7 +407,7 @@ function Hero({ content }: { content: LocalizedContent }) {
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-800 dark:text-cyan-200">{content.hero.portfolio}</p>
                 <p className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{content.profile.name}</p>
-                <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">.NET · React · Azure · Mobile</p>
+                <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{content.hero.tagline}</p>
                 <div className="mt-4 flex justify-center gap-3 sm:justify-start md:justify-center xl:justify-start">
                   <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-cyan-800 transition hover:bg-cyan-50 dark:border-white/15 dark:bg-white/[0.06] dark:text-cyan-100 dark:hover:bg-white/[0.12]" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                     <Linkedin size={18} />
