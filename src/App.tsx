@@ -346,12 +346,12 @@ function Hero({ content }: { content: LocalizedContent }) {
   return (
     <section id="top" className="relative overflow-hidden bg-slate-50 transition-colors dark:bg-navy-950">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(8,145,178,0.14),transparent_34%),linear-gradient(135deg,rgba(14,165,233,0.10),transparent_45%)] dark:bg-[radial-gradient(circle_at_20%_20%,rgba(56,213,255,0.18),transparent_32%),linear-gradient(135deg,rgba(14,165,233,0.14),transparent_45%)]" />
-      <div className="relative mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-4 sm:px-6 sm:pb-14 sm:pt-10 md:grid-cols-[0.85fr_1.15fr] md:items-center lg:px-8 lg:pb-16 lg:pt-4">
+      <div className="relative mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-4 sm:px-6 sm:pb-14 sm:pt-10 md:grid-cols-2 md:items-stretch lg:px-8 lg:pb-16 lg:pt-4">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
-          className="order-2 rounded-lg border border-slate-200 bg-white p-5 shadow-card backdrop-blur dark:border-cyan-300/20 dark:bg-white/[0.08] sm:p-7"
+          className="order-2 rounded-lg border border-slate-200 bg-white p-5 shadow-card backdrop-blur dark:border-cyan-300/20 dark:bg-white/[0.08] sm:p-7 md:flex md:h-full md:flex-col md:justify-center lg:p-8"
         >
           <motion.p variants={fadeUp} transition={motionSettings.transition} className="hidden rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-medium text-cyan-800 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-200 sm:inline-flex">
             {content.hero.eyebrow}
@@ -373,7 +373,7 @@ function Hero({ content }: { content: LocalizedContent }) {
           </motion.div>
         </motion.div>
 
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="order-1 grid gap-4">
+        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="order-1 grid gap-4 md:h-full">
           <motion.div
             variants={fadeUp}
             transition={motionSettings.transition}
@@ -409,7 +409,7 @@ function Hero({ content }: { content: LocalizedContent }) {
               </div>
             </div>
           </motion.div>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
           {content.metrics.map((metric) => (
             <motion.div
               key={metric.label}
