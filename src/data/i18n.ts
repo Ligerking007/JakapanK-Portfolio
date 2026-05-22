@@ -47,6 +47,7 @@ export type LocalizedContent = {
     experience: SectionCopy;
     projects: SectionCopy;
     certificates: SectionCopy;
+    before2021: SectionCopy;
     education: SectionCopy;
     contact: SectionCopy;
   };
@@ -59,6 +60,10 @@ export type LocalizedContent = {
     certificatesCount: string;
     providers: string;
     topics: string;
+    archivedCredentials: string;
+    sampleProjects: string;
+    evidenceFiles: string;
+    openFile: string;
     linkedin: string;
     github: string;
     email: string;
@@ -90,6 +95,7 @@ const english: LocalizedContent = {
     { label: 'Experience', href: '#experience' },
     { label: 'Projects', href: '#projects' },
     { label: 'Certificates', href: '#certificates' },
+    { label: 'Before 2021', href: '#before-2021' },
     { label: 'Education', href: '#education' },
     { label: 'Contact', href: '#contact' },
   ],
@@ -99,6 +105,7 @@ const english: LocalizedContent = {
     { label: 'Experience', href: '#experience', description: 'Timeline and responsibilities' },
     { label: 'Projects', href: '#projects', description: 'Representative delivery work' },
     { label: 'Certificates', href: '#certificates', description: 'Learning credentials' },
+    { label: 'Before 2021', href: '#before-2021', description: 'Earlier proof of work' },
     { label: 'Education', href: '#education', description: 'Academic background' },
     { label: 'Contact', href: '#contact', description: 'Professional links' },
   ],
@@ -138,6 +145,11 @@ const english: LocalizedContent = {
       title: 'Continuous learning credentials',
       description: 'Selected certificates across AI, cloud, DevOps, web, mobile, security, testing, and leadership.',
     },
+    before2021: {
+      eyebrow: 'Before 2021',
+      title: 'Earlier credentials and project archive',
+      description: 'A curated archive of training, awards, academic evidence, enterprise projects, architecture work, and team knowledge-sharing artifacts from earlier career stages.',
+    },
     education: {
       eyebrow: 'Education',
       title: 'Academic background',
@@ -158,6 +170,10 @@ const english: LocalizedContent = {
     certificatesCount: 'Certificates',
     providers: 'Providers',
     topics: 'Topics',
+    archivedCredentials: 'Archived Credentials',
+    sampleProjects: 'Sample Projects',
+    evidenceFiles: 'Evidence Files',
+    openFile: 'Open File',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',
@@ -301,6 +317,7 @@ const thai: LocalizedContent = {
     { label: 'ประสบการณ์', href: '#experience' },
     { label: 'โปรเจกต์', href: '#projects' },
     { label: 'ใบรับรอง', href: '#certificates' },
+    { label: 'ก่อนปี 2021', href: '#before-2021' },
     { label: 'การศึกษา', href: '#education' },
     { label: 'ติดต่อ', href: '#contact' },
   ],
@@ -310,6 +327,7 @@ const thai: LocalizedContent = {
     { label: 'ประสบการณ์', href: '#experience', description: 'เส้นทางงานและความรับผิดชอบ' },
     { label: 'โปรเจกต์', href: '#projects', description: 'ผลงานตัวอย่างที่เกี่ยวข้อง' },
     { label: 'ใบรับรอง', href: '#certificates', description: 'หลักสูตรและการเรียนรู้' },
+    { label: 'ก่อนปี 2021', href: '#before-2021', description: 'หลักฐานผลงานเดิม' },
     { label: 'การศึกษา', href: '#education', description: 'ประวัติการศึกษา' },
     { label: 'ติดต่อ', href: '#contact', description: 'ช่องทาง professional' },
   ],
@@ -349,6 +367,11 @@ const thai: LocalizedContent = {
       title: 'การเรียนรู้อย่างต่อเนื่อง',
       description: 'ใบรับรองจากหลักสูตร AI, Cloud, DevOps, Web, Mobile, Security, Testing และ Leadership',
     },
+    before2021: {
+      eyebrow: 'ก่อนปี 2021',
+      title: 'ใบรับรองและตัวอย่างผลงานช่วงก่อนหน้า',
+      description: 'คัดเลือกหลักฐานการอบรม รางวัล เอกสารการศึกษา ตัวอย่างโปรเจกต์องค์กร งานออกแบบระบบ และเอกสารแชร์ความรู้ในทีมจากช่วงก่อนปี 2021',
+    },
     education: {
       eyebrow: 'การศึกษา',
       title: 'ประวัติการศึกษา',
@@ -369,6 +392,10 @@ const thai: LocalizedContent = {
     certificatesCount: 'ใบรับรอง',
     providers: 'ผู้ให้บริการ',
     topics: 'หมวดหมู่',
+    archivedCredentials: 'หลักฐานเดิม',
+    sampleProjects: 'ตัวอย่างโปรเจกต์',
+    evidenceFiles: 'ไฟล์ประกอบ',
+    openFile: 'เปิดไฟล์',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',

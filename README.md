@@ -79,6 +79,7 @@ Most portfolio content is stored in:
 ```text
 src/data/i18n.ts
 src/data/certificates.ts
+src/data/before2021.ts
 src/data/profile.ts
 ```
 
@@ -92,6 +93,7 @@ Update this file to adjust:
 - Experience timeline
 - Projects
 - Certificates
+- Before 2021 archive
 - Education
 - Contact links
 
@@ -102,6 +104,14 @@ public/certificates/
 ```
 
 Add new PDF files under the provider folder, then register them in `src/data/certificates.ts`.
+
+Before 2021 credentials and sample project artifacts are stored in:
+
+```text
+public/before2021/
+```
+
+Curated archive items are registered in `src/data/before2021.ts`.
 
 Profile and share assets are stored in:
 
@@ -124,8 +134,10 @@ Replace `public/profile.jpg` with the final profile photo when needed.
 │   ├── og-image.svg
 │   ├── profile-avatar.svg
 │   ├── profile.jpg
+│   ├── before2021/
 │   └── certificates/
 ├── src/
+│   ├── data/before2021.ts
 │   ├── data/certificates.ts
 │   ├── data/i18n.ts
 │   ├── data/profile.ts

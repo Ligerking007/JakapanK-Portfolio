@@ -1,25 +1,34 @@
 import {
   ArrowRight,
+  Archive,
   Award,
+  CalendarClock,
   CheckCircle2,
   ExternalLink,
+  FileCode2,
+  FileSpreadsheet,
   FileText,
   Github,
+  Image as ImageIcon,
   Linkedin,
   Mail,
   Menu,
   Moon,
   Send,
   Sun,
+  type LucideIcon,
+  Video,
   X,
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { legacyCredentials, legacyProjectGroups, type ArchiveLink, type ArchiveLinkType } from './data/before2021';
 import { certificateProviders, certificates } from './data/certificates';
 import { localizedContent, type Language, type LocalizedContent } from './data/i18n';
 import { profile } from './data/profile';
 
 const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+const publicAsset = (path: string) => encodeURI(assetPath(path));
 
 type Theme = 'light' | 'dark';
 
@@ -122,6 +131,7 @@ function App() {
         <Experience content={content} />
         <Projects content={content} />
         <Certificates content={content} />
+        <Before2021 content={content} />
         <Education content={content} />
         <Contact content={content} />
       </main>
@@ -381,7 +391,7 @@ function SectionNavigator({ activeSection, content }: { activeSection: string; c
       <motion.div
         {...motionSettings}
         variants={staggerContainer}
-        className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8 xl:grid-cols-7"
+        className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8 xl:grid-cols-8"
       >
         {content.sectionSummaries.map((item) => {
           const isActive = activeSection === item.href.replace('#', '');
@@ -652,7 +662,7 @@ function Certificates({ content }: { content: LocalizedContent }) {
                   {providerCertificates.map((certificate) => (
                     <motion.a
                       key={certificate.file}
-                      href={assetPath(certificate.file)}
+                      href={publicAsset(certificate.file)}
                       target="_blank"
                       rel="noreferrer"
                       variants={fadeUp}
@@ -682,6 +692,133 @@ function Certificates({ content }: { content: LocalizedContent }) {
     </section>
   );
 }
+
+function Before2021({ content }: { content: LocalizedContent }) {
+  const motionSettings = useMotionSettings();
+  const evidenceFileCount = legacyCredentials.length + legacyProjectGroups.reduce((total, group) => total + group.links.length, 0);
+  const stats = [
+    { label: content.labels.archivedCredentials, value: legacyCredentials.length, icon: Award },
+    { label: content.labels.sampleProjects, value: legacyProjectGroups.length, icon: Archive },
+    { label: content.labels.evidenceFiles, value: evidenceFileCount, icon: FileText },
+  ];
+
+  return (
+    <section id="before-2021" className="section bg-slate-50 transition-colors dark:bg-slate-900">
+      <SectionHeading
+        eyebrow={content.sections.before2021.eyebrow}
+        title={content.sections.before2021.title}
+        description={content.sections.before2021.description}
+      />
+      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {stats.map((stat) => (
+            <motion.div key={stat.label} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
+              <stat.icon className="text-cyan-700 dark:text-cyan-300" size={24} />
+              <p className="mt-4 text-3xl font-bold text-navy-950 dark:text-white">{stat.value}</p>
+              <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.4fr]">
+          <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-lg bg-cyan-100 text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-200">
+                <CalendarClock size={22} />
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">2012 - 2020</p>
+                <h3 className="text-xl font-bold text-navy-950 dark:text-white">{content.labels.archivedCredentials}</h3>
+              </div>
+            </div>
+            <div className="mt-5 grid gap-3">
+              {legacyCredentials.map((credential) => (
+                <a
+                  key={credential.file}
+                  href={publicAsset(credential.file)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-start justify-between gap-4 rounded-lg border border-slate-200 bg-slate-50 p-3 transition hover:border-cyan-200 hover:bg-white dark:border-slate-700 dark:bg-slate-800/70 dark:hover:border-cyan-500/50 dark:hover:bg-slate-800"
+                >
+                  <span>
+                    <span className="text-xs font-bold text-cyan-700 dark:text-cyan-300">{credential.year} · {credential.category}</span>
+                    <span className="mt-1 block text-sm font-bold leading-5 text-navy-950 dark:text-white">{credential.title}</span>
+                  </span>
+                  <ExternalLink className="mt-1 shrink-0 text-slate-400 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-300" size={16} />
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div variants={staggerContainer} transition={motionSettings.transition} className="grid gap-5">
+            {legacyProjectGroups.map((group) => (
+              <motion.article key={group.title} variants={fadeUp} transition={motionSettings.transition} className="card overflow-hidden">
+                <div className="grid gap-0 xl:grid-cols-[0.72fr_1fr]">
+                  {group.preview && (
+                    <a href={publicAsset(group.preview)} target="_blank" rel="noreferrer" className="block bg-slate-100 dark:bg-slate-800">
+                      <img src={publicAsset(group.preview)} alt={group.title} className="h-full min-h-56 w-full object-cover" loading="lazy" />
+                    </a>
+                  )}
+                  <div className={`p-5 sm:p-6 ${group.preview ? '' : 'xl:col-span-2'}`}>
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{group.category}</p>
+                        <h3 className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{group.title}</h3>
+                      </div>
+                      <span className="rounded-full bg-cyan-50 px-3 py-1.5 text-xs font-bold text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-100">{group.period}</span>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-300">{group.summary}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {group.tags.map((tag) => (
+                        <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                      {group.links.map((link) => (
+                        <ArchiveFileLink key={link.file} link={link} label={content.labels.openFile} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+function ArchiveFileLink({ label, link }: { label: string; link: ArchiveLink }) {
+  const Icon = archiveLinkIcons[link.type];
+
+  return (
+    <a
+      href={publicAsset(link.file)}
+      target="_blank"
+      rel="noreferrer"
+      className="group flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:text-cyan-800 dark:border-slate-700 dark:bg-slate-950/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:text-cyan-200"
+      title={`${label}: ${link.title}`}
+    >
+      <span className="flex min-w-0 items-center gap-2">
+        <Icon className="shrink-0 text-cyan-700 dark:text-cyan-300" size={16} />
+        <span className="truncate">{link.title}</span>
+      </span>
+      <ExternalLink className="shrink-0 text-slate-400 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-300" size={15} />
+    </a>
+  );
+}
+
+const archiveLinkIcons: Record<ArchiveLinkType, LucideIcon> = {
+  pdf: FileText,
+  image: ImageIcon,
+  video: Video,
+  document: FileText,
+  spreadsheet: FileSpreadsheet,
+  diagram: FileCode2,
+};
 
 function Education({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
