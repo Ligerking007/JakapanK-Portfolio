@@ -3,6 +3,7 @@ import {
   Archive,
   Award,
   CalendarClock,
+  ChevronDown,
   CheckCircle2,
   ExternalLink,
   FileCode2,
@@ -22,7 +23,7 @@ import {
   X,
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { legacyCredentials, legacyProjectGroups, type ArchiveLink, type ArchiveLinkType } from './data/before2021';
 import { certificateProviders, certificates } from './data/certificates';
 import { localizedContent, type Language, type LocalizedContent } from './data/i18n';
@@ -592,53 +593,61 @@ function Projects({ content }: { content: LocalizedContent }) {
         description={content.sections.projects.description}
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <PeriodHeader
+        <ExpandablePanel
+          collapseLabel={content.labels.collapse}
+          defaultExpanded
           eyebrow={content.labels.currentPhase}
+          expandLabel={content.labels.expand}
           title={content.labels.currentProjects}
           stats={[
             { label: content.labels.sampleProjects, value: content.projects.length, icon: MonitorCog },
           ]}
-        />
-        <div className="grid gap-5 lg:grid-cols-2">
-          {content.projects.map((project) => (
-            <motion.article
-              key={project.title}
-              variants={fadeUp}
-              transition={motionSettings.transition}
-              whileHover={{ y: -5 }}
-              className="rounded-lg border border-slate-200 bg-white p-5 shadow-card transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-card dark:hover:bg-white/[0.12]"
-            >
-              <project.icon className="text-cyan-700 dark:text-cyan-300" size={30} />
-              <h3 className="mt-4 text-xl font-bold text-navy-950 dark:text-white">{project.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300 sm:text-base">{project.description}</p>
-              <p className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50 p-3 text-sm font-medium leading-6 text-cyan-900 dark:border-cyan-300/20 dark:bg-cyan-300/10 dark:text-cyan-100">
-                {project.impact}
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span key={tech} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-white/10 dark:text-slate-100">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </motion.article>
-          ))}
-        </div>
+        >
+          <div className="grid gap-5 lg:grid-cols-2">
+            {content.projects.map((project) => (
+              <motion.article
+                key={project.title}
+                variants={fadeUp}
+                transition={motionSettings.transition}
+                whileHover={{ y: -5 }}
+                className="rounded-lg border border-slate-200 bg-white p-5 shadow-card transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-card dark:hover:bg-white/[0.12]"
+              >
+                <project.icon className="text-cyan-700 dark:text-cyan-300" size={30} />
+                <h3 className="mt-4 text-xl font-bold text-navy-950 dark:text-white">{project.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-700 dark:text-slate-300 sm:text-base">{project.description}</p>
+                <p className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50 p-3 text-sm font-medium leading-6 text-cyan-900 dark:border-cyan-300/20 dark:bg-cyan-300/10 dark:text-cyan-100">
+                  {project.impact}
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => (
+                    <span key={tech} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-white/10 dark:text-slate-100">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </ExpandablePanel>
 
-        <div className="mt-12">
-          <PeriodHeader
+        <div className="mt-5">
+          <ExpandablePanel
+            collapseLabel={content.labels.collapse}
+            defaultExpanded={false}
             eyebrow={content.labels.previousPhase}
+            expandLabel={content.labels.expand}
             title={content.labels.earlierProjects}
             stats={[
               { label: content.labels.sampleProjects, value: legacyProjectGroups.length, icon: Archive },
               { label: content.labels.evidenceFiles, value: evidenceFileCount, icon: FileText },
             ]}
-          />
-          <div className="grid gap-5">
-            {legacyProjectGroups.map((group) => (
-              <LegacyProjectCard key={group.title} group={group} label={content.labels.openFile} motionSettings={motionSettings} />
-            ))}
-          </div>
+          >
+            <div className="grid gap-5">
+              {legacyProjectGroups.map((group) => (
+                <LegacyProjectCard key={group.title} group={group} label={content.labels.openFile} motionSettings={motionSettings} />
+              ))}
+            </div>
+          </ExpandablePanel>
         </div>
       </motion.div>
     </section>
@@ -662,103 +671,124 @@ function Certificates({ content }: { content: LocalizedContent }) {
         description={content.sections.certificates.description}
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <PeriodHeader eyebrow={content.labels.currentPhase} title={content.labels.recentCredentials} stats={stats} />
+        <ExpandablePanel
+          collapseLabel={content.labels.collapse}
+          defaultExpanded
+          eyebrow={content.labels.currentPhase}
+          expandLabel={content.labels.expand}
+          title={content.labels.recentCredentials}
+          stats={stats}
+        >
+          <div className="grid gap-8">
+            {certificateProviders.map((provider) => {
+              const providerCertificates = certificates.filter((certificate) => certificate.provider === provider);
 
-        <div className="mt-8 grid gap-8">
-          {certificateProviders.map((provider) => {
-            const providerCertificates = certificates.filter((certificate) => certificate.provider === provider);
-
-            return (
-              <motion.div key={provider} variants={fadeUp} transition={motionSettings.transition} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/70 sm:p-5">
-                <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{provider}</p>
-                    <h3 className="mt-1 text-xl font-bold text-navy-950 dark:text-white">{providerCertificates.length} {content.labels.certificatesCount}</h3>
+              return (
+                <motion.div key={provider} variants={fadeUp} transition={motionSettings.transition} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/70 sm:p-5">
+                  <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{provider}</p>
+                      <h3 className="mt-1 text-xl font-bold text-navy-950 dark:text-white">{providerCertificates.length} {content.labels.certificatesCount}</h3>
+                    </div>
                   </div>
-                </div>
-                <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                  {providerCertificates.map((certificate) => (
-                    <motion.a
-                      key={certificate.file}
-                      href={publicAsset(certificate.file)}
-                      target="_blank"
-                      rel="noreferrer"
-                      variants={fadeUp}
-                      transition={motionSettings.transition}
-                      whileHover={{ y: -4 }}
-                      className="group flex min-h-36 flex-col justify-between rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition hover:border-cyan-200 hover:shadow-card dark:border-slate-700 dark:bg-slate-950/80 dark:hover:border-cyan-500/50"
-                    >
-                      <span>
-                        <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-800 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-100">
-                          <Award size={14} />
-                          {certificate.category}
+                  <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                    {providerCertificates.map((certificate) => (
+                      <motion.a
+                        key={certificate.file}
+                        href={publicAsset(certificate.file)}
+                        target="_blank"
+                        rel="noreferrer"
+                        variants={fadeUp}
+                        transition={motionSettings.transition}
+                        whileHover={{ y: -4 }}
+                        className="group flex min-h-36 flex-col justify-between rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition hover:border-cyan-200 hover:shadow-card dark:border-slate-700 dark:bg-slate-950/80 dark:hover:border-cyan-500/50"
+                      >
+                        <span>
+                          <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-800 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-100">
+                            <Award size={14} />
+                            {certificate.category}
+                          </span>
+                          <span className="mt-3 block text-base font-bold leading-6 text-navy-950 dark:text-white">{certificate.title}</span>
                         </span>
-                        <span className="mt-3 block text-base font-bold leading-6 text-navy-950 dark:text-white">{certificate.title}</span>
-                      </span>
-                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-cyan-800 transition group-hover:text-cyan-700 dark:text-cyan-200 dark:group-hover:text-cyan-100">
-                        {content.labels.viewCertificate}
-                        <ExternalLink size={15} />
-                      </span>
-                    </motion.a>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+                        <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-cyan-800 transition group-hover:text-cyan-700 dark:text-cyan-200 dark:group-hover:text-cyan-100">
+                          {content.labels.viewCertificate}
+                          <ExternalLink size={15} />
+                        </span>
+                      </motion.a>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </ExpandablePanel>
 
-        <div className="mt-12">
-          <PeriodHeader
+        <div className="mt-5">
+          <ExpandablePanel
+            collapseLabel={content.labels.collapse}
+            defaultExpanded={false}
             eyebrow={content.labels.previousPhase}
+            expandLabel={content.labels.expand}
             title={content.labels.earlierCredentials}
             stats={[
               { label: content.labels.archivedCredentials, value: legacyCredentials.length, icon: Award },
               { label: content.labels.evidenceFiles, value: legacyCredentials.length, icon: FileText },
             ]}
-          />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {legacyCredentials.map((credential) => (
-              <motion.a
-                key={credential.file}
-                href={publicAsset(credential.file)}
-                target="_blank"
-                rel="noreferrer"
-                variants={fadeUp}
-                transition={motionSettings.transition}
-                whileHover={{ y: -4 }}
-                className="group flex min-h-32 flex-col justify-between rounded-lg border border-slate-200 bg-slate-50 p-4 transition hover:border-cyan-200 hover:bg-white hover:shadow-card dark:border-slate-700 dark:bg-slate-900/70 dark:hover:border-cyan-500/50 dark:hover:bg-slate-900"
-              >
-                <span>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white px-3 py-1 text-xs font-bold text-cyan-800 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-100">
-                    <CalendarClock size={14} />
-                    {credential.year} · {credential.category}
+          >
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {legacyCredentials.map((credential) => (
+                <motion.a
+                  key={credential.file}
+                  href={publicAsset(credential.file)}
+                  target="_blank"
+                  rel="noreferrer"
+                  variants={fadeUp}
+                  transition={motionSettings.transition}
+                  whileHover={{ y: -4 }}
+                  className="group flex min-h-32 flex-col justify-between rounded-lg border border-slate-200 bg-slate-50 p-4 transition hover:border-cyan-200 hover:bg-white hover:shadow-card dark:border-slate-700 dark:bg-slate-900/70 dark:hover:border-cyan-500/50 dark:hover:bg-slate-900"
+                >
+                  <span>
+                    <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white px-3 py-1 text-xs font-bold text-cyan-800 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-100">
+                      <CalendarClock size={14} />
+                      {credential.year} · {credential.category}
+                    </span>
+                    <span className="mt-3 block text-base font-bold leading-6 text-navy-950 dark:text-white">{credential.title}</span>
                   </span>
-                  <span className="mt-3 block text-base font-bold leading-6 text-navy-950 dark:text-white">{credential.title}</span>
-                </span>
-                <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-cyan-800 transition group-hover:text-cyan-700 dark:text-cyan-200 dark:group-hover:text-cyan-100">
-                  {content.labels.openFile}
-                  <ExternalLink size={15} />
-                </span>
-              </motion.a>
-            ))}
-          </div>
+                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-cyan-800 transition group-hover:text-cyan-700 dark:text-cyan-200 dark:group-hover:text-cyan-100">
+                    {content.labels.openFile}
+                    <ExternalLink size={15} />
+                  </span>
+                </motion.a>
+              ))}
+            </div>
+          </ExpandablePanel>
         </div>
       </motion.div>
     </section>
   );
 }
 
-function PeriodHeader({
+function ExpandablePanel({
+  children,
+  collapseLabel,
+  defaultExpanded,
   eyebrow,
+  expandLabel,
   stats,
   title,
 }: {
+  children: ReactNode;
+  collapseLabel: string;
+  defaultExpanded: boolean;
   eyebrow: string;
+  expandLabel: string;
   stats: { label: string; value: number | string; icon: LucideIcon }[];
   title: string;
 }) {
+  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+
   return (
-    <div className="mb-5 rounded-lg border border-cyan-100 bg-cyan-50/70 p-5 dark:border-cyan-400/20 dark:bg-cyan-400/10">
+    <div className="rounded-lg border border-cyan-100 bg-cyan-50/70 p-4 dark:border-cyan-400/20 dark:bg-cyan-400/10 sm:p-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-800 dark:text-cyan-200">{eyebrow}</p>
@@ -774,6 +804,28 @@ function PeriodHeader({
           ))}
         </div>
       </div>
+      <button
+        type="button"
+        onClick={() => setIsExpanded((current) => !current)}
+        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200 bg-white px-4 py-3 text-sm font-bold text-cyan-800 transition hover:border-cyan-300 hover:bg-cyan-50 dark:border-cyan-300/30 dark:bg-slate-950/40 dark:text-cyan-100 dark:hover:bg-cyan-400/10 sm:w-auto"
+        aria-expanded={isExpanded}
+      >
+        {isExpanded ? collapseLabel : expandLabel}
+        <ChevronDown className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} size={17} />
+      </button>
+      <AnimatePresence initial={false}>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: 'easeOut' }}
+            className="overflow-hidden"
+          >
+            <div className="pt-5">{children}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

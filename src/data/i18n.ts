@@ -69,6 +69,8 @@ export type LocalizedContent = {
     sampleProjects: string;
     evidenceFiles: string;
     openFile: string;
+    expand: string;
+    collapse: string;
     linkedin: string;
     github: string;
     email: string;
@@ -178,6 +180,8 @@ const english: LocalizedContent = {
     sampleProjects: 'Sample Projects',
     evidenceFiles: 'Evidence Files',
     openFile: 'Open File',
+    expand: 'Expand',
+    collapse: 'Collapse',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',
@@ -399,6 +403,8 @@ const thai: LocalizedContent = {
     sampleProjects: 'ตัวอย่างโปรเจกต์',
     evidenceFiles: 'ไฟล์ประกอบ',
     openFile: 'เปิดไฟล์',
+    expand: 'ขยาย',
+    collapse: 'ย่อ',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',
