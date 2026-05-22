@@ -153,7 +153,6 @@ function App() {
       <Header activeSection={activeSection} content={content} isMenuOpen={isMenuOpen} language={language} setActiveSection={activateSection} setIsMenuOpen={setIsMenuOpen} setLanguage={setLanguage} setTheme={setTheme} theme={theme} />
       <main>
         <Hero content={content} />
-        <SectionNavigator activeSection={activeSection} content={content} setActiveSection={activateSection} />
         <About content={content} />
         <Skills content={content} />
         <Experience content={content} />
@@ -358,11 +357,7 @@ function Hero({ content }: { content: LocalizedContent }) {
           <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-800 dark:text-cyan-200 sm:text-2xl">{content.hero.role}</motion.p>
           <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-5 max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300 sm:text-lg">{content.hero.summary}</motion.p>
           <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-7 hidden flex-col gap-3 sm:flex sm:flex-row">
-            <a className="btn-primary" href="#experience">
-              {content.hero.viewExperience}
-              <ArrowRight size={18} />
-            </a>
-            <a className="btn-secondary" href="#projects">
+            <a className="btn-primary" href="#projects">
               {content.hero.viewProjects}
               <ArrowRight size={18} />
             </a>
@@ -394,7 +389,7 @@ function Hero({ content }: { content: LocalizedContent }) {
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-800 dark:text-cyan-200">{content.hero.portfolio}</p>
                 <p className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{profile.name}</p>
-                <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{content.hero.role}</p>
+                <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">.NET · React · Azure · Mobile</p>
                 <div className="mt-4 flex justify-center gap-3 sm:justify-start md:justify-center xl:justify-start">
                   <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-cyan-800 transition hover:bg-cyan-50 dark:border-white/15 dark:bg-white/[0.06] dark:text-cyan-100 dark:hover:bg-white/[0.12]" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                     <Linkedin size={18} />
@@ -426,55 +421,6 @@ function Hero({ content }: { content: LocalizedContent }) {
           </div>
         </motion.div>
       </div>
-    </section>
-  );
-}
-
-function SectionNavigator({
-  activeSection,
-  content,
-  setActiveSection,
-}: {
-  activeSection: string;
-  content: LocalizedContent;
-  setActiveSection: (value: string) => void;
-}) {
-  const motionSettings = useMotionSettings();
-  const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
-    event.preventDefault();
-    setActiveSection(href.replace('#', ''));
-    scrollToSection(href);
-  };
-
-  return (
-    <section className="border-b border-slate-200 bg-white py-3 transition-colors dark:border-slate-800 dark:bg-slate-900 sm:py-5">
-      <motion.div
-        {...motionSettings}
-        variants={staggerContainer}
-        className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 pb-1 sm:grid sm:grid-cols-2 sm:gap-3 sm:overflow-visible sm:px-6 sm:pb-0 lg:grid-cols-4 lg:px-8 xl:grid-cols-7"
-      >
-        {content.sectionSummaries.map((item) => {
-          const isActive = activeSection === item.href.replace('#', '');
-
-          return (
-            <motion.a
-              key={item.href}
-              href={item.href}
-              onClick={(event) => navigateToSection(event, item.href)}
-              variants={fadeUp}
-              transition={motionSettings.transition}
-              className={`min-w-36 rounded-lg border px-3 py-2.5 transition hover:-translate-y-0.5 sm:min-w-0 sm:p-4 ${
-                isActive
-                  ? 'border-cyan-300 bg-cyan-50 text-navy-950 shadow-sm dark:border-cyan-400/50 dark:bg-cyan-400/15 dark:text-cyan-50'
-                  : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-cyan-200 hover:bg-white dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:bg-slate-800'
-              }`}
-            >
-              <span className="block text-sm font-bold">{item.label}</span>
-              <span className="mt-1 hidden text-xs leading-5 text-slate-500 dark:text-slate-400 sm:block">{item.description}</span>
-            </motion.a>
-          );
-        })}
-      </motion.div>
     </section>
   );
 }
