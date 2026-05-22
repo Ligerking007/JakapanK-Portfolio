@@ -23,7 +23,7 @@ import {
   X,
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, type MouseEvent, type ReactNode } from 'react';
 import { legacyCredentials, legacyProjectGroups, type ArchiveLink, type ArchiveLinkType } from './data/before2021';
 import { certificateProviders, certificates } from './data/certificates';
 import { localizedContent, type Language, type LocalizedContent } from './data/i18n';
@@ -33,6 +33,21 @@ const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 const publicAsset = (path: string) => encodeURI(assetPath(path));
 
 type Theme = 'light' | 'dark';
+
+function scrollToSection(href: string) {
+  const id = href.replace('#', '');
+  const target = document.getElementById(id);
+
+  if (!target) {
+    return;
+  }
+
+  const headerOffset = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+  const top = target.getBoundingClientRect().top + window.scrollY - headerOffset - 12;
+
+  window.scrollTo({ top: Math.max(top, 0), behavior: 'auto' });
+  window.history.replaceState(null, '', href);
+}
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 22 },
@@ -153,14 +168,21 @@ type HeaderProps = {
 };
 
 function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, setLanguage, setTheme, theme }: HeaderProps) {
+  const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
+    setIsMenuOpen(false);
+
+    window.setTimeout(() => scrollToSection(href), 240);
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.08)] transition-colors dark:border-cyan-400/25 dark:bg-[#06101f] dark:shadow-[0_10px_30px_rgba(2,8,23,0.38)]">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
         <a href="#top" className="flex items-center gap-3 text-navy-950 dark:text-white">
           <span className="grid h-10 w-10 place-items-center rounded-lg bg-cyan-400 text-sm font-bold text-navy-950">
             JK
           </span>
-          <span>
+          <span className="hidden sm:block">
             <span className="block text-sm font-semibold leading-tight">{profile.name}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-300">{profile.role}</span>
           </span>
@@ -172,9 +194,11 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="hidden items-center gap-3 lg:flex">
           <LanguageToggle language={language} setLanguage={setLanguage} />
           <ThemeToggle setTheme={setTheme} theme={theme} />
+        </div>
+        <div className="flex items-center gap-3 lg:hidden">
           <button
             type="button"
             className="inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-navy-950 transition hover:bg-slate-100 dark:border-cyan-300/35 dark:bg-white/[0.06] dark:text-white dark:hover:bg-white/[0.12] lg:hidden"
@@ -194,7 +218,7 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.22, ease: 'easeOut' }}
-          className="overflow-hidden border-t border-slate-200 bg-white px-4 py-4 shadow-2xl dark:border-cyan-400/20 dark:bg-[#08172a] lg:hidden"
+          className="max-h-[calc(100dvh-64px)] overflow-y-auto border-t border-slate-200 bg-white px-4 py-4 shadow-2xl dark:border-cyan-400/20 dark:bg-[#08172a] lg:hidden"
         >
           <div className="mx-auto grid max-w-7xl gap-2 rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-cyan-300/20 dark:bg-[#0d2036]">
             <div className="mb-2 grid grid-cols-[1fr_auto] gap-2 border-b border-slate-200 pb-3 dark:border-white/10">
@@ -205,7 +229,7 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
               <a
                 key={item.href}
                 href={item.href}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(event) => navigateToSection(event, item.href)}
                 className={`rounded-lg px-3 py-3 text-sm font-semibold transition ${
                   activeSection === item.href.replace('#', '')
                     ? 'bg-cyan-300 text-navy-950 shadow-sm'
@@ -216,7 +240,7 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
               </a>
             ))}
             <div className="mt-2 border-t border-slate-200 pt-3 dark:border-white/10">
-              <a className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200 bg-white px-3 py-3 text-sm font-bold text-cyan-800 dark:border-cyan-300/45 dark:bg-white/[0.04] dark:text-cyan-100" href="#contact" onClick={() => setIsMenuOpen(false)}>
+              <a className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200 bg-white px-3 py-3 text-sm font-bold text-cyan-800 dark:border-cyan-300/45 dark:bg-white/[0.04] dark:text-cyan-100" href="#contact" onClick={(event) => navigateToSection(event, '#contact')}>
                 <Send size={16} />
                 {content.labels.contact}
               </a>
@@ -386,13 +410,17 @@ function Hero({ content }: { content: LocalizedContent }) {
 
 function SectionNavigator({ activeSection, content }: { activeSection: string; content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
+  const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
+    scrollToSection(href);
+  };
 
   return (
-    <section className="border-b border-slate-200 bg-white py-5 transition-colors dark:border-slate-800 dark:bg-slate-900">
+    <section className="border-b border-slate-200 bg-white py-3 transition-colors dark:border-slate-800 dark:bg-slate-900 sm:py-5">
       <motion.div
         {...motionSettings}
         variants={staggerContainer}
-        className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8 xl:grid-cols-7"
+        className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 pb-1 sm:grid sm:grid-cols-2 sm:gap-3 sm:overflow-visible sm:px-6 sm:pb-0 lg:grid-cols-4 lg:px-8 xl:grid-cols-7"
       >
         {content.sectionSummaries.map((item) => {
           const isActive = activeSection === item.href.replace('#', '');
@@ -401,16 +429,17 @@ function SectionNavigator({ activeSection, content }: { activeSection: string; c
             <motion.a
               key={item.href}
               href={item.href}
+              onClick={(event) => navigateToSection(event, item.href)}
               variants={fadeUp}
               transition={motionSettings.transition}
-              className={`rounded-lg border p-4 transition hover:-translate-y-0.5 ${
+              className={`min-w-36 rounded-lg border px-3 py-2.5 transition hover:-translate-y-0.5 sm:min-w-0 sm:p-4 ${
                 isActive
                   ? 'border-cyan-300 bg-cyan-50 text-navy-950 shadow-sm dark:border-cyan-400/50 dark:bg-cyan-400/15 dark:text-cyan-50'
                   : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-cyan-200 hover:bg-white dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:bg-slate-800'
               }`}
             >
               <span className="block text-sm font-bold">{item.label}</span>
-              <span className="mt-1 block text-xs leading-5 text-slate-500 dark:text-slate-400">{item.description}</span>
+              <span className="mt-1 hidden text-xs leading-5 text-slate-500 dark:text-slate-400 sm:block">{item.description}</span>
             </motion.a>
           );
         })}
@@ -607,8 +636,6 @@ function Projects({ content }: { content: LocalizedContent }) {
             {content.projects.map((project) => (
               <motion.article
                 key={project.title}
-                variants={fadeUp}
-                transition={motionSettings.transition}
                 whileHover={{ y: -5 }}
                 className="rounded-lg border border-slate-200 bg-white p-5 shadow-card transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-card dark:hover:bg-white/[0.12]"
               >
@@ -644,7 +671,7 @@ function Projects({ content }: { content: LocalizedContent }) {
           >
             <div className="grid gap-5">
               {legacyProjectGroups.map((group) => (
-                <LegacyProjectCard key={group.title} group={group} label={content.labels.openFile} motionSettings={motionSettings} />
+                <LegacyProjectCard key={group.title} group={group} label={content.labels.openFile} />
               ))}
             </div>
           </ExpandablePanel>
@@ -684,7 +711,7 @@ function Certificates({ content }: { content: LocalizedContent }) {
               const providerCertificates = certificates.filter((certificate) => certificate.provider === provider);
 
               return (
-                <motion.div key={provider} variants={fadeUp} transition={motionSettings.transition} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/70 sm:p-5">
+                <motion.div key={provider} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/70 sm:p-5">
                   <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{provider}</p>
@@ -698,8 +725,6 @@ function Certificates({ content }: { content: LocalizedContent }) {
                         href={publicAsset(certificate.file)}
                         target="_blank"
                         rel="noreferrer"
-                        variants={fadeUp}
-                        transition={motionSettings.transition}
                         whileHover={{ y: -4 }}
                         className="group flex min-h-36 flex-col justify-between rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition hover:border-cyan-200 hover:shadow-card dark:border-slate-700 dark:bg-slate-950/80 dark:hover:border-cyan-500/50"
                       >
@@ -742,8 +767,6 @@ function Certificates({ content }: { content: LocalizedContent }) {
                   href={publicAsset(credential.file)}
                   target="_blank"
                   rel="noreferrer"
-                  variants={fadeUp}
-                  transition={motionSettings.transition}
                   whileHover={{ y: -4 }}
                   className="group flex min-h-32 flex-col justify-between rounded-lg border border-slate-200 bg-slate-50 p-4 transition hover:border-cyan-200 hover:bg-white hover:shadow-card dark:border-slate-700 dark:bg-slate-900/70 dark:hover:border-cyan-500/50 dark:hover:bg-slate-900"
                 >
@@ -830,14 +853,12 @@ function ExpandablePanel({
 function LegacyProjectCard({
   group,
   label,
-  motionSettings,
 }: {
   group: (typeof legacyProjectGroups)[number];
   label: string;
-  motionSettings: ReturnType<typeof useMotionSettings>;
 }) {
   return (
-    <motion.article variants={fadeUp} transition={motionSettings.transition} className="card overflow-hidden">
+    <motion.article className="card overflow-hidden">
       <div className="grid gap-0 xl:grid-cols-[0.72fr_1fr]">
         {group.preview && (
           <a href={publicAsset(group.preview)} target="_blank" rel="noreferrer" className="block bg-slate-100 dark:bg-slate-800">
