@@ -23,7 +23,7 @@ import {
   X,
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
-import { useEffect, useState, type MouseEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { legacyCredentials, legacyProjectGroups, type ArchiveLink, type ArchiveLinkType } from './data/before2021';
 import { certificateProviders, certificates } from './data/certificates';
 import { localizedContent, type Language, type LocalizedContent } from './data/i18n';
@@ -77,6 +77,7 @@ function useMotionSettings() {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('top');
+  const activeSectionLockUntil = useRef(0);
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === 'undefined') {
       return 'light';
@@ -98,6 +99,10 @@ function App() {
     return window.localStorage.getItem('portfolio-language') === 'th' ? 'th' : 'en';
   });
   const content = localizedContent[language];
+  const activateSection = (sectionId: string) => {
+    activeSectionLockUntil.current = Date.now() + 1200;
+    setActiveSection(sectionId);
+  };
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -112,37 +117,43 @@ function App() {
 
   useEffect(() => {
     const sectionIds = content.navigation.map((item) => item.href.replace('#', ''));
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    const updateActiveSection = () => {
+      if (Date.now() < activeSectionLockUntil.current) {
+        return;
+      }
 
-        if (visibleEntry?.target.id) {
-          setActiveSection(visibleEntry.target.id);
+      const headerOffset = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+      const activationLine = headerOffset + 40;
+      const activeId = sectionIds.reduce((currentId, sectionId) => {
+        const section = document.getElementById(sectionId);
+
+        if (!section) {
+          return currentId;
         }
-      },
-      {
-        rootMargin: '-30% 0px -55% 0px',
-        threshold: [0.1, 0.25, 0.5, 0.75],
-      },
-    );
 
-    sections.forEach((section) => observer.observe(section));
+        return section.getBoundingClientRect().top <= activationLine ? sectionId : currentId;
+      }, sectionIds[0] ?? 'top');
 
-    return () => observer.disconnect();
+      setActiveSection(activeId);
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection);
+      window.removeEventListener('resize', updateActiveSection);
+    };
   }, [content.navigation]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
-      <Header activeSection={activeSection} content={content} isMenuOpen={isMenuOpen} language={language} setIsMenuOpen={setIsMenuOpen} setLanguage={setLanguage} setTheme={setTheme} theme={theme} />
+      <Header activeSection={activeSection} content={content} isMenuOpen={isMenuOpen} language={language} setActiveSection={activateSection} setIsMenuOpen={setIsMenuOpen} setLanguage={setLanguage} setTheme={setTheme} theme={theme} />
       <main>
         <Hero content={content} />
-        <SectionNavigator activeSection={activeSection} content={content} />
+        <SectionNavigator activeSection={activeSection} content={content} setActiveSection={activateSection} />
         <About content={content} />
         <Skills content={content} />
         <Experience content={content} />
@@ -161,15 +172,17 @@ type HeaderProps = {
   content: LocalizedContent;
   isMenuOpen: boolean;
   language: Language;
+  setActiveSection: (value: string) => void;
   setIsMenuOpen: (value: boolean) => void;
   setLanguage: (value: Language) => void;
   setTheme: (value: Theme) => void;
   theme: Theme;
 };
 
-function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, setLanguage, setTheme, theme }: HeaderProps) {
+function Header({ activeSection, content, isMenuOpen, language, setActiveSection, setIsMenuOpen, setLanguage, setTheme, theme }: HeaderProps) {
   const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault();
+    setActiveSection(href.replace('#', ''));
     setIsMenuOpen(false);
 
     window.setTimeout(() => scrollToSection(href), 240);
@@ -190,7 +203,7 @@ function Header({ activeSection, content, isMenuOpen, language, setIsMenuOpen, s
 
         <div className="hidden items-center gap-2 lg:flex">
           {content.navigation.map((item) => (
-            <NavLink key={item.href} item={item} activeSection={activeSection} />
+            <NavLink key={item.href} item={item} activeSection={activeSection} onNavigate={navigateToSection} />
           ))}
         </div>
 
@@ -302,12 +315,21 @@ type NavItem = {
   href: string;
 };
 
-function NavLink({ item, activeSection }: { item: NavItem; activeSection: string }) {
+function NavLink({
+  activeSection,
+  item,
+  onNavigate,
+}: {
+  activeSection: string;
+  item: NavItem;
+  onNavigate: (event: MouseEvent<HTMLAnchorElement>, href: string) => void;
+}) {
   const isActive = activeSection === item.href.replace('#', '');
 
   return (
     <a
       href={item.href}
+      onClick={(event) => onNavigate(event, item.href)}
       className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
         isActive
           ? 'bg-cyan-300 text-navy-950 shadow-[0_0_0_1px_rgba(15,23,42,0.08)]'
@@ -408,10 +430,19 @@ function Hero({ content }: { content: LocalizedContent }) {
   );
 }
 
-function SectionNavigator({ activeSection, content }: { activeSection: string; content: LocalizedContent }) {
+function SectionNavigator({
+  activeSection,
+  content,
+  setActiveSection,
+}: {
+  activeSection: string;
+  content: LocalizedContent;
+  setActiveSection: (value: string) => void;
+}) {
   const motionSettings = useMotionSettings();
   const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault();
+    setActiveSection(href.replace('#', ''));
     scrollToSection(href);
   };
 
