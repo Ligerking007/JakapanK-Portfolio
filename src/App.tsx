@@ -820,7 +820,12 @@ function ExpandablePanel({
   title: string;
 }) {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
-  const statsGridClass = stats.length === 1 ? 'grid gap-2 lg:min-w-[300px]' : 'grid grid-cols-2 gap-2 lg:min-w-[300px]';
+  const statsGridClass =
+    stats.length === 1
+      ? 'grid grid-cols-1 gap-2 lg:w-[150px]'
+      : stats.length === 2
+        ? 'grid grid-cols-2 gap-2 lg:min-w-[300px]'
+        : 'grid grid-cols-2 gap-2 lg:min-w-[450px] lg:grid-cols-3';
 
   return (
     <div className="min-w-0 rounded-lg border border-cyan-100 bg-cyan-50/70 p-3 dark:border-cyan-400/20 dark:bg-cyan-400/10 sm:p-4">
