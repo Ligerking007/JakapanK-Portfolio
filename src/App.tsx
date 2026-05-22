@@ -31,6 +31,7 @@ import { profile } from './data/profile';
 const appBasePath = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const appBaseSegment = appBasePath.replace(/^\/+|\/+$/g, '');
 
+// Keep public asset URLs valid in local dev and GitHub Pages, while avoiding duplicated base paths.
 function assetPath(path: string) {
   if (/^(https?:|data:|mailto:|#)/.test(path)) {
     return path;
@@ -819,7 +820,12 @@ function ExpandablePanel({
   stats: { label: string; value: number | string; icon: LucideIcon }[];
   title: string;
 }) {
-  const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  const [isExpanded, setIsExpanded] = useState(() => {
+    // Dense archive panels start collapsed on mobile to keep Projects and Certificates scannable.
+    const isMobileViewport = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+
+    return defaultExpanded && !isMobileViewport;
+  });
   const statsGridClass =
     stats.length === 1
       ? 'grid grid-cols-1 gap-2 lg:w-[150px]'

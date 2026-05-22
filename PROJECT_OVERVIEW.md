@@ -147,6 +147,28 @@ src/data/certificates.ts
 src/data/before2021.ts
 ```
 
+## Architecture Diagram
+
+```mermaid
+flowchart TD
+  visitor[Visitor browser] --> pages[GitHub Pages static hosting]
+  pages --> app[React + Vite single-page app]
+  app --> ui[App sections and reusable UI components]
+  app --> data[Static TypeScript data files]
+  app --> assets[Public assets]
+  data --> i18n[src/data/i18n.ts]
+  data --> profile[src/data/profile.ts]
+  data --> certs[src/data/certificates.ts]
+  data --> archive[src/data/before2021.ts]
+  assets --> images[Profile, favicon, Open Graph, screenshots]
+  assets --> evidence[Certificates and before-2021 evidence files]
+  repo[Push to main] --> actions[GitHub Actions]
+  actions --> build[Vite production build]
+  build --> pages
+```
+
+The site is intentionally static: React renders from local TypeScript data and files under `public/`, while GitHub Actions publishes the built `dist` output to GitHub Pages.
+
 ## Deployment
 
 The project is configured for the GitHub repository name:
