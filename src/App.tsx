@@ -813,19 +813,16 @@ function ExpandablePanel({
         {isExpanded ? collapseLabel : expandLabel}
         <ChevronDown className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} size={17} />
       </button>
-      <AnimatePresence initial={false}>
-        {isExpanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.28, ease: 'easeOut' }}
-            className="overflow-hidden"
-          >
-            <div className="pt-5">{children}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        initial={false}
+        animate={{ height: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
+        transition={{ duration: 0.28, ease: 'easeOut' }}
+        className="overflow-hidden"
+        aria-hidden={!isExpanded}
+        style={{ pointerEvents: isExpanded ? 'auto' : 'none' }}
+      >
+        <div className="pt-5">{children}</div>
+      </motion.div>
     </div>
   );
 }
