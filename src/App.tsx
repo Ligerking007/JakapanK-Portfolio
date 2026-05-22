@@ -409,18 +409,18 @@ function Hero({ content }: { content: LocalizedContent }) {
               </div>
             </div>
           </motion.div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
           {content.metrics.map((metric) => (
             <motion.div
               key={metric.label}
               variants={fadeUp}
               transition={motionSettings.transition}
               whileHover={{ y: -5 }}
-              className="rounded-lg border border-slate-200 bg-white p-5 shadow-card backdrop-blur transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-none dark:hover:bg-white/[0.12]"
+              className="rounded-lg border border-slate-200 bg-white p-4 shadow-card backdrop-blur transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-none dark:hover:bg-white/[0.12] sm:p-5"
             >
-              <metric.icon className="mb-4 text-cyan-700 dark:text-cyan-300" size={26} />
-              <p className="text-2xl font-bold text-navy-950 dark:text-white">{metric.value}</p>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{metric.label}</p>
+              <metric.icon className="mb-3 text-cyan-700 dark:text-cyan-300 sm:mb-4" size={24} />
+              <p className="text-xl font-bold text-navy-950 dark:text-white sm:text-2xl">{metric.value}</p>
+              <p className="mt-1 text-xs leading-tight text-slate-600 dark:text-slate-300 sm:text-sm">{metric.label}</p>
             </motion.div>
           ))}
           </div>
@@ -857,7 +857,7 @@ function ExpandablePanel({
             <ChevronDown className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} size={16} />
           </button>
         </div>
-        <div className="grid gap-2 sm:grid-cols-2 lg:min-w-[300px]">
+        <div className="grid grid-cols-2 gap-2 lg:min-w-[300px]">
           {stats.map((stat) => (
             <div key={stat.label} className="rounded-lg border border-cyan-100 bg-white p-2.5 dark:border-cyan-400/20 dark:bg-slate-950/40">
               <stat.icon className="text-cyan-700 dark:text-cyan-300" size={17} />
