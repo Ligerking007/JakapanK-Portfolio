@@ -119,7 +119,7 @@ const english: LocalizedContent = {
     { label: 'Contact', href: '#contact', description: 'Professional links' },
   ],
   hero: {
-    eyebrow: 'Full Stack Developer · Web · Mobile · Backend',
+    eyebrow: 'Full Stack Developer',
     summaryTitle: 'Enterprise Software Delivery',
     role: 'Senior Software Developer',
     summary:
@@ -128,21 +128,21 @@ const english: LocalizedContent = {
     viewProjects: 'View Projects',
     contactMe: 'Contact Me',
     portfolio: 'Portfolio',
-    tagline: 'AI-assisted engineering for reliable software delivery.',
+    tagline: 'Building smarter systems through AI integration and AI-assisted development.',
   },
   heroHighlights: [
     {
-      title: 'Cross-Platform Delivery',
+      title: 'Cross-Platform Engineering',
       description: 'React web apps, .NET Core and Node.js APIs, Android/iOS, React Native, and Flutter.',
       icon: Smartphone,
     },
     {
       title: 'AI Integration & Engineering',
-      description: 'Applying AI to software systems and workflows for code review, error investigation, requirement analysis, and secure process improvement.',
+      description: 'Applying AI to software systems and workflows, including code review, error investigation, requirement analysis.',
       icon: Lightbulb,
     },
     {
-      title: 'Delivery & DevOps Practice',
+      title: 'Agile & DevOps Practice',
       description: 'Agile delivery, Azure DevOps CI/CD, code review, release coordination, and production support.',
       icon: ServerCog,
     },
@@ -362,7 +362,7 @@ const thai: LocalizedContent = {
     { label: 'ติดต่อ', href: '#contact', description: 'ช่องทาง professional' },
   ],
   hero: {
-    eyebrow: 'นักพัฒนาซอฟต์แวร์ที่ทำงานได้ครบวงจร · เว็บ · มือถือ · หลังบ้าน',
+    eyebrow: 'นักพัฒนาซอฟต์แวร์ที่ทำงานได้ครบวงจร',
     summaryTitle: 'การส่งมอบซอฟต์แวร์ระดับองค์กร',
     role: 'นักพัฒนาซอฟต์แวร์อาวุโส',
     summary:
@@ -371,21 +371,21 @@ const thai: LocalizedContent = {
     viewProjects: 'ดูโปรเจกต์',
     contactMe: 'ติดต่อฉัน',
     portfolio: 'ผลงาน',
-    tagline: 'วิศวกรรมซอฟต์แวร์ที่ใช้ AI ช่วย เพื่อการส่งมอบงานที่เชื่อถือได้',
+    tagline: 'สร้างระบบที่ชาญฉลาดขึ้น ด้วยการเชื่อมต่อ AI และการใช้ AI ช่วยพัฒนา',
   },
   heroHighlights: [
     {
-      title: 'ส่งมอบหลายแพลตฟอร์ม',
+      title: 'วิศวกรรมซอฟต์แวร์หลายแพลตฟอร์ม',
       description: 'React web apps, .NET Core และ Node.js APIs, Android/iOS, React Native และ Flutter',
       icon: Smartphone,
     },
     {
       title: 'การเชื่อมต่อ AI และงานวิศวกรรมซอฟต์แวร์',
-      description: 'ประยุกต์ใช้ AI กับระบบและ workflow เพื่อช่วย review code, วิเคราะห์ error, วิเคราะห์ requirement และปรับปรุงกระบวนการอย่างปลอดภัย',
+      description: 'ประยุกต์ใช้ AI กับระบบและ workflow เช่น review code, วิเคราะห์ error, วิเคราะห์ requirement',
       icon: Lightbulb,
     },
     {
-      title: 'การส่งมอบงานและ DevOps',
+      title: 'แนวทางปฏิบัติแบบ Agile และ DevOps',
       description: 'Agile delivery, Azure DevOps CI/CD, Code review, Release coordination และ Production support',
       icon: ServerCog,
     },

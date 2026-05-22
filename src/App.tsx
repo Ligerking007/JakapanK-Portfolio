@@ -365,7 +365,7 @@ function Hero({ content }: { content: LocalizedContent }) {
                 </span>
               </motion.div>
 
-              <motion.h2 variants={fadeUp} transition={motionSettings.transition} className="mt-6 text-2xl font-bold tracking-tight text-navy-950 dark:text-white sm:mt-8 sm:text-3xl">
+              <motion.h2 variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-2xl font-bold tracking-tight text-navy-950 dark:text-white sm:mt-5 sm:text-3xl">
                 {content.hero.summaryTitle}
               </motion.h2>
 
