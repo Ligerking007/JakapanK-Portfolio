@@ -842,7 +842,7 @@ function ExpandablePanel({
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
   return (
-    <div className="rounded-lg border border-cyan-100 bg-cyan-50/70 p-4 dark:border-cyan-400/20 dark:bg-cyan-400/10 sm:p-5">
+    <div className="min-w-0 rounded-lg border border-cyan-100 bg-cyan-50/70 p-4 dark:border-cyan-400/20 dark:bg-cyan-400/10 sm:p-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-800 dark:text-cyan-200">{eyebrow}</p>
@@ -889,30 +889,30 @@ function LegacyProjectCard({
   label: string;
 }) {
   return (
-    <motion.article className="card overflow-hidden">
-      <div className="grid gap-0 xl:grid-cols-[0.72fr_1fr]">
+    <motion.article className="card min-w-0 overflow-hidden">
+      <div className="grid min-w-0 gap-0 xl:grid-cols-[0.72fr_1fr]">
         {group.preview && (
           <a href={publicAsset(group.preview)} target="_blank" rel="noreferrer" className="block bg-slate-100 dark:bg-slate-800">
-            <img src={publicAsset(group.preview)} alt={group.title} className="h-full min-h-56 w-full object-cover" loading="lazy" />
+            <img src={publicAsset(group.preview)} alt={group.title} className="h-full min-h-56 w-full max-w-full object-cover" loading="lazy" />
           </a>
         )}
-        <div className={`p-5 sm:p-6 ${group.preview ? '' : 'xl:col-span-2'}`}>
+        <div className={`min-w-0 p-5 sm:p-6 ${group.preview ? '' : 'xl:col-span-2'}`}>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{group.category}</p>
-              <h3 className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{group.title}</h3>
+            <div className="min-w-0">
+              <p className="break-words text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{group.category}</p>
+              <h3 className="mt-2 break-words text-xl font-bold text-navy-950 dark:text-white">{group.title}</h3>
             </div>
-            <span className="rounded-full bg-cyan-50 px-3 py-1.5 text-xs font-bold text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-100">{group.period}</span>
+            <span className="w-fit max-w-full rounded-full bg-cyan-50 px-3 py-1.5 text-xs font-bold text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-100">{group.period}</span>
           </div>
-          <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-slate-300">{group.summary}</p>
+          <p className="mt-3 break-words text-sm leading-6 text-slate-700 dark:text-slate-300">{group.summary}</p>
           <div className="mt-4 flex flex-wrap gap-2">
             {group.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+              <span key={tag} className="max-w-full break-words rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
                 {tag}
               </span>
             ))}
           </div>
-          <div className="mt-5 grid gap-2 sm:grid-cols-2">
+          <div className="mt-5 grid min-w-0 gap-2 sm:grid-cols-2">
             {group.links.map((link) => (
               <ArchiveFileLink key={link.file} link={link} label={label} />
             ))}
@@ -931,12 +931,12 @@ function ArchiveFileLink({ label, link }: { label: string; link: ArchiveLink }) 
       href={publicAsset(link.file)}
       target="_blank"
       rel="noreferrer"
-      className="group flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:text-cyan-800 dark:border-slate-700 dark:bg-slate-950/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:text-cyan-200"
+      className="group flex min-w-0 max-w-full items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:text-cyan-800 dark:border-slate-700 dark:bg-slate-950/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:text-cyan-200"
       title={`${label}: ${link.title}`}
     >
       <span className="flex min-w-0 items-center gap-2">
         <Icon className="shrink-0 text-cyan-700 dark:text-cyan-300" size={16} />
-        <span className="truncate">{link.title}</span>
+        <span className="min-w-0 truncate">{link.title}</span>
       </span>
       <ExternalLink className="shrink-0 text-slate-400 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-300" size={15} />
     </a>
