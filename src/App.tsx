@@ -347,14 +347,19 @@ function Hero({ content }: { content: LocalizedContent }) {
     <section id="top" className="relative overflow-hidden bg-slate-50 transition-colors dark:bg-navy-950">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(8,145,178,0.14),transparent_34%),linear-gradient(135deg,rgba(14,165,233,0.10),transparent_45%)] dark:bg-[radial-gradient(circle_at_20%_20%,rgba(56,213,255,0.18),transparent_32%),linear-gradient(135deg,rgba(14,165,233,0.14),transparent_45%)]" />
       <div className="relative mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-4 sm:px-6 sm:pb-14 sm:pt-10 md:grid-cols-[0.85fr_1.15fr] md:items-center lg:px-8 lg:pb-16 lg:pt-4">
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="order-2">
-          <p className="mb-4 hidden rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-medium text-cyan-800 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-200 sm:inline-flex">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+          className="order-2 rounded-lg border border-slate-200 bg-white p-5 shadow-card backdrop-blur dark:border-cyan-300/20 dark:bg-white/[0.08] sm:p-7"
+        >
+          <motion.p variants={fadeUp} transition={motionSettings.transition} className="hidden rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-medium text-cyan-800 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-200 sm:inline-flex">
             {content.hero.eyebrow}
-          </p>
-          <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="max-w-4xl text-4xl font-bold tracking-tight text-navy-950 dark:text-white sm:text-5xl">
+          </motion.p>
+          <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="mt-0 max-w-4xl text-4xl font-bold tracking-tight text-navy-950 dark:text-white sm:mt-5 sm:text-5xl">
             {content.profile.name}
           </motion.h1>
-          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-800 dark:text-cyan-200 sm:text-2xl">{content.hero.role}</motion.p>
+          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-3 text-xl font-semibold text-cyan-800 dark:text-cyan-200 sm:text-2xl">{content.hero.role}</motion.p>
           <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-5 max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300 sm:text-lg">{content.hero.summary}</motion.p>
           <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-7 hidden flex-col gap-3 sm:flex sm:flex-row">
             <a className="btn-primary" href="#projects">
