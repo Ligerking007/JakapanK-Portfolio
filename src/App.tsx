@@ -840,6 +840,7 @@ function ExpandablePanel({
   title: string;
 }) {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  const statsGridClass = stats.length === 1 ? 'grid gap-2 lg:min-w-[300px]' : 'grid grid-cols-2 gap-2 lg:min-w-[300px]';
 
   return (
     <div className="min-w-0 rounded-lg border border-cyan-100 bg-cyan-50/70 p-3 dark:border-cyan-400/20 dark:bg-cyan-400/10 sm:p-4">
@@ -857,7 +858,7 @@ function ExpandablePanel({
             <ChevronDown className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} size={16} />
           </button>
         </div>
-        <div className="grid grid-cols-2 gap-2 lg:min-w-[300px]">
+        <div className={statsGridClass}>
           {stats.map((stat) => (
             <div key={stat.label} className="rounded-lg border border-cyan-100 bg-white p-2.5 dark:border-cyan-400/20 dark:bg-slate-950/40">
               <stat.icon className="text-cyan-700 dark:text-cyan-300" size={17} />
