@@ -76,6 +76,7 @@ export type LocalizedContent = {
     email: string;
   };
   profile: {
+    name: string;
     about: string;
   };
   focusItems: FocusItem[];
@@ -115,7 +116,7 @@ const english: LocalizedContent = {
     { label: 'Contact', href: '#contact', description: 'Professional links' },
   ],
   hero: {
-    eyebrow: 'Senior Software Developer · Web · Backend · Mobile',
+    eyebrow: 'Full Stack · Front End · Back End · Mobile',
     role: 'Senior Software Developer',
     summary:
       'Senior Software Developer and Team Lead with 16+ years of experience delivering scalable web, backend, and mobile applications across healthcare, finance, and transportation domains.',
@@ -187,6 +188,7 @@ const english: LocalizedContent = {
     email: 'Email',
   },
   profile: {
+    name: 'Jakapan Kanta',
     about:
       'I specialize in C#, .NET, ASP.NET MVC, .NET Core APIs, React, Angular, and Android development. I work across the full software development lifecycle: Requirements, Planning, Designing, Coding, Testing, Monitoring, Controlling, Reporting, Supporting, and Coordinating. My work balances hands-on engineering, architecture, documentation, team leadership, and continuous improvement through modern tools and AI-assisted development.',
   },
@@ -338,14 +340,14 @@ const thai: LocalizedContent = {
     { label: 'ติดต่อ', href: '#contact', description: 'ช่องทาง professional' },
   ],
   hero: {
-    eyebrow: 'Senior Software Developer · Web · Backend · Mobile',
-    role: 'Senior Software Developer',
+    eyebrow: 'ทั้งระบบ · หน้าบ้าน · หลังบ้าน · มือถือ',
+    role: 'นักพัฒนาซอฟต์แวร์อาวุโส',
     summary:
-      'Senior Software Developer และ Team Lead ที่มีประสบการณ์มากกว่า 16 ปี ในการพัฒนาเว็บ Backend และ Mobile Application สำหรับธุรกิจ Healthcare, Finance และ Transportation',
+      'นักพัฒนาซอฟต์แวร์อาวุโส และหัวหน้าทีมที่มีประสบการณ์มากกว่า 16 ปี ในการพัฒนาเว็บ ส่วนหลังบ้าน และแอปพลิเคชันมือถือ สำหรับธุรกิจ การดูแลสุขภาพ การเงิน และการขนส่ง',
     viewExperience: 'ดูประสบการณ์',
     viewProjects: 'ดูโปรเจกต์',
     contactMe: 'ติดต่อฉัน',
-    portfolio: 'Portfolio',
+    portfolio: 'ผลงาน',
   },
   sections: {
     about: {
@@ -355,7 +357,7 @@ const thai: LocalizedContent = {
     },
     skills: {
       eyebrow: 'ทักษะ',
-      title: 'Technology stack',
+      title: 'ชุดเทคโนโลยี',
       description: 'จัดกลุ่มตามลักษณะงานเพื่อให้อ่านและประเมินได้เร็ว',
     },
     experience: {
@@ -410,6 +412,7 @@ const thai: LocalizedContent = {
     email: 'Email',
   },
   profile: {
+    name: 'จักรพันธ์ กันตา',
     about:
       'ผมเชี่ยวชาญ C#, .NET, ASP.NET MVC, .NET Core API, React, Angular และ Android Development มีประสบการณ์ทำงานครอบคลุม Full SDLC ตั้งแต่ Requirements, Planning, Designing, Coding, Testing, Monitoring, Controlling, Reporting, Supporting และ Coordinating โดยทำงานผสมระหว่าง Hands-on coding, System architecture, Documentation, Team leadership และการนำเครื่องมือสมัยใหม่รวมถึง AI-assisted development มาเพิ่มคุณภาพและประสิทธิภาพในการส่งมอบงาน',
   },
@@ -507,14 +510,14 @@ const thai: LocalizedContent = {
   lifecycle: ['Requirements', 'Planning', 'Designing', 'Coding', 'Testing', 'Monitoring', 'Controlling', 'Reporting', 'Supporting', 'Coordinating'],
   education: [
     {
-      school: 'NIDA Thailand',
+      school: 'National Institute of Development Administration (NIDA)',
       degree: "Master's degree, Information Technology Management",
       period: 'Jan 2012 - Jun 2014',
       grade: 'GPA 3.53',
       detail: 'Job portal project, NoSQL',
     },
     {
-      school: "School of Information Technology, King Mongkut's Institute of Technology Ladkrabang",
+      school: "King Mongkut's Institute of Technology Ladkrabang (KMITL)",
       degree: "Bachelor's degree, Information Technology",
       period: 'May 2006 - May 2010',
       grade: 'GPA 3.07',

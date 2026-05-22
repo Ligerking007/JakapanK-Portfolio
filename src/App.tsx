@@ -161,7 +161,7 @@ function App() {
         <Education content={content} />
         <Contact content={content} />
       </main>
-      <Footer />
+      <Footer content={content} />
     </div>
   );
 }
@@ -195,7 +195,7 @@ function Header({ activeSection, content, isMenuOpen, language, setActiveSection
             JK
           </span>
           <span className="block">
-            <span className="block text-sm font-semibold leading-tight">{profile.name}</span>
+            <span className="block text-sm font-semibold leading-tight">{content.profile.name}</span>
             <span className="block text-xs text-slate-500 dark:text-slate-300">Portfolio</span>
           </span>
         </a>
@@ -352,7 +352,7 @@ function Hero({ content }: { content: LocalizedContent }) {
             {content.hero.eyebrow}
           </p>
           <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="max-w-4xl text-4xl font-bold tracking-tight text-navy-950 dark:text-white sm:text-5xl">
-            {profile.name}
+            {content.profile.name}
           </motion.h1>
           <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-4 text-xl font-semibold text-cyan-800 dark:text-cyan-200 sm:text-2xl">{content.hero.role}</motion.p>
           <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-5 max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300 sm:text-lg">{content.hero.summary}</motion.p>
@@ -388,7 +388,7 @@ function Hero({ content }: { content: LocalizedContent }) {
               </div>
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-800 dark:text-cyan-200">{content.hero.portfolio}</p>
-                <p className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{profile.name}</p>
+                <p className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{content.profile.name}</p>
                 <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">.NET · React · Azure · Mobile</p>
                 <div className="mt-4 flex justify-center gap-3 sm:justify-start md:justify-center xl:justify-start">
                   <a className="inline-grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-cyan-800 transition hover:bg-cyan-50 dark:border-white/15 dark:bg-white/[0.06] dark:text-cyan-100 dark:hover:bg-white/[0.12]" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
@@ -956,11 +956,11 @@ function Contact({ content }: { content: LocalizedContent }) {
   );
 }
 
-function Footer() {
+function Footer({ content }: { content: LocalizedContent }) {
   return (
     <footer className="border-t border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-500 transition-colors dark:border-slate-800 dark:bg-navy-950 dark:text-slate-400">
       <p>
-        © {new Date().getFullYear()} <span className="font-semibold text-navy-950 dark:text-white">{profile.name}</span>. Built with React, Vite, TypeScript, Tailwind CSS, and GitHub Pages.
+        © {new Date().getFullYear()} <span className="font-semibold text-navy-950 dark:text-white">{content.profile.name}</span>. Built with React, Vite, TypeScript, Tailwind CSS, and GitHub Pages.
       </p>
     </footer>
   );
