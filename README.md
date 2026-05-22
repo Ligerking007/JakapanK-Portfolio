@@ -122,6 +122,10 @@ public/og-image.png
 
 Replace `public/profile.jpg` with the final profile photo when needed.
 
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
 ## Project Structure
 
 ```text
