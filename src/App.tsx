@@ -688,7 +688,7 @@ function Projects({ content }: { content: LocalizedContent }) {
           </div>
         </ExpandablePanel>
 
-        <div className="mt-5">
+        <div className="mt-4">
           <ExpandablePanel
             collapseLabel={content.labels.collapse}
             defaultExpanded={false}
@@ -779,7 +779,7 @@ function Certificates({ content }: { content: LocalizedContent }) {
           </div>
         </ExpandablePanel>
 
-        <div className="mt-5">
+        <div className="mt-4">
           <ExpandablePanel
             collapseLabel={content.labels.collapse}
             defaultExpanded={false}
@@ -842,31 +842,31 @@ function ExpandablePanel({
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
   return (
-    <div className="min-w-0 rounded-lg border border-cyan-100 bg-cyan-50/70 p-4 dark:border-cyan-400/20 dark:bg-cyan-400/10 sm:p-5">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-800 dark:text-cyan-200">{eyebrow}</p>
-          <h3 className="mt-2 text-2xl font-bold text-navy-950 dark:text-white">{title}</h3>
+    <div className="min-w-0 rounded-lg border border-cyan-100 bg-cyan-50/70 p-3 dark:border-cyan-400/20 dark:bg-cyan-400/10 sm:p-4">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0">
+          <p className="break-words text-[11px] font-bold uppercase tracking-[0.14em] text-cyan-800 dark:text-cyan-200 sm:text-xs">{eyebrow}</p>
+          <h3 className="mt-1.5 break-words text-xl font-bold text-navy-950 dark:text-white sm:text-2xl">{title}</h3>
+          <button
+            type="button"
+            onClick={() => setIsExpanded((current) => !current)}
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200 bg-white px-3 py-2.5 text-sm font-bold text-cyan-800 transition hover:border-cyan-300 hover:bg-cyan-50 dark:border-cyan-300/30 dark:bg-slate-950/40 dark:text-cyan-100 dark:hover:bg-cyan-400/10 sm:w-auto"
+            aria-expanded={isExpanded}
+          >
+            {isExpanded ? collapseLabel : expandLabel}
+            <ChevronDown className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} size={16} />
+          </button>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:min-w-[360px]">
+        <div className="grid gap-2 sm:grid-cols-2 lg:min-w-[300px]">
           {stats.map((stat) => (
-            <div key={stat.label} className="rounded-lg border border-cyan-100 bg-white p-3 dark:border-cyan-400/20 dark:bg-slate-950/40">
-              <stat.icon className="text-cyan-700 dark:text-cyan-300" size={18} />
-              <p className="mt-2 text-xl font-bold text-navy-950 dark:text-white">{stat.value}</p>
-              <p className="text-xs font-semibold text-slate-600 dark:text-slate-300">{stat.label}</p>
+            <div key={stat.label} className="rounded-lg border border-cyan-100 bg-white p-2.5 dark:border-cyan-400/20 dark:bg-slate-950/40">
+              <stat.icon className="text-cyan-700 dark:text-cyan-300" size={17} />
+              <p className="mt-1.5 text-lg font-bold leading-none text-navy-950 dark:text-white">{stat.value}</p>
+              <p className="mt-1 text-xs font-semibold leading-tight text-slate-600 dark:text-slate-300">{stat.label}</p>
             </div>
           ))}
         </div>
       </div>
-      <button
-        type="button"
-        onClick={() => setIsExpanded((current) => !current)}
-        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-cyan-200 bg-white px-4 py-3 text-sm font-bold text-cyan-800 transition hover:border-cyan-300 hover:bg-cyan-50 dark:border-cyan-300/30 dark:bg-slate-950/40 dark:text-cyan-100 dark:hover:bg-cyan-400/10 sm:w-auto"
-        aria-expanded={isExpanded}
-      >
-        {isExpanded ? collapseLabel : expandLabel}
-        <ChevronDown className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} size={17} />
-      </button>
       <motion.div
         initial={false}
         animate={{ height: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
@@ -875,7 +875,7 @@ function ExpandablePanel({
         aria-hidden={!isExpanded}
         style={{ pointerEvents: isExpanded ? 'auto' : 'none' }}
       >
-        <div className="pt-5">{children}</div>
+        <div className="pt-4">{children}</div>
       </motion.div>
     </div>
   );

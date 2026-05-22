@@ -71,23 +71,23 @@ export const focusItems: FocusItem[] = [
 export const skillCategories: SkillCategory[] = [
   {
     title: 'Backend',
-    skills: ['C#', '.NET', '.NET Core API', 'ASP.NET MVC', 'Node.js', 'TypeScript'],
+    skills: ['C#.NET', '.NET Core API', 'ASP.NET MVC', 'Node.js'],
   },
   {
     title: 'Frontend',
-    skills: ['React', 'Angular', 'JavaScript', 'jQuery', 'Bootstrap', 'Tailwind CSS'],
+    skills: ['React', 'ASP.Net', 'Angular', 'TypeScript', 'jQuery', 'JavaScript', 'Bootstrap', 'Tailwind CSS', 'CSS'],
   },
   {
     title: 'Mobile',
-    skills: ['Android Kotlin', 'Android Java', 'iOS Swift', 'Azure Communication Services'],
+    skills: ['Android Kotlin', 'React Native', 'Flutter', 'iOS Swift'],
   },
   {
     title: 'DevOps & Cloud',
-    skills: ['Azure', 'Docker', 'Kubernetes', 'CI/CD', 'TeamCity', 'Octopus', 'GitHub Actions'],
+    skills: ['Azure', 'CI/CD', 'TeamCity', 'Octopus', 'GitHub Actions', 'Docker', 'Kubernetes'],
   },
   {
     title: 'Database & Reporting',
-    skills: ['Microsoft SQL Server', 'PostgreSQL', 'SQLite', 'Crystal Reports', 'RDLC', 'SSRS'],
+    skills: ['Microsoft SQL Server', 'PostgreSQL', 'MongoDB', 'SQLite', 'Crystal Reports', 'RDLC', 'SSRS'],
   },
   {
     title: 'Quality & Process',
@@ -95,7 +95,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: 'UI Frameworks',
-    skills: ['Telerik', 'DevExpress', 'Kendo UI', 'MDBootstrap', 'AJAX'],
+    skills: ['Telerik', 'DevExpress', 'Kendo UI', 'MDBootstrap', 'jQuery UI'],
   },
   {
     title: 'Architecture',
@@ -210,14 +210,14 @@ export const lifecycle = [
 
 export const education = [
   {
-    school: 'NIDA Thailand',
+    school: 'National Institute of Development Administration (NIDA)',
     degree: "Master's degree, Information Technology Management",
     period: 'Jan 2012 - Jun 2014',
     grade: 'GPA 3.53',
     detail: 'Job portal project, NoSQL',
   },
   {
-    school: "School of Information Technology, King Mongkut's Institute of Technology Ladkrabang",
+    school: "King Mongkut's Institute of Technology Ladkrabang (KMITL)",
     degree: "Bachelor's degree, Information Technology",
     period: 'May 2006 - May 2010',
     grade: 'GPA 3.07',
