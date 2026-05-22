@@ -18,26 +18,23 @@ The site is designed for interviewer presentation, resume sharing, professional 
 
 The UI uses a corporate navy, blue, and cyan visual system with clean card-based sections, responsive layouts, subtle Framer Motion animation, and strong typography. The experience is mobile-first, supports light and dark themes, and keeps navigation clear on desktop and mobile screens.
 
+The current Hero direction emphasizes enterprise delivery, cross-platform engineering, AI integration, AI-assisted development, Agile delivery, and Azure DevOps CI/CD practice.
+
 ## Main Sections
 
 1. **Hero**
    - Profile photo
    - Name
-   - Role
-   - Short professional summary
-   - Resume, Projects, and Contact buttons
+   - Portfolio tagline
+   - Enterprise software delivery summary
+   - Cross-platform engineering, AI integration, and Agile / DevOps value cards
 
-2. **Section Navigator**
-   - Compact quick navigation
-   - Desktop card layout
-   - Mobile horizontal scroll layout
-
-3. **About**
+2. **About**
    - Professional overview
    - Work focus ratio
    - Full SDLC coverage: Requirements, Planning, Designing, Coding, Testing, Monitoring, Controlling, Reporting, Supporting, and Coordinating
 
-4. **Skills**
+3. **Skills**
    - Backend
    - Frontend
    - Mobile
@@ -47,28 +44,28 @@ The UI uses a corporate navy, blue, and cyan visual system with clean card-based
    - UI Frameworks
    - Architecture
 
-5. **Experience Timeline**
+4. **Experience Timeline**
    - Bumrungrad International Hospital
    - Honda Leasing Thailand
    - Onelink Technology
    - Key achievements for each role
 
-6. **Projects**
+5. **Projects**
    - Current phase from 2022 onward
    - Earlier phase up to 2021
    - Expandable archive cards for older sample projects
 
-7. **Certificates**
+6. **Certificates**
    - Recent credentials
    - Earlier credentials up to 2021
    - Provider-based certificate grouping
    - Expandable panels for large certificate lists
 
-8. **Education**
+7. **Education**
    - Master's degree in Information Technology Management
    - Bachelor's degree in Information Technology
 
-9. **Contact**
+8. **Contact**
    - LinkedIn
    - GitHub
    - Email
@@ -80,10 +77,12 @@ The UI uses a corporate navy, blue, and cyan visual system with clean card-based
 - Light / Dark theme toggle
 - Mobile-friendly header and navigation
 - Framer Motion hover and accordion animation
+- Hero value cards for cross-platform engineering, AI integration, and Agile / DevOps practice
 - Current and archived project evidence
 - Current and archived certificate evidence
 - Open Graph metadata for link sharing
 - Favicon and site icon
+- Vite base-path-safe public asset handling for GitHub Pages
 - MIT License
 - Static GitHub Pages deployment without backend services
 
@@ -180,4 +179,5 @@ GitHub Pages deployment runs through:
 - Add earlier project or certificate evidence under `public/before2021/` and register curated items in `src/data/before2021.ts`.
 - Keep filenames URL-safe for GitHub Pages by avoiding spaces, `#`, and special characters.
 - Update Open Graph assets when the visual direction changes.
+- Keep `index.html` public asset references root-relative, for example `/favicon.svg`, so Vite can apply `base: '/JakapanK-Portfolio/'` without duplicating the path.
 - Run `npm run lint` and `npm run build` before pushing changes.

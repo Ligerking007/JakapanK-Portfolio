@@ -11,6 +11,7 @@ Built for GitHub Pages with:
 - Lucide React icons
 - English / Thai language toggle
 - Light / Dark theme toggle
+- AI integration and AI-assisted development messaging
 - GitHub Actions deployment
 
 ## Live URL
@@ -28,6 +29,8 @@ base: '/JakapanK-Portfolio/'
 ```
 
 If the repository name changes, update this value before deploying.
+
+Public assets such as the favicon, profile photo, certificates, and archived project evidence are resolved through the Vite base path so the same build works locally and on GitHub Pages.
 
 ## Screenshots
 
@@ -104,6 +107,7 @@ src/data/profile.ts
 Update this file to adjust:
 
 - English / Thai display copy
+- Hero tagline and value cards
 - Light / Dark theme behavior in `src/App.tsx` and `src/styles.css`
 - Profile summary
 - Work focus
@@ -140,6 +144,12 @@ public/screenshots/
 ```
 
 Replace `public/profile.jpg` with the final profile photo when needed.
+
+Browser tab and share assets:
+
+- `public/favicon.svg` is used as the browser tab icon.
+- `public/og-image.png` is used for LinkedIn, GitHub, LINE, and other Open Graph previews.
+- `index.html` references public assets with root-relative paths so Vite can apply the GitHub Pages base path correctly.
 
 ## License
 

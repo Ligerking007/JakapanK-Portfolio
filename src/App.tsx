@@ -28,7 +28,23 @@ import { certificateProviders, certificates } from './data/certificates';
 import { localizedContent, type Language, type LocalizedContent } from './data/i18n';
 import { profile } from './data/profile';
 
-const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+const appBasePath = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const appBaseSegment = appBasePath.replace(/^\/+|\/+$/g, '');
+
+function assetPath(path: string) {
+  if (/^(https?:|data:|mailto:|#)/.test(path)) {
+    return path;
+  }
+
+  const cleanPath = path.replace(/^\/+/, '');
+
+  if (appBaseSegment && cleanPath.startsWith(`${appBaseSegment}/`)) {
+    return `/${cleanPath}`;
+  }
+
+  return `${appBasePath}${cleanPath}`;
+}
+
 const publicAsset = (path: string) => encodeURI(assetPath(path));
 
 type Theme = 'light' | 'dark';
