@@ -1,4 +1,4 @@
-export type CertificateProvider = 'FutureSkill' | 'LinkedIn Learning' | 'Trainocate';
+export type CertificateProvider = 'FutureSkill' | 'LinkedIn Learning' | 'SkillLane' | 'Trainocate';
 
 export type Certificate = {
   title: string;
@@ -63,7 +63,22 @@ export const certificates: Certificate[] = [
   { title: 'Swift 6 Essential Training', provider: 'LinkedIn Learning', category: 'Mobile Development', file: 'certificates/linkedin/swift-6-essential-training.pdf' },
   { title: 'Test Automation Foundations', provider: 'LinkedIn Learning', category: 'Testing & Quality', file: 'certificates/linkedin/test-automation-foundations.pdf' },
   { title: 'Writing Emails for Non-Native English Speakers', provider: 'LinkedIn Learning', category: 'Communication', file: 'certificates/linkedin/writing-emails-for-non-native-english-speakers.pdf' },
+  { title: 'Android Kotlin Development', provider: 'SkillLane', category: 'Mobile Development', file: 'certificates/skilllane/android-kotlin-certificate.pdf' },
+  { title: 'Change Management', provider: 'SkillLane', category: 'Agile & Leadership', file: 'certificates/skilllane/change-management-certificate.pdf' },
+  { title: 'Database and MySQL', provider: 'SkillLane', category: 'Database', file: 'certificates/skilllane/database-mysql-certificate.pdf' },
+  { title: 'Flutter Development', provider: 'SkillLane', category: 'Mobile Development', file: 'certificates/skilllane/flutter-certificate.pdf' },
+  { title: 'Git Version Control', provider: 'SkillLane', category: 'DevOps & Cloud', file: 'certificates/skilllane/git-certificate.pdf' },
+  { title: 'JavaScript Programming', provider: 'SkillLane', category: 'Frontend Development', file: 'certificates/skilllane/javascript-certificate.pdf' },
+  { title: 'Leadership Mindset', provider: 'SkillLane', category: 'Agile & Leadership', file: 'certificates/skilllane/leadership-mindset-certificate.pdf' },
+  { title: 'Motivating Team Members', provider: 'SkillLane', category: 'Agile & Leadership', file: 'certificates/skilllane/motivating-certificate.pdf' },
+  { title: 'Navigating Team Collaboration', provider: 'SkillLane', category: 'Agile & Leadership', file: 'certificates/skilllane/navigating-team-certificate.pdf' },
+  { title: 'Node.js and MongoDB', provider: 'SkillLane', category: 'Backend Development', file: 'certificates/skilllane/nodejs-mongodb-certificate.pdf' },
+  { title: 'Smart Leader', provider: 'SkillLane', category: 'Agile & Leadership', file: 'certificates/skilllane/smart-leader-certificate.pdf' },
+  { title: 'Team Capabilities', provider: 'SkillLane', category: 'Agile & Leadership', file: 'certificates/skilllane/team-capabilities-certificate.pdf' },
+  { title: 'Teamwork', provider: 'SkillLane', category: 'Agile & Leadership', file: 'certificates/skilllane/team-work-certificate.pdf' },
+  { title: 'TOEIC 150 Preparation', provider: 'SkillLane', category: 'Communication', file: 'certificates/skilllane/toeic150-certificate.pdf' },
+  { title: 'Web Automated Testing', provider: 'SkillLane', category: 'Testing & Quality', file: 'certificates/skilllane/web-automated-test-certificate.pdf' },
   { title: 'Microsoft Azure Fundamentals', provider: 'Trainocate', category: 'DevOps & Cloud', file: 'certificates/trainocate/microsoft-azure-fundamentals.pdf' },
 ];
 
-export const certificateProviders: CertificateProvider[] = ['LinkedIn Learning', 'FutureSkill', 'Trainocate'];
+export const certificateProviders: CertificateProvider[] = ['LinkedIn Learning', 'FutureSkill', 'SkillLane', 'Trainocate'];
