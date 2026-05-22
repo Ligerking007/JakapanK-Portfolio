@@ -1,0 +1,69 @@
+export type CertificateProvider = 'FutureSkill' | 'LinkedIn Learning' | 'Trainocate';
+
+export type Certificate = {
+  title: string;
+  provider: CertificateProvider;
+  category: string;
+  file: string;
+};
+
+export const certificates: Certificate[] = [
+  { title: 'AI for Work and Productivity', provider: 'FutureSkill', category: 'AI & Productivity', file: 'certificates/futureskill/ai-for-work-and-productivity.pdf' },
+  { title: 'ChatGPT for Business', provider: 'FutureSkill', category: 'AI & Productivity', file: 'certificates/futureskill/chatgpt-for-business.pdf' },
+  { title: 'ChatGPT Fundamentals', provider: 'FutureSkill', category: 'AI & Productivity', file: 'certificates/futureskill/chatgpt-fundamentals.pdf' },
+  { title: 'C# Programming', provider: 'FutureSkill', category: 'Backend Development', file: 'certificates/futureskill/csharp-programming.pdf' },
+  { title: 'DevOps Fundamentals', provider: 'FutureSkill', category: 'DevOps & Cloud', file: 'certificates/futureskill/devops-fundamentals.pdf' },
+  { title: 'Docker Fundamentals', provider: 'FutureSkill', category: 'DevOps & Cloud', file: 'certificates/futureskill/docker-fundamentals.pdf' },
+  { title: 'Express.js Development', provider: 'FutureSkill', category: 'Backend Development', file: 'certificates/futureskill/express-js-development.pdf' },
+  { title: 'Flutter Development', provider: 'FutureSkill', category: 'Mobile Development', file: 'certificates/futureskill/flutter-development.pdf' },
+  { title: 'Getting Started with DevOps', provider: 'FutureSkill', category: 'DevOps & Cloud', file: 'certificates/futureskill/getting-started-with-devops.pdf' },
+  { title: 'HTML, CSS, and JavaScript', provider: 'FutureSkill', category: 'Frontend Development', file: 'certificates/futureskill/html-css-javascript.pdf' },
+  { title: 'JavaScript Programming', provider: 'FutureSkill', category: 'Frontend Development', file: 'certificates/futureskill/javascript-programming.pdf' },
+  { title: 'Kubernetes Fundamentals', provider: 'FutureSkill', category: 'DevOps & Cloud', file: 'certificates/futureskill/kubernetes-fundamentals.pdf' },
+  { title: 'Monitoring and Logging', provider: 'FutureSkill', category: 'DevOps & Cloud', file: 'certificates/futureskill/monitoring-and-logging.pdf' },
+  { title: 'Node.js Development', provider: 'FutureSkill', category: 'Backend Development', file: 'certificates/futureskill/node-js-development.pdf' },
+  { title: 'NoSQL and MongoDB', provider: 'FutureSkill', category: 'Database', file: 'certificates/futureskill/nosql-mongodb.pdf' },
+  { title: 'Object-Oriented Programming', provider: 'FutureSkill', category: 'Software Engineering', file: 'certificates/futureskill/object-oriented-programming.pdf' },
+  { title: 'React Chat Application', provider: 'FutureSkill', category: 'Frontend Development', file: 'certificates/futureskill/react-chat-application.pdf' },
+  { title: 'React Components', provider: 'FutureSkill', category: 'Frontend Development', file: 'certificates/futureskill/react-components.pdf' },
+  { title: 'React Hooks', provider: 'FutureSkill', category: 'Frontend Development', file: 'certificates/futureskill/react-hooks.pdf' },
+  { title: 'React Native Development', provider: 'FutureSkill', category: 'Mobile Development', file: 'certificates/futureskill/react-native-development.pdf' },
+  { title: 'React Rendering', provider: 'FutureSkill', category: 'Frontend Development', file: 'certificates/futureskill/react-rendering.pdf' },
+  { title: 'React State Management', provider: 'FutureSkill', category: 'Frontend Development', file: 'certificates/futureskill/react-state-management.pdf' },
+  { title: 'Software Architecture', provider: 'FutureSkill', category: 'Architecture', file: 'certificates/futureskill/software-architecture.pdf' },
+  { title: 'Advanced Selenium: Automation Frameworks', provider: 'LinkedIn Learning', category: 'Testing & Quality', file: 'certificates/linkedin/advanced-selenium-automation-frameworks.pdf' },
+  { title: 'Advanced SQL: Query Tuning and Performance Optimization', provider: 'LinkedIn Learning', category: 'Database', file: 'certificates/linkedin/advanced-sql-query-tuning-performance-optimization.pdf' },
+  { title: 'Agile Software Development: Kanban for Developers', provider: 'LinkedIn Learning', category: 'Agile & Leadership', file: 'certificates/linkedin/agile-software-development-kanban-for-developers.pdf' },
+  { title: 'AI Coding Agents: GitHub Copilot and Cursor', provider: 'LinkedIn Learning', category: 'AI & Productivity', file: 'certificates/linkedin/ai-coding-agents-github-copilot-cursor.pdf' },
+  { title: 'Android Development with Kotlin for Beginners', provider: 'LinkedIn Learning', category: 'Mobile Development', file: 'certificates/linkedin/android-development-with-kotlin-for-beginners.pdf' },
+  { title: 'Android Phone and Tablet Essential Training', provider: 'LinkedIn Learning', category: 'Mobile Development', file: 'certificates/linkedin/android-phone-tablet-essential-training.pdf' },
+  { title: 'Angular Essential Training', provider: 'LinkedIn Learning', category: 'Frontend Development', file: 'certificates/linkedin/angular-essential-training.pdf' },
+  { title: 'Bootstrap 5 Essential Training', provider: 'LinkedIn Learning', category: 'Frontend Development', file: 'certificates/linkedin/bootstrap-5-essential-training.pdf' },
+  { title: 'Build AI-Enhanced CI/CD Pipelines with Copilot and Claude', provider: 'LinkedIn Learning', category: 'AI & Productivity', file: 'certificates/linkedin/build-ai-enhanced-ci-cd-pipelines-with-copilot-and-claude.pdf' },
+  { title: 'Build and Deploy Anywhere with OpenAI GPT-5 Codex', provider: 'LinkedIn Learning', category: 'AI & Productivity', file: 'certificates/linkedin/build-and-deploy-anywhere-with-openai-gpt-5-codex.pdf' },
+  { title: 'Building Modern Projects with React', provider: 'LinkedIn Learning', category: 'Frontend Development', file: 'certificates/linkedin/building-modern-projects-with-react.pdf' },
+  { title: 'Create CRM Mobile Application with React Native', provider: 'LinkedIn Learning', category: 'Mobile Development', file: 'certificates/linkedin/create-crm-mobile-application-with-react-native.pdf' },
+  { title: 'Docker on Azure', provider: 'LinkedIn Learning', category: 'DevOps & Cloud', file: 'certificates/linkedin/docker-on-azure.pdf' },
+  { title: 'Docker: Your First Project', provider: 'LinkedIn Learning', category: 'DevOps & Cloud', file: 'certificates/linkedin/docker-your-first-project.pdf' },
+  { title: 'Flutter Essential Training: Build for Multiple Platforms', provider: 'LinkedIn Learning', category: 'Mobile Development', file: 'certificates/linkedin/flutter-essential-training-build-for-multiple-platforms.pdf' },
+  { title: 'GitHub Actions for CI/CD', provider: 'LinkedIn Learning', category: 'DevOps & Cloud', file: 'certificates/linkedin/github-actions-for-ci-cd.pdf' },
+  { title: 'GitHub Copilot for Developers', provider: 'LinkedIn Learning', category: 'AI & Productivity', file: 'certificates/linkedin/github-copilot-for-developers-microsoft-press.pdf' },
+  { title: 'GitHub Copilot for Software Developers', provider: 'LinkedIn Learning', category: 'AI & Productivity', file: 'certificates/linkedin/github-copilot-for-software-developers-microsoft-press.pdf' },
+  { title: 'iOS 17 Development Essential Training', provider: 'LinkedIn Learning', category: 'Mobile Development', file: 'certificates/linkedin/ios-17-development-essential-training.pdf' },
+  { title: 'Leading and Motivating People with Different Personalities', provider: 'LinkedIn Learning', category: 'Agile & Leadership', file: 'certificates/linkedin/leading-and-motivating-people-with-different-personalities.pdf' },
+  { title: 'Learning Jira: Sprints, Releases, Bugs, and Development Tracking', provider: 'LinkedIn Learning', category: 'Agile & Leadership', file: 'certificates/linkedin/learning-jira-sprints-releases-bugs-development-tracking.pdf' },
+  { title: 'Learning OWASP Top 10', provider: 'LinkedIn Learning', category: 'Security', file: 'certificates/linkedin/learning-owasp-top-10.pdf' },
+  { title: 'MongoDB Essential Training', provider: 'LinkedIn Learning', category: 'Database', file: 'certificates/linkedin/mongodb-essential-training.pdf' },
+  { title: 'Node.js Essential Training', provider: 'LinkedIn Learning', category: 'Backend Development', file: 'certificates/linkedin/node-js-essential-training.pdf' },
+  { title: 'Programming Foundations: Web Security', provider: 'LinkedIn Learning', category: 'Security', file: 'certificates/linkedin/programming-foundations-web-security.pdf' },
+  { title: 'React Native Ecosystem and Workflow', provider: 'LinkedIn Learning', category: 'Mobile Development', file: 'certificates/linkedin/react-native-ecosystem-and-workflow.pdf' },
+  { title: 'Securing ASP.NET Core Apps: Advanced Web Application Security', provider: 'LinkedIn Learning', category: 'Security', file: 'certificates/linkedin/securing-aspnet-core-apps-advanced-web-application-security.pdf' },
+  { title: 'Selenium Essential Training', provider: 'LinkedIn Learning', category: 'Testing & Quality', file: 'certificates/linkedin/selenium-essential-training.pdf' },
+  { title: 'Software Architecture Patterns for Developers', provider: 'LinkedIn Learning', category: 'Architecture', file: 'certificates/linkedin/software-architecture-patterns-for-developers.pdf' },
+  { title: 'Swift 6 Essential Training', provider: 'LinkedIn Learning', category: 'Mobile Development', file: 'certificates/linkedin/swift-6-essential-training.pdf' },
+  { title: 'Test Automation Foundations', provider: 'LinkedIn Learning', category: 'Testing & Quality', file: 'certificates/linkedin/test-automation-foundations.pdf' },
+  { title: 'Writing Emails for Non-Native English Speakers', provider: 'LinkedIn Learning', category: 'Communication', file: 'certificates/linkedin/writing-emails-for-non-native-english-speakers.pdf' },
+  { title: 'Microsoft Azure Fundamentals', provider: 'Trainocate', category: 'DevOps & Cloud', file: 'certificates/trainocate/microsoft-azure-fundamentals.pdf' },
+];
+
+export const certificateProviders: CertificateProvider[] = ['LinkedIn Learning', 'FutureSkill', 'Trainocate'];

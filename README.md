@@ -78,6 +78,7 @@ Most portfolio content is stored in:
 
 ```text
 src/data/i18n.ts
+src/data/certificates.ts
 src/data/profile.ts
 ```
 
@@ -90,8 +91,17 @@ Update this file to adjust:
 - Skills
 - Experience timeline
 - Projects
+- Certificates
 - Education
 - Contact links
+
+Certificate PDF files are stored in:
+
+```text
+public/certificates/
+```
+
+Add new PDF files under the provider folder, then register them in `src/data/certificates.ts`.
 
 Profile and share assets are stored in:
 
@@ -113,8 +123,11 @@ Replace `public/profile.jpg` with the final profile photo when needed.
 │   ├── og-image.png
 │   ├── og-image.svg
 │   ├── profile-avatar.svg
-│   └── profile.jpg
+│   ├── profile.jpg
+│   └── certificates/
 ├── src/
+│   ├── data/certificates.ts
+│   ├── data/i18n.ts
 │   ├── data/profile.ts
 │   ├── App.tsx
 │   ├── main.tsx

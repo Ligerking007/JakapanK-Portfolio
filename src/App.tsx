@@ -1,6 +1,9 @@
 import {
   ArrowRight,
+  Award,
   CheckCircle2,
+  ExternalLink,
+  FileText,
   Github,
   Linkedin,
   Mail,
@@ -12,6 +15,7 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { certificateProviders, certificates } from './data/certificates';
 import { localizedContent, type Language, type LocalizedContent } from './data/i18n';
 import { profile } from './data/profile';
 
@@ -117,6 +121,7 @@ function App() {
         <Skills content={content} />
         <Experience content={content} />
         <Projects content={content} />
+        <Certificates content={content} />
         <Education content={content} />
         <Contact content={content} />
       </main>
@@ -376,7 +381,7 @@ function SectionNavigator({ activeSection, content }: { activeSection: string; c
       <motion.div
         {...motionSettings}
         variants={staggerContainer}
-        className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-6 lg:px-8"
+        className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8 xl:grid-cols-7"
       >
         {content.sectionSummaries.map((item) => {
           const isActive = activeSection === item.href.replace('#', '');
@@ -599,6 +604,80 @@ function Projects({ content }: { content: LocalizedContent }) {
             </div>
           </motion.article>
         ))}
+      </motion.div>
+    </section>
+  );
+}
+
+function Certificates({ content }: { content: LocalizedContent }) {
+  const motionSettings = useMotionSettings();
+  const categories = Array.from(new Set(certificates.map((certificate) => certificate.category))).sort();
+  const stats = [
+    { label: content.labels.certificatesCount, value: certificates.length, icon: Award },
+    { label: content.labels.providers, value: certificateProviders.length, icon: FileText },
+    { label: content.labels.topics, value: categories.length, icon: CheckCircle2 },
+  ];
+
+  return (
+    <section id="certificates" className="section bg-white transition-colors dark:bg-slate-950">
+      <SectionHeading
+        eyebrow={content.sections.certificates.eyebrow}
+        title={content.sections.certificates.title}
+        description={content.sections.certificates.description}
+      />
+      <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {stats.map((stat) => (
+            <motion.div key={stat.label} variants={fadeUp} transition={motionSettings.transition} className="rounded-lg border border-cyan-100 bg-cyan-50/70 p-5 dark:border-cyan-400/20 dark:bg-cyan-400/10">
+              <stat.icon className="text-cyan-700 dark:text-cyan-300" size={24} />
+              <p className="mt-4 text-3xl font-bold text-navy-950 dark:text-white">{stat.value}</p>
+              <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-8 grid gap-8">
+          {certificateProviders.map((provider) => {
+            const providerCertificates = certificates.filter((certificate) => certificate.provider === provider);
+
+            return (
+              <motion.div key={provider} variants={fadeUp} transition={motionSettings.transition} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/70 sm:p-5">
+                <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{provider}</p>
+                    <h3 className="mt-1 text-xl font-bold text-navy-950 dark:text-white">{providerCertificates.length} {content.labels.certificatesCount}</h3>
+                  </div>
+                </div>
+                <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                  {providerCertificates.map((certificate) => (
+                    <motion.a
+                      key={certificate.file}
+                      href={assetPath(certificate.file)}
+                      target="_blank"
+                      rel="noreferrer"
+                      variants={fadeUp}
+                      transition={motionSettings.transition}
+                      whileHover={{ y: -4 }}
+                      className="group flex min-h-36 flex-col justify-between rounded-lg border border-slate-200 bg-white p-4 shadow-sm transition hover:border-cyan-200 hover:shadow-card dark:border-slate-700 dark:bg-slate-950/80 dark:hover:border-cyan-500/50"
+                    >
+                      <span>
+                        <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-800 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-100">
+                          <Award size={14} />
+                          {certificate.category}
+                        </span>
+                        <span className="mt-3 block text-base font-bold leading-6 text-navy-950 dark:text-white">{certificate.title}</span>
+                      </span>
+                      <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-cyan-800 transition group-hover:text-cyan-700 dark:text-cyan-200 dark:group-hover:text-cyan-100">
+                        {content.labels.viewCertificate}
+                        <ExternalLink size={15} />
+                      </span>
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </motion.div>
     </section>
   );

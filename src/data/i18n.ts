@@ -46,6 +46,7 @@ export type LocalizedContent = {
     skills: SectionCopy;
     experience: SectionCopy;
     projects: SectionCopy;
+    certificates: SectionCopy;
     education: SectionCopy;
     contact: SectionCopy;
   };
@@ -54,6 +55,10 @@ export type LocalizedContent = {
     workFocus: string;
     lifecycle: string;
     keyAchievements: string;
+    viewCertificate: string;
+    certificatesCount: string;
+    providers: string;
+    topics: string;
     linkedin: string;
     github: string;
     email: string;
@@ -84,6 +89,7 @@ const english: LocalizedContent = {
     { label: 'Skills', href: '#skills' },
     { label: 'Experience', href: '#experience' },
     { label: 'Projects', href: '#projects' },
+    { label: 'Certificates', href: '#certificates' },
     { label: 'Education', href: '#education' },
     { label: 'Contact', href: '#contact' },
   ],
@@ -92,6 +98,7 @@ const english: LocalizedContent = {
     { label: 'Skills', href: '#skills', description: 'Core stack by category' },
     { label: 'Experience', href: '#experience', description: 'Timeline and responsibilities' },
     { label: 'Projects', href: '#projects', description: 'Representative delivery work' },
+    { label: 'Certificates', href: '#certificates', description: 'Learning credentials' },
     { label: 'Education', href: '#education', description: 'Academic background' },
     { label: 'Contact', href: '#contact', description: 'Professional links' },
   ],
@@ -126,6 +133,11 @@ const english: LocalizedContent = {
       title: 'Representative projects',
       description: 'Healthcare communication, AI-assisted quality, and enterprise service delivery.',
     },
+    certificates: {
+      eyebrow: 'Certificates',
+      title: 'Continuous learning credentials',
+      description: 'Selected certificates across AI, cloud, DevOps, web, mobile, security, testing, and leadership.',
+    },
     education: {
       eyebrow: 'Education',
       title: 'Academic background',
@@ -142,6 +154,10 @@ const english: LocalizedContent = {
     workFocus: 'Work Focus',
     lifecycle: 'Full SDLC Coverage',
     keyAchievements: 'Key Achievements',
+    viewCertificate: 'View PDF',
+    certificatesCount: 'Certificates',
+    providers: 'Providers',
+    topics: 'Topics',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',
@@ -284,6 +300,7 @@ const thai: LocalizedContent = {
     { label: 'ทักษะ', href: '#skills' },
     { label: 'ประสบการณ์', href: '#experience' },
     { label: 'โปรเจกต์', href: '#projects' },
+    { label: 'ใบรับรอง', href: '#certificates' },
     { label: 'การศึกษา', href: '#education' },
     { label: 'ติดต่อ', href: '#contact' },
   ],
@@ -292,6 +309,7 @@ const thai: LocalizedContent = {
     { label: 'ทักษะ', href: '#skills', description: 'เทคโนโลยีหลักตามหมวดงาน' },
     { label: 'ประสบการณ์', href: '#experience', description: 'เส้นทางงานและความรับผิดชอบ' },
     { label: 'โปรเจกต์', href: '#projects', description: 'ผลงานตัวอย่างที่เกี่ยวข้อง' },
+    { label: 'ใบรับรอง', href: '#certificates', description: 'หลักสูตรและการเรียนรู้' },
     { label: 'การศึกษา', href: '#education', description: 'ประวัติการศึกษา' },
     { label: 'ติดต่อ', href: '#contact', description: 'ช่องทาง professional' },
   ],
@@ -326,6 +344,11 @@ const thai: LocalizedContent = {
       title: 'ผลงานตัวอย่าง',
       description: 'Healthcare communication, AI-assisted quality และ Enterprise service delivery',
     },
+    certificates: {
+      eyebrow: 'ใบรับรอง',
+      title: 'การเรียนรู้อย่างต่อเนื่อง',
+      description: 'ใบรับรองจากหลักสูตร AI, Cloud, DevOps, Web, Mobile, Security, Testing และ Leadership',
+    },
     education: {
       eyebrow: 'การศึกษา',
       title: 'ประวัติการศึกษา',
@@ -342,6 +365,10 @@ const thai: LocalizedContent = {
     workFocus: 'สัดส่วนงานที่โฟกัส',
     lifecycle: 'ครอบคลุม Full SDLC',
     keyAchievements: 'ผลงานสำคัญ',
+    viewCertificate: 'ดูไฟล์ PDF',
+    certificatesCount: 'ใบรับรอง',
+    providers: 'ผู้ให้บริการ',
+    topics: 'หมวดหมู่',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',
