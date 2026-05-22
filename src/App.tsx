@@ -1,5 +1,4 @@
 import {
-  ArrowRight,
   Archive,
   Award,
   CalendarClock,
@@ -351,26 +350,41 @@ function Hero({ content }: { content: LocalizedContent }) {
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
-          className="order-2 rounded-lg border border-slate-200 bg-white p-5 shadow-card backdrop-blur dark:border-cyan-300/20 dark:bg-white/[0.08] sm:p-7 md:flex md:h-full md:flex-col md:justify-center lg:p-8"
+          className="relative order-2 overflow-hidden rounded-lg border border-slate-200 bg-white p-5 shadow-card backdrop-blur dark:border-cyan-300/20 dark:bg-white/[0.08] sm:p-7 md:flex md:h-full md:flex-col lg:p-8"
         >
-          <motion.p variants={fadeUp} transition={motionSettings.transition} className="hidden rounded-full border border-cyan-200 bg-cyan-50 px-4 py-2 text-sm font-medium text-cyan-800 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-200 sm:inline-flex">
-            {content.hero.eyebrow}
-          </motion.p>
-          <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="mt-0 max-w-4xl text-4xl font-bold tracking-tight text-navy-950 dark:text-white sm:mt-5 sm:text-5xl">
-            {content.profile.name}
-          </motion.h1>
-          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-3 text-xl font-semibold text-cyan-800 dark:text-cyan-200 sm:text-2xl">{content.hero.role}</motion.p>
-          <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-5 max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300 sm:text-lg">{content.hero.summary}</motion.p>
-          <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-7 hidden flex-col gap-3 sm:flex sm:flex-row">
-            <a className="btn-primary" href="#projects">
-              {content.hero.viewProjects}
-              <ArrowRight size={18} />
-            </a>
-            <a className="btn-ghost" href="#contact">
-              <Send size={18} />
-              {content.hero.contactMe}
-            </a>
-          </motion.div>
+          <div className="absolute right-0 top-0 h-32 w-32 rounded-bl-full bg-cyan-100/80 dark:bg-cyan-300/10" />
+          <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-cyan-400 via-sky-300 to-transparent opacity-80" />
+          <div className="relative z-10 flex h-full flex-col justify-between gap-7">
+            <div>
+              <motion.div variants={fadeUp} transition={motionSettings.transition} className="hidden items-center gap-3 sm:flex">
+                <span className="inline-grid h-11 w-11 place-items-center rounded-lg border border-cyan-200 bg-cyan-50 text-cyan-800 dark:border-cyan-300/30 dark:bg-cyan-300/10 dark:text-cyan-100">
+                  <MonitorCog size={22} />
+                </span>
+                <span className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-200">
+                  {content.hero.eyebrow}
+                </span>
+              </motion.div>
+
+              <motion.h1 variants={fadeUp} transition={motionSettings.transition} className="mt-0 max-w-4xl text-4xl font-bold tracking-tight text-navy-950 dark:text-white sm:mt-8 sm:text-5xl">
+                {content.profile.name}
+              </motion.h1>
+              <motion.p variants={fadeUp} transition={motionSettings.transition} className="mt-3 hidden text-xl font-semibold text-cyan-800 dark:text-cyan-200 sm:block sm:text-2xl">{content.hero.role}</motion.p>
+
+              <motion.div variants={fadeUp} transition={motionSettings.transition} className="mt-6 rounded-lg border border-slate-200 bg-slate-50/80 p-4 dark:border-white/10 dark:bg-navy-900/60 sm:p-5">
+                <p className="text-base leading-7 text-slate-700 dark:text-slate-300 sm:text-lg">{content.hero.summary}</p>
+              </motion.div>
+            </div>
+
+            <motion.div variants={fadeUp} transition={motionSettings.transition} className="grid gap-3 sm:grid-cols-3">
+              {content.heroHighlights.map((highlight) => (
+                <div key={highlight.title} className="rounded-lg border border-slate-200 bg-white/80 p-3 dark:border-white/10 dark:bg-white/[0.05]">
+                  <highlight.icon className="text-cyan-700 dark:text-cyan-300" size={20} />
+                  <p className="mt-3 text-sm font-bold leading-tight text-navy-950 dark:text-white">{highlight.title}</p>
+                  <p className="mt-2 text-xs leading-5 text-slate-600 dark:text-slate-300">{highlight.description}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
 
         <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="order-1 grid gap-4 md:h-full">

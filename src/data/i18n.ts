@@ -41,6 +41,7 @@ export type LocalizedContent = {
     contactMe: string;
     portfolio: string;
   };
+  heroHighlights: { title: string; description: string; icon: LucideIcon }[];
   sections: {
     about: SectionCopy;
     skills: SectionCopy;
@@ -125,6 +126,23 @@ const english: LocalizedContent = {
     contactMe: 'Contact Me',
     portfolio: 'Portfolio',
   },
+  heroHighlights: [
+    {
+      title: 'Scalable Systems',
+      description: '.NET Core APIs, Node.js APIs, database design, and enterprise integrations.',
+      icon: ServerCog,
+    },
+    {
+      title: 'Cross-Platform Delivery',
+      description: 'React web apps, .NET Core and Node.js APIs, Android/iOS delivery, and telemedicine workflow integration.',
+      icon: Smartphone,
+    },
+    {
+      title: 'Team & Quality',
+      description: 'Code review, Agile delivery, CI/CD, and production support.',
+      icon: ShieldCheck,
+    },
+  ],
   sections: {
     about: {
       eyebrow: 'About',
@@ -190,7 +208,7 @@ const english: LocalizedContent = {
   profile: {
     name: 'Jakapan Kanta',
     about:
-      'I specialize in C#, .NET, ASP.NET MVC, .NET Core APIs, React, Angular, and Android development. I work across the full software development lifecycle: Requirements, Planning, Designing, Coding, Testing, Monitoring, Controlling, Reporting, Supporting, and Coordinating. My work balances hands-on engineering, architecture, documentation, team leadership, and continuous improvement through modern tools and AI-assisted development.',
+      'I specialize in C#, .NET, ASP.NET MVC, .NET Core APIs, Node.js, React, Angular, and Android development. I work across the full software development lifecycle: Requirements, Planning, Designing, Coding, Testing, Monitoring, Controlling, Reporting, Supporting, and Coordinating. My work balances hands-on engineering, architecture, documentation, team leadership, and continuous improvement through modern tools and AI-assisted development.',
   },
   focusItems: [
     { label: 'Coding', value: 70, icon: Code2 },
@@ -349,6 +367,23 @@ const thai: LocalizedContent = {
     contactMe: 'ติดต่อฉัน',
     portfolio: 'ผลงาน',
   },
+  heroHighlights: [
+    {
+      title: 'ระบบที่ขยายได้',
+      description: '.NET Core API, Node.js API, Database design และ Enterprise integrations',
+      icon: ServerCog,
+    },
+    {
+      title: 'ส่งมอบหลายแพลตฟอร์ม',
+      description: 'React web apps, .NET Core และ Node.js APIs, Android/iOS delivery และ Telemedicine workflow integration',
+      icon: Smartphone,
+    },
+    {
+      title: 'ทีมและคุณภาพ',
+      description: 'Code review, Agile delivery, CI/CD และ Production support',
+      icon: ShieldCheck,
+    },
+  ],
   sections: {
     about: {
       eyebrow: 'เกี่ยวกับ',
@@ -414,7 +449,7 @@ const thai: LocalizedContent = {
   profile: {
     name: 'จักรพันธ์ กันตา',
     about:
-      'ผมเชี่ยวชาญ C#, .NET, ASP.NET MVC, .NET Core API, React, Angular และ Android Development มีประสบการณ์ทำงานครอบคลุม Full SDLC ตั้งแต่ Requirements, Planning, Designing, Coding, Testing, Monitoring, Controlling, Reporting, Supporting และ Coordinating โดยทำงานผสมระหว่าง Hands-on coding, System architecture, Documentation, Team leadership และการนำเครื่องมือสมัยใหม่รวมถึง AI-assisted development มาเพิ่มคุณภาพและประสิทธิภาพในการส่งมอบงาน',
+      'ผมเชี่ยวชาญ C#, .NET, ASP.NET MVC, .NET Core API, Node.js, React, Angular และ Android Development มีประสบการณ์ทำงานครอบคลุม Full SDLC ตั้งแต่ Requirements, Planning, Designing, Coding, Testing, Monitoring, Controlling, Reporting, Supporting และ Coordinating โดยทำงานผสมระหว่าง Hands-on coding, System architecture, Documentation, Team leadership และการนำเครื่องมือสมัยใหม่รวมถึง AI-assisted development มาเพิ่มคุณภาพและประสิทธิภาพในการส่งมอบงาน',
   },
   focusItems: [
     { label: 'Coding', value: 70, icon: Code2 },
