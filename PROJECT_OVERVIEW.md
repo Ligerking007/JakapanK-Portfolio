@@ -4,7 +4,7 @@
 
 This project is a professional portfolio website for **Jakapan Kanta**, a Senior Software Developer with 16+ years of experience across web, backend, mobile, healthcare, finance, and transportation systems.
 
-The site is designed for interviewer presentation and GitHub Pages hosting.
+The site is designed for interviewer presentation, resume sharing, professional networking, and GitHub Pages hosting.
 
 ## Audience
 
@@ -16,22 +16,28 @@ The site is designed for interviewer presentation and GitHub Pages hosting.
 
 ## Design Direction
 
-The UI uses a corporate dark navy, blue, and cyan visual system with clean card-based sections, responsive layouts, subtle hover animation, and strong typography. The layout is mobile-first and works well on desktop, tablet, and mobile screens.
+The UI uses a corporate navy, blue, and cyan visual system with clean card-based sections, responsive layouts, subtle Framer Motion animation, and strong typography. The experience is mobile-first, supports light and dark themes, and keeps navigation clear on desktop and mobile screens.
 
 ## Main Sections
 
 1. **Hero**
+   - Profile photo
    - Name
    - Role
-   - Summary
-   - Education, Projects, and Contact buttons
+   - Short professional summary
+   - Resume, Projects, and Contact buttons
 
-2. **About**
+2. **Section Navigator**
+   - Compact quick navigation
+   - Desktop card layout
+   - Mobile horizontal scroll layout
+
+3. **About**
    - Professional overview
    - Work focus ratio
-   - Full SDLC coverage
+   - Full SDLC coverage: Requirements, Planning, Designing, Coding, Testing, Monitoring, Controlling, Reporting, Supporting, and Coordinating
 
-3. **Skills**
+4. **Skills**
    - Backend
    - Frontend
    - Mobile
@@ -41,25 +47,85 @@ The UI uses a corporate dark navy, blue, and cyan visual system with clean card-
    - UI Frameworks
    - Architecture
 
-4. **Experience Timeline**
+5. **Experience Timeline**
    - Bumrungrad International Hospital
    - Honda Leasing Thailand
    - Onelink Technology
+   - Key achievements for each role
 
-5. **Projects**
-   - Telehealth / Telemedicine Platform
-   - Android Azure Communication Services Calling App
-   - Code Review AI Pilot
-   - Enterprise .NET Core API Services
+6. **Projects**
+   - Current phase from 2022 onward
+   - Earlier phase up to 2021
+   - Expandable archive cards for older sample projects
 
-6. **Education**
+7. **Certificates**
+   - Recent credentials
+   - Earlier credentials up to 2021
+   - Provider-based certificate grouping
+   - Expandable panels for large certificate lists
+
+8. **Education**
    - Master's degree in Information Technology Management
    - Bachelor's degree in Information Technology
 
-7. **Contact**
+9. **Contact**
    - LinkedIn
    - GitHub
    - Email
+
+## Key Features
+
+- Responsive single-page portfolio
+- English / Thai language toggle
+- Light / Dark theme toggle
+- Mobile-friendly header and navigation
+- Framer Motion hover and accordion animation
+- Current and archived project evidence
+- Current and archived certificate evidence
+- Open Graph metadata for link sharing
+- Favicon and site icon
+- MIT License
+- Static GitHub Pages deployment without backend services
+
+## Visual Assets
+
+Primary visual assets are stored in `public/`:
+
+```text
+public/profile.jpg
+public/favicon.svg
+public/og-image.png
+public/screenshots/
+```
+
+Generated project screenshots are stored in:
+
+```text
+public/screenshots/desktop-home.png
+public/screenshots/mobile-home.png
+public/screenshots/projects-section.png
+public/screenshots/certificates-section.png
+```
+
+These images can be used in README documentation, interview presentation material, and repository previews.
+
+## Preview Images
+
+Desktop home:
+
+![Desktop home](public/screenshots/desktop-home.png)
+
+Mobile home:
+
+![Mobile home](public/screenshots/mobile-home.png)
+
+Projects section:
+
+![Projects section](public/screenshots/projects-section.png)
+
+Certificates section:
+
+![Certificates section](public/screenshots/certificates-section.png)
 
 ## Technical Notes
 
@@ -67,9 +133,20 @@ The UI uses a corporate dark navy, blue, and cyan visual system with clean card-
 - Language: TypeScript
 - Styling: Tailwind CSS
 - Icons: Lucide React
+- Animation: Framer Motion
 - Deployment: GitHub Actions to GitHub Pages
 - Backend: None
-- Data source: Static TypeScript data in `src/data/profile.ts`
+- Runtime content source: static TypeScript data files
+- License: MIT
+
+Static data files:
+
+```text
+src/data/profile.ts
+src/data/i18n.ts
+src/data/certificates.ts
+src/data/before2021.ts
+```
 
 ## Deployment
 
@@ -90,3 +167,17 @@ The Vite base path is set to:
 ```ts
 base: '/JakapanK-Portfolio/'
 ```
+
+GitHub Pages deployment runs through:
+
+```text
+.github/workflows/deploy.yml
+```
+
+## Maintenance Notes
+
+- Add current certificates under `public/certificates/` and register them in `src/data/certificates.ts`.
+- Add earlier project or certificate evidence under `public/before2021/` and register curated items in `src/data/before2021.ts`.
+- Keep filenames URL-safe for GitHub Pages by avoiding spaces, `#`, and special characters.
+- Update Open Graph assets when the visual direction changes.
+- Run `npm run lint` and `npm run build` before pushing changes.

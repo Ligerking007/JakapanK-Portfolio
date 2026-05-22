@@ -29,6 +29,24 @@ base: '/JakapanK-Portfolio/'
 
 If the repository name changes, update this value before deploying.
 
+## Screenshots
+
+Desktop home:
+
+![Desktop home](public/screenshots/desktop-home.png)
+
+Mobile home:
+
+![Mobile home](public/screenshots/mobile-home.png)
+
+Projects section:
+
+![Projects section](public/screenshots/projects-section.png)
+
+Certificates section:
+
+![Certificates section](public/screenshots/certificates-section.png)
+
 ## Local Setup
 
 Install dependencies:
@@ -118,6 +136,7 @@ Profile and share assets are stored in:
 public/profile.jpg
 public/favicon.svg
 public/og-image.png
+public/screenshots/
 ```
 
 Replace `public/profile.jpg` with the final profile photo when needed.
