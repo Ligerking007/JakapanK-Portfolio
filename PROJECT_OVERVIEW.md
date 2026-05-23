@@ -133,6 +133,7 @@ Certificates section:
 - Styling: Tailwind CSS
 - Icons: Lucide React
 - Animation: Framer Motion
+- Testing: Vitest with React Testing Library
 - Deployment: GitHub Actions to GitHub Pages
 - Backend: None
 - Runtime content source: static TypeScript data files
@@ -146,6 +147,13 @@ src/data/i18n.ts
 src/data/certificates.ts
 src/data/before2021.ts
 ```
+
+Test coverage is intentionally focused on high-value smoke behavior:
+
+- App renders the current Hero messaging
+- English / Thai language switching works
+- Light / Dark theme switching works
+- Mobile expandable panels start collapsed
 
 ## Architecture Diagram
 
@@ -203,4 +211,4 @@ GitHub Pages deployment runs through:
 - Update Open Graph assets when the visual direction changes.
 - Keep `index.html` public asset references root-relative, for example `/favicon.svg`, so Vite can apply `base: '/JakapanK-Portfolio/'` without duplicating the path.
 - Use `PROJECT_GENERATION_PROMPT.md` as the reusable prompt when creating a similar portfolio for another person.
-- Run `npm run lint` and `npm run build` before pushing changes.
+- Run `npm run test`, `npm run lint`, and `npm run build` before pushing changes.

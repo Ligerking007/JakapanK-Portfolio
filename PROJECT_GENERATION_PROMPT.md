@@ -149,6 +149,14 @@ Technical requirements:
 - Add Open Graph and Twitter metadata in index.html
 - Add /public/resume.pdf placeholder instruction if resume file is not available
 - Use static data files under src/data/
+- Add lightweight smoke tests with Vitest, jsdom, and React Testing Library.
+- Add npm script:
+  test: vitest run
+- Include tests for:
+  - App renders the Hero and primary portfolio messaging
+  - English / Thai language switching
+  - Light / Dark theme switching
+  - Mobile expandable panels default collapsed
 - Code should be clean, maintainable, and production-ready
 - Add important code comments only where useful:
   - public asset path handling
@@ -227,6 +235,8 @@ Generate the complete project structure and all required files:
 - src/data/i18n.ts
 - src/data/certificates.ts
 - src/data/before2021.ts
+- src/App.test.tsx
+- src/test/setup.ts
 - public/favicon.svg
 - public/profile-avatar.svg
 - public/og-image.svg or og-image.png
@@ -240,6 +250,7 @@ Generate the complete project structure and all required files:
 
 After generating:
 - Run npm install
+- Run npm run test
 - Run npm run lint
 - Run npm run build
 - If possible, start local dev server and verify desktop/mobile layout

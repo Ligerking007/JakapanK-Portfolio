@@ -71,6 +71,12 @@ Build for production:
 npm run build
 ```
 
+Run tests:
+
+```bash
+npm run test
+```
+
 Preview the production build:
 
 ```bash
@@ -117,6 +123,8 @@ Update this file to adjust:
 - Certificates
 - Education
 - Contact links
+
+Testing is intentionally lightweight. `src/App.test.tsx` covers smoke-level behavior for rendering, language switching, theme switching, and mobile default collapse behavior.
 
 Certificate PDF files are stored in:
 
