@@ -202,4 +202,5 @@ GitHub Pages deployment runs through:
 - Keep filenames URL-safe for GitHub Pages by avoiding spaces, `#`, and special characters.
 - Update Open Graph assets when the visual direction changes.
 - Keep `index.html` public asset references root-relative, for example `/favicon.svg`, so Vite can apply `base: '/JakapanK-Portfolio/'` without duplicating the path.
+- Use `PROJECT_GENERATION_PROMPT.md` as the reusable prompt when creating a similar portfolio for another person.
 - Run `npm run lint` and `npm run build` before pushing changes.
