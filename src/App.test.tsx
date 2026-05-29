@@ -26,6 +26,7 @@ describe('App', () => {
 
     expect(screen.getByRole('heading', { name: 'Enterprise Software Delivery' })).toBeInTheDocument();
     expect(screen.getByText('Building smarter systems through AI integration and AI-assisted development.')).toBeInTheDocument();
+    expect(screen.getByText('Version 1.1.0')).toBeInTheDocument();
     expect(screen.getByText('Cross-Platform Development')).toBeInTheDocument();
     expect(screen.getByText('AI Integration & Engineering')).toBeInTheDocument();
     expect(screen.getByText('Agile & DevOps Practice')).toBeInTheDocument();

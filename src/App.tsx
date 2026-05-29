@@ -27,6 +27,7 @@ import { legacyCredentials, legacyProjectGroups, type ArchiveLink, type ArchiveL
 import { certificateProviders, certificates } from './data/certificates';
 import { localizedContent, type Language, type LocalizedContent } from './data/i18n';
 import { profile } from './data/profile';
+import packageMetadata from '../package.json';
 
 const appBasePath = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const appBaseSegment = appBasePath.replace(/^\/+|\/+$/g, '');
@@ -1051,6 +1052,7 @@ function Footer({ content }: { content: LocalizedContent }) {
       <p>
         © {new Date().getFullYear()} <span className="font-semibold text-navy-950 dark:text-white">{content.profile.name}</span>. Built with React, Vite, TypeScript, Tailwind CSS, and GitHub Pages.
       </p>
+      <p className="mt-2 text-xs font-medium text-slate-400 dark:text-slate-500">Version {packageMetadata.version}</p>
     </footer>
   );
 }

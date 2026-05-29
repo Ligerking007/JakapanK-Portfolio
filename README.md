@@ -14,6 +14,18 @@ Built for GitHub Pages with:
 - AI integration and AI-assisted development messaging
 - GitHub Actions deployment
 
+## Version
+
+Current project version:
+
+```text
+1.1.0
+```
+
+Release history is tracked in [CHANGELOG.md](CHANGELOG.md).
+
+The current version is also shown in the portfolio footer.
+
 ## Live URL
 
 Expected GitHub Pages URL:
@@ -133,6 +145,7 @@ AGENTS.md
 ```
 
 When changing code or visible content, update relevant unit tests and Markdown documentation in the same change set.
+When preparing a visible release or notable portfolio update, update `CHANGELOG.md` and the project version in `package.json`.
 
 Certificate PDF files are stored in:
 
@@ -194,6 +207,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 │   └── styles.css
 ├── index.html
 ├── AGENTS.md
+├── CHANGELOG.md
 ├── tailwind.config.ts
 ├── vite.config.ts
 └── PROJECT_OVERVIEW.md

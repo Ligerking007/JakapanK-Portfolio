@@ -138,6 +138,9 @@ Certificates section:
 - Backend: None
 - Runtime content source: static TypeScript data files
 - License: MIT
+- Current project version: `1.1.0`
+- Release history: `CHANGELOG.md`
+- The current version is displayed in the site footer.
 
 Static data files:
 
@@ -152,6 +155,13 @@ Contributor and AI-agent workflow guidance is stored in:
 
 ```text
 AGENTS.md
+```
+
+Version and release history are stored in:
+
+```text
+package.json
+CHANGELOG.md
 ```
 
 Test coverage is intentionally focused on high-value smoke behavior:
@@ -219,4 +229,5 @@ GitHub Pages deployment runs through:
 - Keep `index.html` public asset references root-relative, for example `/favicon.svg`, so Vite can apply `base: '/JakapanK-Portfolio/'` without duplicating the path.
 - Use `PROJECT_GENERATION_PROMPT.md` as the reusable prompt when creating a similar portfolio for another person.
 - Follow `AGENTS.md` for contributor workflow rules. Every code or content change should update relevant tests and Markdown documentation.
+- Update `CHANGELOG.md` and `package.json` when preparing a visible release or notable portfolio update.
 - Run `npm run test`, `npm run lint`, and `npm run build` before pushing changes.
