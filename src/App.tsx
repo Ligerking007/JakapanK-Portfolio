@@ -664,6 +664,30 @@ function Projects({ content }: { content: LocalizedContent }) {
                     </span>
                   ))}
                 </div>
+                {project.links && (
+                  <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                    {project.links.map((link) => {
+                      const Icon = link.type === 'video' ? Video : ExternalLink;
+
+                      return (
+                        <a
+                          key={link.url}
+                          href={publicAsset(link.url)}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="group flex min-w-0 items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:bg-white hover:text-cyan-800 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:bg-slate-950 dark:hover:text-cyan-200"
+                          title={`${content.labels.openFile}: ${link.title}`}
+                        >
+                          <span className="flex min-w-0 items-center gap-2">
+                            <Icon className="shrink-0 text-cyan-700 dark:text-cyan-300" size={16} />
+                            <span className="min-w-0 truncate">{link.title}</span>
+                          </span>
+                          <ExternalLink className="shrink-0 text-slate-400 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-300" size={15} />
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
               </motion.article>
             ))}
           </div>
@@ -962,6 +986,26 @@ function Education({ content }: { content: LocalizedContent }) {
               <h3 className="mt-2 text-lg font-bold text-navy-950 dark:text-white">{item.school}</h3>
               <p className="mt-2 font-medium text-slate-700 dark:text-slate-300">{item.degree}</p>
               <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{item.grade} · {item.detail}</p>
+              {item.evidence && (
+                <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                  {item.evidence.map((evidence) => (
+                    <a
+                      key={evidence.file}
+                      href={publicAsset(evidence.file)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group flex min-w-0 items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:bg-white hover:text-cyan-800 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:bg-slate-950 dark:hover:text-cyan-200"
+                      title={`${content.labels.openFile}: ${evidence.title}`}
+                    >
+                      <span className="flex min-w-0 items-center gap-2">
+                        <ImageIcon className="shrink-0 text-cyan-700 dark:text-cyan-300" size={16} />
+                        <span className="min-w-0 truncate">{evidence.title}</span>
+                      </span>
+                      <ExternalLink className="shrink-0 text-slate-400 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-300" size={15} />
+                    </a>
+                  ))}
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

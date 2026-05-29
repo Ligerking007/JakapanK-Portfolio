@@ -50,6 +50,49 @@ describe('App', () => {
     expect(window.localStorage.getItem('portfolio-theme')).toBe('dark');
   });
 
+  it('links education entries to qualification and transcript files', () => {
+    render(<App />);
+
+    const qualificationLinks = screen.getAllByRole('link', { name: 'Qualification' });
+    const transcriptLinks = screen.getAllByRole('link', { name: 'Transcript' });
+
+    expect(qualificationLinks.map((link) => link.getAttribute('href'))).toEqual(
+      expect.arrayContaining([
+        '/before2021/certificates/3-masters/masters-qualification-en.jpg',
+        '/before2021/certificates/4-bachelors/bachelors-qualification.jpg',
+      ]),
+    );
+    expect(transcriptLinks.map((link) => link.getAttribute('href'))).toEqual(
+      expect.arrayContaining([
+        '/before2021/certificates/3-masters/masters-transcript1.jpg',
+        '/before2021/certificates/4-bachelors/bachelors-transcript.jpg',
+      ]),
+    );
+  });
+
+  it('shows project video samples and AI pilot demo links', () => {
+    render(<App />);
+
+    expect(screen.getByRole('link', { name: 'React Telemed Hospital' })).toHaveAttribute('href', '/video/React_Telemed_Hospital.mp4');
+    expect(screen.getByRole('link', { name: 'React Telemed Patient' })).toHaveAttribute('href', '/video/React_Telemed_Patient.mp4');
+    expect(screen.getByRole('link', { name: 'Android Telemed Video Call' })).toHaveAttribute('href', '/video/Android_Telemed_Video_Call.mp4');
+    expect(screen.getByRole('link', { name: 'Android Telemed Booking' })).toHaveAttribute('href', '/video/Android_Telemed_Booking_Appointment.mp4');
+
+    expect(screen.getByRole('heading', { name: 'Dev Pilot AI' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Automate Test Pilot AI' })).toBeInTheDocument();
+    expect(screen.getAllByText('Flutter').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('PostgreSQL').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('React Native').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Playwright').length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('link', { name: 'Live Demo' }).map((link) => link.getAttribute('href'))).toEqual(
+      expect.arrayContaining([
+        'https://ligerking007.github.io/CodeReviewPilotAI',
+        'https://ligerking007.github.io/DevPilotAI/',
+        'https://ligerking007.github.io/AutomateTestPilotAI/',
+      ]),
+    );
+  });
+
   it('starts expandable panels collapsed on mobile viewports', () => {
     mockMatchMedia(true);
     render(<App />);

@@ -148,12 +148,19 @@ src/data/certificates.ts
 src/data/before2021.ts
 ```
 
+Contributor and AI-agent workflow guidance is stored in:
+
+```text
+AGENTS.md
+```
+
 Test coverage is intentionally focused on high-value smoke behavior:
 
 - App renders the current Hero messaging
 - English / Thai language switching works
 - Light / Dark theme switching works
 - Mobile expandable panels start collapsed
+- Project, certificate, education, demo, and asset links remain wired to the expected targets
 
 ## Architecture Diagram
 
@@ -211,4 +218,5 @@ GitHub Pages deployment runs through:
 - Update Open Graph assets when the visual direction changes.
 - Keep `index.html` public asset references root-relative, for example `/favicon.svg`, so Vite can apply `base: '/JakapanK-Portfolio/'` without duplicating the path.
 - Use `PROJECT_GENERATION_PROMPT.md` as the reusable prompt when creating a similar portfolio for another person.
+- Follow `AGENTS.md` for contributor workflow rules. Every code or content change should update relevant tests and Markdown documentation.
 - Run `npm run test`, `npm run lint`, and `npm run build` before pushing changes.

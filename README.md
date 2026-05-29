@@ -126,6 +126,14 @@ Update this file to adjust:
 
 Testing is intentionally lightweight. `src/App.test.tsx` covers smoke-level behavior for rendering, language switching, theme switching, and mobile default collapse behavior.
 
+Contributor and AI-agent workflow rules are documented in:
+
+```text
+AGENTS.md
+```
+
+When changing code or visible content, update relevant unit tests and Markdown documentation in the same change set.
+
 Certificate PDF files are stored in:
 
 ```text
@@ -185,6 +193,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 │   ├── main.tsx
 │   └── styles.css
 ├── index.html
+├── AGENTS.md
 ├── tailwind.config.ts
 ├── vite.config.ts
 └── PROJECT_OVERVIEW.md

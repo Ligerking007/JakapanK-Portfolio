@@ -14,9 +14,7 @@ import {
   MessageSquareCode,
   MonitorCog,
   Network,
-  ServerCog,
   ShieldCheck,
-  Smartphone,
   Users,
 } from 'lucide-react';
 
@@ -42,6 +40,11 @@ export type Project = {
   impact: string;
   technologies: string[];
   icon: LucideIcon;
+  links?: {
+    title: string;
+    url: string;
+    type: 'demo' | 'video';
+  }[];
 };
 
 export type FocusItem = {
@@ -159,30 +162,39 @@ export const projects: Project[] = [
     impact: 'Improves access to patient care with scalable, integrated telemedicine capabilities.',
     technologies: ['.NET Core API', 'React', 'Android Kotlin', 'iOS Swift', 'Azure'],
     icon: MonitorCog,
-  },
-  {
-    title: 'Android Azure Communication Services Calling App',
-    description:
-      'Mobile calling application using Azure Communication Services to support secure remote healthcare communication.',
-    impact: 'Connects patients and care teams through reliable mobile video and voice workflows.',
-    technologies: ['Android', 'Kotlin', 'Azure Communication Services', 'REST API'],
-    icon: Smartphone,
+    links: [
+      { title: 'React Telemed Hospital', url: 'video/React_Telemed_Hospital.mp4', type: 'video' },
+      { title: 'React Telemed Patient', url: 'video/React_Telemed_Patient.mp4', type: 'video' },
+      { title: 'Android Telemed Video Call', url: 'video/Android_Telemed_Video_Call.mp4', type: 'video' },
+      { title: 'Android Telemed Booking', url: 'video/Android_Telemed_Booking_Appointment.mp4', type: 'video' },
+    ],
   },
   {
     title: 'Code Review AI Pilot',
     description:
       'AI-assisted engineering workflow using tools such as Codex, Cursor, and ChatGPT to improve review quality and developer productivity.',
     impact: 'Raises code quality by combining human review discipline with AI-assisted analysis.',
-    technologies: ['Codex', 'Cursor', 'ChatGPT', 'GitHub', 'TypeScript'],
+    technologies: ['React Native', 'Expo', 'Node.js', 'NestJS', 'Prisma', 'PostgreSQL', 'OpenAI', 'GitHub OAuth'],
     icon: MessageSquareCode,
+    links: [{ title: 'Live Demo', url: 'https://ligerking007.github.io/CodeReviewPilotAI', type: 'demo' }],
   },
   {
-    title: 'Enterprise .NET Core API Services',
+    title: 'Dev Pilot AI',
     description:
-      'Business-critical API services designed for maintainability, clean architecture, integration reliability, and operational support.',
-    impact: 'Enables stable enterprise workflows with documented, testable, and scalable service boundaries.',
-    technologies: ['.NET Core', 'C#', 'MSSQL', 'Docker', 'CI/CD'],
-    icon: ServerCog,
+      'AI-assisted developer workspace focused on planning, coding support, review flow, and delivery productivity.',
+    impact: 'Shows practical AI workflow support for software development and day-to-day engineering execution.',
+    technologies: ['Flutter', 'Dart', 'Riverpod', 'Hive', 'OpenAI API', 'GitHub Actions', 'GitHub Pages'],
+    icon: Code2,
+    links: [{ title: 'Live Demo', url: 'https://ligerking007.github.io/DevPilotAI/', type: 'demo' }],
+  },
+  {
+    title: 'Automate Test Pilot AI',
+    description:
+      'AI-assisted test automation pilot for exploring quality workflows, test planning, and automated verification support.',
+    impact: 'Demonstrates how AI can accelerate test design and strengthen software quality practices.',
+    technologies: ['Playwright', 'TypeScript', 'Node.js', 'OpenAI API', 'Applitools Eyes', 'GitHub Actions', 'GitHub Pages'],
+    icon: ClipboardCheck,
+    links: [{ title: 'Live Demo', url: 'https://ligerking007.github.io/AutomateTestPilotAI/', type: 'demo' }],
   },
 ];
 
