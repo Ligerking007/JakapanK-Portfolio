@@ -11,11 +11,11 @@ This project follows a practical date-based changelog. Version numbers are track
 - Added the current project version to the portfolio footer.
 - Added clickable education evidence links for master's and bachelor's qualifications and transcripts.
 - Added Telehealth / Telemedicine video evidence under `public/video/`.
-- Added demo links for Code Review AI Pilot, Dev Pilot AI, and Automate Test Pilot AI.
+- Added demo links for Code Review Pilot AI, Dev Pilot AI, and Automate Test Pilot AI.
 - Added Dev Pilot AI and Automate Test Pilot AI to Current Projects.
 - Added technology tags based on the related project repositories:
   - Dev Pilot AI: Flutter, Dart, Riverpod, Hive, OpenAI API, GitHub Actions, GitHub Pages.
-  - Code Review AI Pilot: React Native, Expo, Node.js, NestJS, Prisma, PostgreSQL, OpenAI, GitHub OAuth.
+  - Code Review Pilot AI: React Native, Expo, Node.js, NestJS, Prisma, PostgreSQL, OpenAI, GitHub OAuth.
   - Automate Test Pilot AI: Playwright, TypeScript, Node.js, OpenAI API, Applitools Eyes, GitHub Actions, GitHub Pages.
 - Added `AGENTS.md` with contributor and AI-agent workflow rules.
 - Added changelog and version tracking documentation.

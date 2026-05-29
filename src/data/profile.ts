@@ -170,7 +170,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: 'Code Review AI Pilot',
+    title: 'Code Review Pilot AI',
     description:
       'AI-assisted engineering workflow using tools such as Codex, Cursor, and ChatGPT to improve review quality and developer productivity.',
     impact: 'Raises code quality by combining human review discipline with AI-assisted analysis.',

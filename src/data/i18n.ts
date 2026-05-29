@@ -295,7 +295,7 @@ const english: LocalizedContent = {
       ],
     },
     {
-      title: 'Code Review AI Pilot',
+      title: 'Code Review Pilot AI',
       description: 'AI-assisted engineering workflow using tools such as Codex, Cursor, and ChatGPT to improve review quality and developer productivity.',
       impact: 'Raises code quality by combining human review discipline with AI-assisted analysis.',
       technologies: ['React Native', 'Expo', 'Node.js', 'NestJS', 'Prisma', 'PostgreSQL', 'OpenAI', 'GitHub OAuth'],
@@ -546,7 +546,7 @@ const thai: LocalizedContent = {
       ],
     },
     {
-      title: 'Code Review AI Pilot',
+      title: 'Code Review Pilot AI',
       description: 'Workflow สำหรับ AI-assisted engineering โดยใช้ Codex, Cursor และ ChatGPT เพื่อเพิ่มคุณภาพ review และ productivity',
       impact: 'ยกระดับคุณภาพโค้ดโดยผสาน human review discipline กับ AI-assisted analysis',
       technologies: english.projects[1].technologies,
