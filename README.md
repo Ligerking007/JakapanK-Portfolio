@@ -19,7 +19,7 @@ Built for GitHub Pages with:
 Current project version:
 
 ```text
-1.1.0
+1.1.1
 ```
 
 Release history is tracked in [CHANGELOG.md](CHANGELOG.md).
@@ -155,7 +155,7 @@ public/certificates/
 
 Add new PDF files under the provider folder, then register them in `src/data/certificates.ts`.
 
-Earlier credentials and sample project artifacts are stored in:
+Earlier credentials and sample project artifacts, including PDF, DOCX, PPTX, image, video, spreadsheet, and diagram evidence, are stored in:
 
 ```text
 public/before2021/

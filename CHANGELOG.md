@@ -4,6 +4,27 @@ All notable changes to this project are documented here.
 
 This project follows a practical date-based changelog. Version numbers are tracked in `package.json`.
 
+## [1.1.1] - 2026-06-10
+
+### Added
+
+- Added the Agentic AI Team Sharing 2026 presentation to the Team Knowledge Sharing project evidence.
+- Added an Agentic AI tag to the team sharing archive card.
+- Added every evidence file under `public/before2021/sampleprojects/3-systemarchitecturedesign` and `public/before2021/sampleprojects/4-tools` to the earlier project archive.
+
+### Changed
+
+- Split the combined Architecture, DevOps, and Engineering Tools archive into separate System Architecture Design and Engineering Tools and Practice cards.
+- Split the earlier project archive into separate Example Source Code and Team Knowledge Sharing cards.
+- Removed preview thumbnails from the System Architecture Design and Engineering Tools and Practice archive cards while keeping the files available as evidence links.
+- Renamed the transportation archive card and expanded PTGIS, PVM, and TMS labels for clearer project evidence.
+- Updated the portfolio footer version from `1.1.0` to `1.1.1`.
+
+### Verified
+
+- `npm test`
+- `npm run build`
+
 ## [1.1.0] - 2026-05-29
 
 ### Added
