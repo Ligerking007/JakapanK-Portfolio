@@ -77,6 +77,8 @@ export type LocalizedContent = {
     linkedin: string;
     github: string;
     email: string;
+    educationEvidence: string;
+    academicProjects: string;
     footerBuiltWith: string;
     version: string;
   };
@@ -91,12 +93,17 @@ export type LocalizedContent = {
   strengths: { label: string; icon: LucideIcon }[];
   lifecycle: string[];
   education: {
+    id: string;
     school: string;
     degree: string;
     period: string;
     grade: string;
     detail: string;
     evidence?: {
+      title: string;
+      file: string;
+    }[];
+    academicProjects?: {
       title: string;
       file: string;
     }[];
@@ -214,6 +221,8 @@ const english: LocalizedContent = {
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',
+    educationEvidence: 'Education Evidence',
+    academicProjects: 'Academic Projects',
     footerBuiltWith: 'Built with React, Vite, TypeScript, Tailwind CSS, and GitHub Pages.',
     version: 'Version',
   },
@@ -334,6 +343,7 @@ const english: LocalizedContent = {
   lifecycle: ['Requirements', 'Planning', 'Designing', 'Coding', 'Testing', 'Monitoring', 'Controlling', 'Reporting', 'Supporting', 'Coordinating'],
   education: [
     {
+      id: 'masters',
       school: 'National Institute of Development Administration (NIDA)',
       degree: "Master's degree, Information Technology Management",
       period: 'Jan 2012 - Jun 2014',
@@ -343,8 +353,14 @@ const english: LocalizedContent = {
         { title: 'Qualification', file: 'before2021/certificates/3-masters/masters-qualification-en.jpg' },
         { title: 'Transcript', file: 'before2021/certificates/3-masters/masters-transcript1.jpg' },
       ],
+      academicProjects: [
+        { title: 'Job Portal', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/1-jobportal.pdf' },
+        { title: 'Job Portal IS Report', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/2-jobportal-is-report.pdf' },
+        { title: 'SaaS Research', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/3-saas-research.pdf' },
+      ],
     },
     {
+      id: 'bachelors',
       school: "King Mongkut's Institute of Technology Ladkrabang (KMITL)",
       degree: "Bachelor's degree, Information Technology",
       period: 'May 2006 - May 2010',
@@ -353,6 +369,10 @@ const english: LocalizedContent = {
       evidence: [
         { title: 'Qualification', file: 'before2021/certificates/4-bachelors/bachelors-qualification.jpg' },
         { title: 'Transcript', file: 'before2021/certificates/4-bachelors/bachelors-transcript.jpg' },
+      ],
+      academicProjects: [
+        { title: 'Mutual Fund Portal', file: 'before2021/sampleprojects/2-university/7-mutualfund-php-bachelorsdegree/mutualfund.pdf' },
+        { title: 'E-Book Sales Online', file: 'before2021/sampleprojects/2-university/8-ebook-jsp-bachelorsdegree/e-book-sales-online.pdf' },
       ],
     },
   ],
@@ -476,6 +496,8 @@ const thai: LocalizedContent = {
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',
+    educationEvidence: 'หลักฐานการศึกษา',
+    academicProjects: 'โปรเจกต์การศึกษา',
     footerBuiltWith: 'สร้างด้วย React, Vite, TypeScript, Tailwind CSS และ GitHub Pages',
     version: 'เวอร์ชัน',
   },
@@ -596,6 +618,7 @@ const thai: LocalizedContent = {
   lifecycle: ['เก็บความต้องการ', 'วางแผน', 'ออกแบบ', 'เขียนโค้ด', 'ทดสอบ', 'ติดตามระบบ', 'ควบคุมงาน', 'รายงานผล', 'สนับสนุนผู้ใช้', 'ประสานงาน'],
   education: [
     {
+      id: 'masters',
       school: 'สถาบันบัณฑิตพัฒนบริหารศาสตร์ (NIDA)',
       degree: 'ปริญญาโท สาขาการจัดการเทคโนโลยีสารสนเทศ',
       period: 'ม.ค. 2012 - มิ.ย. 2014',
@@ -605,8 +628,14 @@ const thai: LocalizedContent = {
         { title: 'ปริญญาโท', file: 'before2021/certificates/3-masters/masters-qualification-en.jpg' },
         { title: 'ใบเกรด', file: 'before2021/certificates/3-masters/masters-transcript1.jpg' },
       ],
+      academicProjects: [
+        { title: 'ระบบ Job Portal', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/1-jobportal.pdf' },
+        { title: 'รายงาน IS ระบบ Job Portal', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/2-jobportal-is-report.pdf' },
+        { title: 'งานวิจัย SaaS', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/3-saas-research.pdf' },
+      ],
     },
     {
+      id: 'bachelors',
       school: 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL)',
       degree: 'ปริญญาตรี สาขาเทคโนโลยีสารสนเทศ',
       period: 'พ.ค. 2006 - พ.ค. 2010',
@@ -615,6 +644,10 @@ const thai: LocalizedContent = {
       evidence: [
         { title: 'ปริญญาตรี', file: 'before2021/certificates/4-bachelors/bachelors-qualification.jpg' },
         { title: 'ใบเกรด', file: 'before2021/certificates/4-bachelors/bachelors-transcript.jpg' },
+      ],
+      academicProjects: [
+        { title: 'ระบบ Mutual Fund Portal', file: 'before2021/sampleprojects/2-university/7-mutualfund-php-bachelorsdegree/mutualfund.pdf' },
+        { title: 'ระบบขาย E-Book Online', file: 'before2021/sampleprojects/2-university/8-ebook-jsp-bachelorsdegree/e-book-sales-online.pdf' },
       ],
     },
   ],

@@ -40,10 +40,13 @@ describe('App', () => {
 
     expect(screen.getByRole('heading', { name: 'Enterprise Software Delivery' })).toBeInTheDocument();
     expect(screen.getByText('Building smarter systems through AI integration and AI-assisted development.')).toBeInTheDocument();
-    expect(screen.getByText('Version 1.1.2')).toBeInTheDocument();
+    expect(screen.getByText('Version 1.1.3')).toBeInTheDocument();
     expect(screen.getByText('Cross-Platform Development')).toBeInTheDocument();
     expect(screen.getByText('AI Integration & Engineering')).toBeInTheDocument();
     expect(screen.getByText('Agile & DevOps Practice')).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: 'EN' })[0]).toHaveAttribute('title', 'English language');
+    expect(screen.getAllByRole('button', { name: 'TH' })[0]).toHaveAttribute('title', 'ภาษาไทย');
+    expect(screen.getByRole('contentinfo')).toHaveClass('bg-slate-50');
   });
 
   it('switches between English and Thai content', async () => {
@@ -55,13 +58,22 @@ describe('App', () => {
     expect(screen.getAllByText('จักรพันธ์ กันตา').length).toBeGreaterThan(0);
     expect(screen.getByRole('heading', { name: 'การส่งมอบซอฟต์แวร์ระดับองค์กร' })).toBeInTheDocument();
     expect(screen.getByText(/สร้างด้วย React, Vite, TypeScript, Tailwind CSS และ GitHub Pages/)).toBeInTheDocument();
-    expect(screen.getByText('เวอร์ชัน 1.1.2')).toBeInTheDocument();
+    expect(screen.getByText('เวอร์ชัน 1.1.3')).toBeInTheDocument();
     expect(screen.getAllByText('ประสบการณ์').length).toBeGreaterThan(0);
     expect(screen.getAllByText('เขียนโค้ด').length).toBeGreaterThan(0);
     expect(screen.getByText('เก็บความต้องการ')).toBeInTheDocument();
     expect(screen.getByText('DevOps และ Cloud')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'สถาบันบัณฑิตพัฒนบริหารศาสตร์ (NIDA)' })).toBeInTheDocument();
     expect(screen.getByText('ปริญญาโท สาขาการจัดการเทคโนโลยีสารสนเทศ')).toBeInTheDocument();
+    expect(screen.getAllByText('โปรเจกต์การศึกษา')).toHaveLength(2);
+    expect(screen.getByRole('link', { name: 'ระบบ Job Portal' })).toHaveAttribute(
+      'href',
+      '/before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/1-jobportal.pdf',
+    );
+    expect(screen.getByRole('link', { name: 'ระบบ Mutual Fund Portal' })).toHaveAttribute(
+      'href',
+      '/before2021/sampleprojects/2-university/7-mutualfund-php-bachelorsdegree/mutualfund.pdf',
+    );
     expect(screen.getByRole('link', { name: 'วิดีโอ React Telemed ฝั่งโรงพยาบาล' })).toHaveAttribute('href', '/video/React_Telemed_Hospital.mp4');
     expect(screen.getAllByRole('link', { name: 'ดูเดโม' }).length).toBeGreaterThan(0);
     expect(screen.getByRole('heading', { name: 'ระบบเว็บองค์กรของ Honda Leasing' })).toBeInTheDocument();
@@ -73,6 +85,22 @@ describe('App', () => {
     );
     expect(screen.getByRole('link', { name: 'แชร์ความรู้ SignalR' })).toHaveAttribute('href', '/before2021/sampleprojects/6-sharetoteam/sinalr.docx');
     expect(document.documentElement.lang).toBe('th');
+  });
+
+  it('keeps education content visible when switching languages back and forth', async () => {
+    render(<App />);
+
+    await userEvent.click(screen.getAllByRole('button', { name: 'TH' })[0]);
+
+    expect(screen.getByRole('heading', { name: 'ประวัติการศึกษา' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'สถาบันบัณฑิตพัฒนบริหารศาสตร์ (NIDA)' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'ระบบ Job Portal' })).toBeInTheDocument();
+
+    await userEvent.click(screen.getAllByRole('button', { name: 'EN' })[0]);
+
+    expect(screen.getByRole('heading', { name: 'Academic background' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'National Institute of Development Administration (NIDA)' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Job Portal' })).toBeInTheDocument();
   });
 
   it('toggles the dark theme class', async () => {
@@ -100,6 +128,9 @@ describe('App', () => {
   it('links education entries to qualification and transcript files', () => {
     render(<App />);
 
+    expect(document.getElementById('education')).toHaveClass('bg-slate-50', 'pt-8', 'sm:pt-10');
+    expect(document.getElementById('contact')).toHaveClass('bg-white');
+
     const qualificationLinks = screen.getAllByRole('link', { name: 'Qualification' });
     const transcriptLinks = screen.getAllByRole('link', { name: 'Transcript' });
 
@@ -114,6 +145,27 @@ describe('App', () => {
         '/before2021/certificates/3-masters/masters-transcript1.jpg',
         '/before2021/certificates/4-bachelors/bachelors-transcript.jpg',
       ]),
+    );
+    expect(screen.getAllByText('Academic Projects')).toHaveLength(2);
+    expect(screen.getByRole('link', { name: 'Job Portal' })).toHaveAttribute(
+      'href',
+      '/before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/1-jobportal.pdf',
+    );
+    expect(screen.getByRole('link', { name: 'Job Portal IS Report' })).toHaveAttribute(
+      'href',
+      '/before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/2-jobportal-is-report.pdf',
+    );
+    expect(screen.getByRole('link', { name: 'SaaS Research' })).toHaveAttribute(
+      'href',
+      '/before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/3-saas-research.pdf',
+    );
+    expect(screen.getByRole('link', { name: 'Mutual Fund Portal' })).toHaveAttribute(
+      'href',
+      '/before2021/sampleprojects/2-university/7-mutualfund-php-bachelorsdegree/mutualfund.pdf',
+    );
+    expect(screen.getByRole('link', { name: 'E-Book Sales Online' })).toHaveAttribute(
+      'href',
+      '/before2021/sampleprojects/2-university/8-ebook-jsp-bachelorsdegree/e-book-sales-online.pdf',
     );
   });
 
@@ -148,6 +200,7 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: 'Transportation Management and GPS Information Systems' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'System Architecture Design' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Engineering Tools and Practice' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'University Software Projects' })).not.toBeInTheDocument();
     expect(screen.queryByRole('img', { name: 'System Architecture Design' })).not.toBeInTheDocument();
     expect(screen.queryByRole('img', { name: 'Engineering Tools and Practice' })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /PTGIS - Geometry Information System/i })).toHaveAttribute(

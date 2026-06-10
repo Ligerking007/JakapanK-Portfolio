@@ -4,6 +4,27 @@ All notable changes to this project are documented here.
 
 This project follows a practical date-based changelog. Version numbers are tracked in `package.json`.
 
+## [1.1.3] - 2026-06-10
+
+### Changed
+
+- Moved university academic project evidence from Earlier Sample Projects into the Education section.
+- Added Academic Projects link groups to master's and bachelor's education cards in English and Thai.
+- Added language switcher tooltips for English and Thai.
+- Kept Education cards mounted with stable IDs so academic background content remains visible when switching languages.
+- Reduced the Education section top spacing so Academic background aligns more closely with other portfolio sections.
+- Changed Education and Contact backgrounds so Education no longer shares the same white band as Certificates.
+- Changed the footer background so it contrasts with the Contact section.
+- Removed the University Software Projects archive card to avoid duplicate academic content in the Projects section.
+- Updated tests to verify academic project links in Education and the removed earlier-project archive card.
+- Updated the portfolio footer version from `1.1.2` to `1.1.3`.
+
+### Verified
+
+- `npm test`
+- `npm run lint`
+- `npm run build`
+
 ## [1.1.2] - 2026-06-10
 
 ### Changed

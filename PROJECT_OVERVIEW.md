@@ -54,6 +54,7 @@ The current Hero direction emphasizes enterprise delivery, cross-platform engine
    - Current phase from 2022 onward
    - Earlier phase up to 2021
    - Expandable archive cards for older sample projects
+   - Earlier project archive focuses on company, architecture, engineering, source code, and knowledge sharing evidence
    - Separate archive cards for system architecture design and engineering tools evidence
    - Separate archive cards for example source code and team knowledge sharing material
    - Company project evidence uses expanded labels for legacy acronyms such as PTGIS, PVM, and TMS
@@ -67,8 +68,8 @@ The current Hero direction emphasizes enterprise delivery, cross-platform engine
    - Expandable panels for large certificate lists
 
 7. **Education**
-   - Master's degree in Information Technology Management with Thai school and degree copy
-   - Bachelor's degree in Information Technology with Thai school and degree copy
+   - Master's degree in Information Technology Management with Thai school, degree copy, qualification, transcript, and academic project evidence
+   - Bachelor's degree in Information Technology with Thai school, degree copy, qualification, transcript, and academic project evidence
 
 8. **Contact**
    - LinkedIn
@@ -79,6 +80,10 @@ The current Hero direction emphasizes enterprise delivery, cross-platform engine
 
 - Responsive single-page portfolio
 - English / Thai language toggle
+- Language toggle uses text labels with tooltips instead of country flags, because the control changes language rather than nationality.
+- Education uses slightly tighter top spacing to keep Academic background visually aligned with surrounding sections.
+- Education uses a contrasting background from Certificates so the Academic background section has a clear visual boundary.
+- Footer uses a contrasting background from Contact to preserve the alternating section rhythm.
 - Thai localization covers core UI copy, footer version labels, work focus labels, SDLC lifecycle labels, skill category labels, current project links, education entries, and earlier project archive labels
 - Light / Dark theme toggle
 - Mobile-friendly header and navigation
@@ -145,7 +150,7 @@ Certificates section:
 - Backend: None
 - Runtime content source: static TypeScript data files
 - License: MIT
-- Current project version: `1.1.2`
+- Current project version: `1.1.3`
 - Release history: `CHANGELOG.md`
 - The current version is displayed in the site footer.
 

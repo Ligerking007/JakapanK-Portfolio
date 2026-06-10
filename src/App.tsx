@@ -316,6 +316,11 @@ function LanguageToggle({
   language: Language;
   setLanguage: (value: Language) => void;
 }) {
+  const languageOptions: Record<Language, { code: string; tooltip: string }> = {
+    en: { code: 'EN', tooltip: 'English language' },
+    th: { code: 'TH', tooltip: 'ภาษาไทย' },
+  };
+
   return (
     <div className={`grid grid-cols-2 rounded-lg border border-slate-200 bg-slate-50 p-1 dark:border-cyan-300/30 dark:bg-white/[0.06] ${expanded ? 'w-full' : 'w-[92px]'}`} aria-label="Language selector">
       {(['en', 'th'] as const).map((option) => (
@@ -326,8 +331,9 @@ function LanguageToggle({
           className={`rounded-md px-3 py-2 text-xs font-bold transition ${
             language === option ? 'bg-cyan-300 text-navy-950' : 'text-slate-600 hover:bg-white hover:text-cyan-800 dark:text-cyan-100 dark:hover:bg-white/[0.12]'
           }`}
+          title={languageOptions[option].tooltip}
         >
-          {option.toUpperCase()}
+          {languageOptions[option].code}
         </button>
       ))}
     </div>
@@ -989,7 +995,7 @@ function Education({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="education" className="section bg-white transition-colors dark:bg-slate-950">
+    <section id="education" className="scroll-mt-20 bg-slate-50 px-0 pb-12 pt-8 transition-colors dark:bg-slate-900 sm:pb-16 sm:pt-10">
       <SectionHeading
         eyebrow={content.sections.education.eyebrow}
         title={content.sections.education.title}
@@ -998,30 +1004,16 @@ function Education({ content }: { content: LocalizedContent }) {
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2">
           {content.education.map((item) => (
-            <motion.div key={item.school} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
+            <motion.div key={item.id} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
               <p className="text-sm font-semibold text-cyan-700 dark:text-cyan-300">{item.period}</p>
               <h3 className="mt-2 text-lg font-bold text-navy-950 dark:text-white">{item.school}</h3>
               <p className="mt-2 font-medium text-slate-700 dark:text-slate-300">{item.degree}</p>
               <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{item.grade} · {item.detail}</p>
               {item.evidence && (
-                <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                  {item.evidence.map((evidence) => (
-                    <a
-                      key={evidence.file}
-                      href={publicAsset(evidence.file)}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group flex min-w-0 items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:bg-white hover:text-cyan-800 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:bg-slate-950 dark:hover:text-cyan-200"
-                      title={`${content.labels.openFile}: ${evidence.title}`}
-                    >
-                      <span className="flex min-w-0 items-center gap-2">
-                        <ImageIcon className="shrink-0 text-cyan-700 dark:text-cyan-300" size={16} />
-                        <span className="min-w-0 truncate">{evidence.title}</span>
-                      </span>
-                      <ExternalLink className="shrink-0 text-slate-400 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-300" size={15} />
-                    </a>
-                  ))}
-                </div>
+                <EducationLinkGroup icon={ImageIcon} label={content.labels.openFile} title={content.labels.educationEvidence} links={item.evidence} />
+              )}
+              {item.academicProjects && (
+                <EducationLinkGroup icon={FileText} label={content.labels.openFile} title={content.labels.academicProjects} links={item.academicProjects} />
               )}
             </motion.div>
           ))}
@@ -1031,11 +1023,47 @@ function Education({ content }: { content: LocalizedContent }) {
   );
 }
 
+function EducationLinkGroup({
+  icon: Icon,
+  label,
+  links,
+  title,
+}: {
+  icon: LucideIcon;
+  label: string;
+  links: { title: string; file: string }[];
+  title: string;
+}) {
+  return (
+    <div className="mt-5">
+      <h4 className="text-xs font-bold uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-300">{title}</h4>
+      <div className="mt-2 grid gap-2 sm:grid-cols-2">
+        {links.map((link) => (
+          <a
+            key={link.file}
+            href={publicAsset(link.file)}
+            target="_blank"
+            rel="noreferrer"
+            className="group flex min-w-0 items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:bg-white hover:text-cyan-800 dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:bg-slate-950 dark:hover:text-cyan-200"
+            title={`${label}: ${link.title}`}
+          >
+            <span className="flex min-w-0 items-center gap-2">
+              <Icon className="shrink-0 text-cyan-700 dark:text-cyan-300" size={16} />
+              <span className="min-w-0 truncate">{link.title}</span>
+            </span>
+            <ExternalLink className="shrink-0 text-slate-400 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-300" size={15} />
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Contact({ content }: { content: LocalizedContent }) {
   const motionSettings = useMotionSettings();
 
   return (
-    <section id="contact" className="section bg-slate-50 transition-colors dark:bg-slate-900">
+    <section id="contact" className="section bg-white transition-colors dark:bg-slate-950">
       <SectionHeading
         eyebrow={content.sections.contact.eyebrow}
         title={content.sections.contact.title}
@@ -1064,7 +1092,7 @@ function Contact({ content }: { content: LocalizedContent }) {
 
 function Footer({ content }: { content: LocalizedContent }) {
   return (
-    <footer className="border-t border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-500 transition-colors dark:border-slate-800 dark:bg-navy-950 dark:text-slate-400">
+    <footer className="border-t border-slate-200 bg-slate-50 px-4 py-8 text-center text-sm text-slate-500 transition-colors dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
       <p>
         © {new Date().getFullYear()} <span className="font-semibold text-navy-950 dark:text-white">{content.profile.name}</span>. {content.labels.footerBuiltWith}
       </p>
