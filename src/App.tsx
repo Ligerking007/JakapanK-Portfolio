@@ -142,6 +142,14 @@ function App() {
 
       const headerOffset = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
       const activationLine = headerOffset + 40;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const isAtPageBottom = scrollHeight > window.innerHeight && window.scrollY + window.innerHeight >= scrollHeight - 2;
+
+      if (isAtPageBottom) {
+        setActiveSection(sectionIds[sectionIds.length - 1] ?? sectionIds[0] ?? 'top');
+        return;
+      }
+
       const activeId = sectionIds.reduce((currentId, sectionId) => {
         const section = document.getElementById(sectionId);
 
@@ -173,7 +181,7 @@ function App() {
         <About content={content} />
         <Skills content={content} />
         <Experience content={content} />
-        <Projects content={content} />
+        <Projects content={content} language={language} />
         <Certificates content={content} />
         <Education content={content} />
         <Contact content={content} />
@@ -623,7 +631,7 @@ function Experience({ content }: { content: LocalizedContent }) {
   );
 }
 
-function Projects({ content }: { content: LocalizedContent }) {
+function Projects({ content, language }: { content: LocalizedContent; language: Language }) {
   const motionSettings = useMotionSettings();
   const evidenceFileCount = legacyProjectGroups.reduce((total, group) => total + group.links.length, 0);
 
@@ -708,7 +716,7 @@ function Projects({ content }: { content: LocalizedContent }) {
           >
             <div className="grid gap-5">
               {legacyProjectGroups.map((group) => (
-                <LegacyProjectCard key={group.title} group={group} label={content.labels.openFile} />
+                <LegacyProjectCard key={group.title} group={group} label={content.labels.openFile} language={language} />
               ))}
             </div>
           </ExpandablePanel>
@@ -901,29 +909,36 @@ function ExpandablePanel({
 function LegacyProjectCard({
   group,
   label,
+  language,
 }: {
   group: (typeof legacyProjectGroups)[number];
   label: string;
+  language: Language;
 }) {
+  const title = language === 'th' ? group.titleTh ?? group.title : group.title;
+  const category = language === 'th' ? group.categoryTh ?? group.category : group.category;
+  const summary = language === 'th' ? group.summaryTh ?? group.summary : group.summary;
+  const tags = language === 'th' ? group.tagsTh ?? group.tags : group.tags;
+
   return (
     <motion.article className="card min-w-0 overflow-hidden">
       <div className="grid min-w-0 gap-0 xl:grid-cols-[0.72fr_1fr]">
         {group.preview && (
           <a href={publicAsset(group.preview)} target="_blank" rel="noreferrer" className="block bg-slate-100 dark:bg-slate-800">
-            <img src={publicAsset(group.preview)} alt={group.title} className="h-full min-h-56 w-full max-w-full object-cover" loading="lazy" />
+            <img src={publicAsset(group.preview)} alt={title} className="h-full min-h-56 w-full max-w-full object-cover" loading="lazy" />
           </a>
         )}
         <div className={`min-w-0 p-5 sm:p-6 ${group.preview ? '' : 'xl:col-span-2'}`}>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div className="min-w-0">
-              <p className="break-words text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{group.category}</p>
-              <h3 className="mt-2 break-words text-xl font-bold text-navy-950 dark:text-white">{group.title}</h3>
+              <p className="break-words text-xs font-bold uppercase tracking-[0.16em] text-cyan-700 dark:text-cyan-300">{category}</p>
+              <h3 className="mt-2 break-words text-xl font-bold text-navy-950 dark:text-white">{title}</h3>
             </div>
             <span className="w-fit max-w-full rounded-full bg-cyan-50 px-3 py-1.5 text-xs font-bold text-cyan-800 dark:bg-cyan-400/10 dark:text-cyan-100">{group.period}</span>
           </div>
-          <p className="mt-3 break-words text-sm leading-6 text-slate-700 dark:text-slate-300">{group.summary}</p>
+          <p className="mt-3 break-words text-sm leading-6 text-slate-700 dark:text-slate-300">{summary}</p>
           <div className="mt-4 flex flex-wrap gap-2">
-            {group.tags.map((tag) => (
+            {tags.map((tag) => (
               <span key={tag} className="max-w-full break-words rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
                 {tag}
               </span>
@@ -931,7 +946,7 @@ function LegacyProjectCard({
           </div>
           <div className="mt-5 grid min-w-0 gap-2 sm:grid-cols-2">
             {group.links.map((link) => (
-              <ArchiveFileLink key={link.file} link={link} label={label} />
+              <ArchiveFileLink key={link.file} link={link} label={label} language={language} />
             ))}
           </div>
         </div>
@@ -940,8 +955,9 @@ function LegacyProjectCard({
   );
 }
 
-function ArchiveFileLink({ label, link }: { label: string; link: ArchiveLink }) {
+function ArchiveFileLink({ label, language, link }: { label: string; language: Language; link: ArchiveLink }) {
   const Icon = archiveLinkIcons[link.type];
+  const title = language === 'th' ? link.titleTh ?? link.title : link.title;
 
   return (
     <a
@@ -949,11 +965,11 @@ function ArchiveFileLink({ label, link }: { label: string; link: ArchiveLink }) 
       target="_blank"
       rel="noreferrer"
       className="group flex min-w-0 max-w-full items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-semibold text-slate-700 transition hover:border-cyan-200 hover:text-cyan-800 dark:border-slate-700 dark:bg-slate-950/70 dark:text-slate-200 dark:hover:border-cyan-500/50 dark:hover:text-cyan-200"
-      title={`${label}: ${link.title}`}
+      title={`${label}: ${title}`}
     >
       <span className="flex min-w-0 items-center gap-2">
         <Icon className="shrink-0 text-cyan-700 dark:text-cyan-300" size={16} />
-        <span className="min-w-0 truncate">{link.title}</span>
+        <span className="min-w-0 truncate">{title}</span>
       </span>
       <ExternalLink className="shrink-0 text-slate-400 transition group-hover:text-cyan-700 dark:group-hover:text-cyan-300" size={15} />
     </a>
@@ -1050,9 +1066,9 @@ function Footer({ content }: { content: LocalizedContent }) {
   return (
     <footer className="border-t border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-500 transition-colors dark:border-slate-800 dark:bg-navy-950 dark:text-slate-400">
       <p>
-        © {new Date().getFullYear()} <span className="font-semibold text-navy-950 dark:text-white">{content.profile.name}</span>. Built with React, Vite, TypeScript, Tailwind CSS, and GitHub Pages.
+        © {new Date().getFullYear()} <span className="font-semibold text-navy-950 dark:text-white">{content.profile.name}</span>. {content.labels.footerBuiltWith}
       </p>
-      <p className="mt-2 text-xs font-medium text-slate-400 dark:text-slate-500">Version {packageMetadata.version}</p>
+      <p className="mt-2 text-xs font-medium text-slate-400 dark:text-slate-500">{content.labels.version} {packageMetadata.version}</p>
     </footer>
   );
 }

@@ -2,6 +2,7 @@ export type ArchiveLinkType = 'pdf' | 'image' | 'video' | 'document' | 'spreadsh
 
 export type ArchiveLink = {
   title: string;
+  titleTh?: string;
   file: string;
   type: ArchiveLinkType;
 };
@@ -13,10 +14,14 @@ export type LegacyCredential = ArchiveLink & {
 
 export type LegacyProjectGroup = {
   title: string;
+  titleTh?: string;
   period: string;
   category: string;
+  categoryTh?: string;
   summary: string;
+  summaryTh?: string;
   tags: string[];
+  tagsTh?: string[];
   preview?: string;
   links: ArchiveLink[];
 };
@@ -97,88 +102,112 @@ export const legacyCredentials: LegacyCredential[] = [
 export const legacyProjectGroups: LegacyProjectGroup[] = [
   {
     title: 'Honda Leasing Enterprise Web Systems',
+    titleTh: 'ระบบเว็บองค์กรของ Honda Leasing',
     period: '2015 - 2020',
     category: 'Company Projects',
+    categoryTh: 'โปรเจกต์บริษัท',
     summary: 'ASP.NET, AngularJS, .NET Core API, responsive customer service, document scanning, reporting, and estimation workflow examples.',
+    summaryTh: 'ตัวอย่างระบบ ASP.NET, AngularJS, .NET Core API, customer service แบบ responsive, document scanning, reporting และ workflow สำหรับประเมินงาน',
     tags: ['ASP.NET', 'AngularJS', '.NET Core API', 'MSSQL', 'Responsive Web'],
+    tagsTh: ['ASP.NET', 'AngularJS', '.NET Core API', 'MSSQL', 'Responsive Web'],
     links: [
-      { title: 'IT Services', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/1-asp-net/itservices.pdf', type: 'pdf' },
-      { title: 'Mobile Customer Service Web Responsive', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/1-asp-net/mobile-customer-service-webresponsive.mp4', type: 'video' },
-      { title: 'Pivot Drill Down', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/1-asp-net/pivotdrilldown.pdf', type: 'pdf' },
-      { title: 'Customer Scoring ACS', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/2-angularjs/customerscoring-acs.pdf', type: 'pdf' },
-      { title: 'Public Web', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/2-angularjs/publicweb.pdf', type: 'pdf' },
-      { title: 'E-Document Scan Control', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/3-netcoreapi/e-documentfilesscancontrol.pdf', type: 'pdf' },
-      { title: 'Man-Day Estimation', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/4-manday-estimation/manday-estimation.pdf', type: 'pdf' },
-      { title: 'Man-Day Estimation Example', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/4-manday-estimation/manday-estimation-example.xlsx', type: 'spreadsheet' },
+      { title: 'IT Services', titleTh: 'ระบบ IT Services', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/1-asp-net/itservices.pdf', type: 'pdf' },
+      { title: 'Mobile Customer Service Web Responsive', titleTh: 'Mobile Customer Service แบบ Responsive', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/1-asp-net/mobile-customer-service-webresponsive.mp4', type: 'video' },
+      { title: 'Pivot Drill Down', titleTh: 'รายงาน Pivot Drill Down', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/1-asp-net/pivotdrilldown.pdf', type: 'pdf' },
+      { title: 'Customer Scoring ACS', titleTh: 'ระบบ Customer Scoring ACS', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/2-angularjs/customerscoring-acs.pdf', type: 'pdf' },
+      { title: 'Public Web', titleTh: 'เว็บไซต์ Public Web', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/2-angularjs/publicweb.pdf', type: 'pdf' },
+      { title: 'E-Document Scan Control', titleTh: 'ระบบควบคุม E-Document Scan', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/3-netcoreapi/e-documentfilesscancontrol.pdf', type: 'pdf' },
+      { title: 'Man-Day Estimation', titleTh: 'เอกสารประเมิน Man-Day', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/4-manday-estimation/manday-estimation.pdf', type: 'pdf' },
+      { title: 'Man-Day Estimation Example', titleTh: 'ตัวอย่างการประเมิน Man-Day', file: 'before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/4-manday-estimation/manday-estimation-example.xlsx', type: 'spreadsheet' },
     ],
   },
   {
     title: 'Transportation Management and GPS Information Systems',
+    titleTh: 'ระบบจัดการขนส่งและข้อมูล GPS',
     period: '2013 - 2015',
     category: 'Company Projects',
+    categoryTh: 'โปรเจกต์บริษัท',
     summary: 'Geometry information, palm visit management, transportation management, vehicle monitoring, and GPS-related business systems from Onelink experience.',
+    summaryTh: 'ระบบ Geometry information, Palm Visit Management, Transportation Management, Vehicle Monitoring และระบบธุรกิจที่เกี่ยวกับ GPS จากประสบการณ์ที่ Onelink',
     tags: ['C#', 'ASP.NET MVC', 'PostgreSQL', 'Google Maps API', 'DevExpress'],
+    tagsTh: ['C#', 'ASP.NET MVC', 'PostgreSQL', 'Google Maps API', 'DevExpress'],
     links: [
-      { title: 'PTGIS - Geometry Information System', file: 'before2021/sampleprojects/1-company/2-onelink-csharp-net/ptgis.pdf', type: 'pdf' },
-      { title: 'PVM - Palm Visit Management', file: 'before2021/sampleprojects/1-company/2-onelink-csharp-net/pvm.pdf', type: 'pdf' },
-      { title: 'TMS - Transportation Management System', file: 'before2021/sampleprojects/1-company/2-onelink-csharp-net/tms.pdf', type: 'pdf' },
+      { title: 'PTGIS - Geometry Information System', titleTh: 'PTGIS - ระบบ Geometry Information System', file: 'before2021/sampleprojects/1-company/2-onelink-csharp-net/ptgis.pdf', type: 'pdf' },
+      { title: 'PVM - Palm Visit Management', titleTh: 'PVM - ระบบ Palm Visit Management', file: 'before2021/sampleprojects/1-company/2-onelink-csharp-net/pvm.pdf', type: 'pdf' },
+      { title: 'TMS - Transportation Management System', titleTh: 'TMS - ระบบ Transportation Management System', file: 'before2021/sampleprojects/1-company/2-onelink-csharp-net/tms.pdf', type: 'pdf' },
     ],
   },
   {
     title: 'Enterprise and Back-Office Systems',
+    titleTh: 'ระบบองค์กรและ Back Office',
     period: 'Before 2013',
     category: 'Company Projects',
+    categoryTh: 'โปรเจกต์บริษัท',
     summary: 'Early enterprise system samples across barcode, postal, mortgage, leasing, and back-office process domains.',
+    summaryTh: 'ตัวอย่างระบบองค์กรช่วงแรก ครอบคลุม barcode, postal, mortgage, leasing และกระบวนการ back-office',
     tags: ['C#', 'PHP', 'Back Office', 'Reporting', 'Database Design'],
+    tagsTh: ['C#', 'PHP', 'Back Office', 'Reporting', 'Database Design'],
     links: [
-      { title: 'Barcode System', file: 'before2021/sampleprojects/1-company/3-vsmart-csharp-net/barcode.pdf', type: 'pdf' },
-      { title: 'Postal System', file: 'before2021/sampleprojects/1-company/3-vsmart-csharp-net/postal.pdf', type: 'pdf' },
-      { title: 'Mortgage System', file: 'before2021/sampleprojects/1-company/4-thaiace-csharp-net/mortgage.pdf', type: 'pdf' },
-      { title: 'Leasing System', file: 'before2021/sampleprojects/1-company/5-thaiace-php/leasing.pdf', type: 'pdf' },
-      { title: 'Finger Scan', file: 'before2021/sampleprojects/1-company/4-thaiace-csharp-net/fingerscan.pdf', type: 'pdf' },
+      { title: 'Barcode System', titleTh: 'ระบบ Barcode', file: 'before2021/sampleprojects/1-company/3-vsmart-csharp-net/barcode.pdf', type: 'pdf' },
+      { title: 'Postal System', titleTh: 'ระบบงานไปรษณีย์', file: 'before2021/sampleprojects/1-company/3-vsmart-csharp-net/postal.pdf', type: 'pdf' },
+      { title: 'Mortgage System', titleTh: 'ระบบ Mortgage', file: 'before2021/sampleprojects/1-company/4-thaiace-csharp-net/mortgage.pdf', type: 'pdf' },
+      { title: 'Leasing System', titleTh: 'ระบบ Leasing', file: 'before2021/sampleprojects/1-company/5-thaiace-php/leasing.pdf', type: 'pdf' },
+      { title: 'Finger Scan', titleTh: 'ระบบ Finger Scan', file: 'before2021/sampleprojects/1-company/4-thaiace-csharp-net/fingerscan.pdf', type: 'pdf' },
     ],
   },
   {
     title: 'University Software Projects',
+    titleTh: 'โปรเจกต์ซอฟต์แวร์ช่วงมหาวิทยาลัย',
     period: '2006 - 2014',
     category: 'Academic Projects',
+    categoryTh: 'โปรเจกต์การศึกษา',
     summary: 'Master and bachelor project artifacts including job portal, NoSQL research, mutual fund portal, and online e-book sales.',
+    summaryTh: 'ผลงานโปรเจกต์ระดับปริญญาโทและปริญญาตรี เช่น job portal, งานวิจัย NoSQL, mutual fund portal และระบบขาย e-book online',
     tags: ['C#', 'PHP', 'JSP', 'NoSQL', 'Research'],
+    tagsTh: ['C#', 'PHP', 'JSP', 'NoSQL', 'Research'],
     links: [
-      { title: 'Job Portal', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/1-jobportal.pdf', type: 'pdf' },
-      { title: 'Job Portal IS Report', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/2-jobportal-is-report.pdf', type: 'pdf' },
-      { title: 'SaaS Research', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/3-saas-research.pdf', type: 'pdf' },
-      { title: 'Mutual Fund Portal', file: 'before2021/sampleprojects/2-university/7-mutualfund-php-bachelorsdegree/mutualfund.pdf', type: 'pdf' },
-      { title: 'E-Book Sales Online', file: 'before2021/sampleprojects/2-university/8-ebook-jsp-bachelorsdegree/e-book-sales-online.pdf', type: 'pdf' },
+      { title: 'Job Portal', titleTh: 'ระบบ Job Portal', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/1-jobportal.pdf', type: 'pdf' },
+      { title: 'Job Portal IS Report', titleTh: 'รายงาน IS ระบบ Job Portal', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/2-jobportal-is-report.pdf', type: 'pdf' },
+      { title: 'SaaS Research', titleTh: 'งานวิจัย SaaS', file: 'before2021/sampleprojects/2-university/6-nosql-csharp-net-mastersdegree/3-saas-research.pdf', type: 'pdf' },
+      { title: 'Mutual Fund Portal', titleTh: 'ระบบ Mutual Fund Portal', file: 'before2021/sampleprojects/2-university/7-mutualfund-php-bachelorsdegree/mutualfund.pdf', type: 'pdf' },
+      { title: 'E-Book Sales Online', titleTh: 'ระบบขาย E-Book Online', file: 'before2021/sampleprojects/2-university/8-ebook-jsp-bachelorsdegree/e-book-sales-online.pdf', type: 'pdf' },
     ],
   },
   {
     title: 'System Architecture Design',
+    titleTh: 'การออกแบบ System Architecture',
     period: '2015 - 2020',
     category: 'Architecture Practice',
+    categoryTh: 'งานด้าน Architecture',
     summary: 'System architecture, API gateway, web load balancing, and database load balancing diagrams and reference material.',
+    summaryTh: 'Diagram และเอกสารอ้างอิงเกี่ยวกับ system architecture, API gateway, web load balancing และ database load balancing',
     tags: ['Architecture', 'API Gateway', 'Load Balancing', 'Database', 'Draw.io'],
+    tagsTh: ['Architecture', 'API Gateway', 'Load Balancing', 'Database', 'Draw.io'],
     links: [
-      { title: 'API Gateway - Identity Service Position', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/api-gateway-microservice/eshoponcontainers-identity-service-position.png', type: 'image' },
-      { title: 'API Gateway - Ocelot Authentication', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/api-gateway-microservice/ocelot-authentication-1.png', type: 'image' },
-      { title: 'API Gateway - Reusing Single Ocelot Docker Image', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/api-gateway-microservice/reusing-single-ocelot-docker-image.png', type: 'image' },
-      { title: 'API Gateway - Vision Aggregator Services', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/api-gateway-microservice/zoom-in-vision-aggregator-services.png', type: 'image' },
-      { title: 'Database Load Balancing - Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/database-loadbalancing/image1-1.png', type: 'image' },
-      { title: 'Database Load Balancing - SQL Server Always On', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/database-loadbalancing/sql-server-alwayson-diagram-sqlnethub.png', type: 'image' },
-      { title: 'Web Load Balancing - Multi-Tier Deployment Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/web-loadbalancing/benchmark-multi-tier-web-application-deployment-diagram-showing-web-tier-and-database.png', type: 'image' },
-      { title: 'Network Load Balancer Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/web-loadbalancing/nlb.png', type: 'image' },
-      { title: 'Web Load Balancing - WFF Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/web-loadbalancing/wff-diagram1-400x236.png', type: 'image' },
-      { title: 'Web Load Balancing - NGINX Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/web-loadbalancing/what-is-load-balancing-diagram-nginx.png', type: 'image' },
-      { title: 'Draw.io Architecture Source', file: 'before2021/sampleprojects/3-systemarchitecturedesign/mysystemarchitecturedesign.drawio', type: 'diagram' },
-      { title: 'System Architecture Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/mysystemarchitecturedesign.png', type: 'image' },
+      { title: 'API Gateway - Identity Service Position', titleTh: 'API Gateway - ตำแหน่ง Identity Service', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/api-gateway-microservice/eshoponcontainers-identity-service-position.png', type: 'image' },
+      { title: 'API Gateway - Ocelot Authentication', titleTh: 'API Gateway - Ocelot Authentication', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/api-gateway-microservice/ocelot-authentication-1.png', type: 'image' },
+      { title: 'API Gateway - Reusing Single Ocelot Docker Image', titleTh: 'API Gateway - การใช้ Ocelot Docker Image ร่วมกัน', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/api-gateway-microservice/reusing-single-ocelot-docker-image.png', type: 'image' },
+      { title: 'API Gateway - Vision Aggregator Services', titleTh: 'API Gateway - Vision Aggregator Services', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/api-gateway-microservice/zoom-in-vision-aggregator-services.png', type: 'image' },
+      { title: 'Database Load Balancing - Diagram', titleTh: 'Database Load Balancing - Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/database-loadbalancing/image1-1.png', type: 'image' },
+      { title: 'Database Load Balancing - SQL Server Always On', titleTh: 'Database Load Balancing - SQL Server Always On', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/database-loadbalancing/sql-server-alwayson-diagram-sqlnethub.png', type: 'image' },
+      { title: 'Web Load Balancing - Multi-Tier Deployment Diagram', titleTh: 'Web Load Balancing - Multi-Tier Deployment Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/web-loadbalancing/benchmark-multi-tier-web-application-deployment-diagram-showing-web-tier-and-database.png', type: 'image' },
+      { title: 'Network Load Balancer Diagram', titleTh: 'Network Load Balancer Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/web-loadbalancing/nlb.png', type: 'image' },
+      { title: 'Web Load Balancing - WFF Diagram', titleTh: 'Web Load Balancing - WFF Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/web-loadbalancing/wff-diagram1-400x236.png', type: 'image' },
+      { title: 'Web Load Balancing - NGINX Diagram', titleTh: 'Web Load Balancing - NGINX Diagram', file: 'before2021/sampleprojects/3-systemarchitecturedesign/knowledge/web-loadbalancing/what-is-load-balancing-diagram-nginx.png', type: 'image' },
+      { title: 'Draw.io Architecture Source', titleTh: 'ไฟล์ต้นฉบับ Architecture จาก Draw.io', file: 'before2021/sampleprojects/3-systemarchitecturedesign/mysystemarchitecturedesign.drawio', type: 'diagram' },
+      { title: 'System Architecture Diagram', titleTh: 'แผนภาพ System Architecture', file: 'before2021/sampleprojects/3-systemarchitecturedesign/mysystemarchitecturedesign.png', type: 'image' },
     ],
   },
   {
     title: 'Engineering Tools and Practice',
+    titleTh: 'เครื่องมือและแนวปฏิบัติด้าน Engineering',
     period: '2015 - 2020',
     category: 'Engineering Practice',
+    categoryTh: 'แนวปฏิบัติด้าน Engineering',
     summary: 'DevOps, code quality, project management, Docker, Kubernetes, monitoring, search, AI experiments, and testing tool evidence.',
+    summaryTh: 'หลักฐานการใช้งานเครื่องมือด้าน DevOps, code quality, project management, Docker, Kubernetes, monitoring, search, AI experiments และ testing',
     tags: ['CI/CD', 'Docker', 'Kubernetes', 'SonarQube', 'Jira', 'Testing'],
+    tagsTh: ['CI/CD', 'Docker', 'Kubernetes', 'SonarQube', 'Jira', 'Testing'],
     links: [
       { title: 'Jenkins Notes 1', file: 'before2021/sampleprojects/4-tools/cicd/3-jenkins/jenkins1.docx', type: 'document' },
       { title: 'Jenkins Notes 2', file: 'before2021/sampleprojects/4-tools/cicd/3-jenkins/jenkins2.docx', type: 'document' },
@@ -237,27 +266,38 @@ export const legacyProjectGroups: LegacyProjectGroup[] = [
   },
   {
     title: 'Example Source Code',
+    titleTh: 'ตัวอย่าง Source Code',
     period: '2015 - 2020',
     category: 'Source Code Examples',
+    categoryTh: 'ตัวอย่าง Source Code',
     summary: 'Source code examples and project template documents for .NET Core API and jQuery-based enterprise application patterns.',
+    summaryTh: 'ตัวอย่าง source code และเอกสาร project template สำหรับรูปแบบ enterprise application ที่ใช้ .NET Core API และ jQuery',
     tags: ['Source Code', '.NET Core API', 'jQuery', 'Project Template', 'Documentation'],
+    tagsTh: ['Source Code', '.NET Core API', 'jQuery', 'Project Template', 'Documentation'],
     links: [
-      { title: 'Bank System Source Code Example', file: 'before2021/sampleprojects/5-sourcecodeexample/netcore-api-jquery/mysourcecode-banksystem.pdf', type: 'pdf' },
-      { title: 'Source Code Guide', file: 'before2021/sampleprojects/5-sourcecodeexample/netcore-api-jquery/knowledge/projecttemplate/sourcecodeguide.pdf', type: 'pdf' },
-      { title: 'API Project Template', file: 'before2021/sampleprojects/5-sourcecodeexample/netcore-api-jquery/knowledge/projecttemplate/api.pdf', type: 'pdf' },
+      { title: 'Bank System Source Code Example', titleTh: 'ตัวอย่าง Source Code ระบบธนาคาร', file: 'before2021/sampleprojects/5-sourcecodeexample/netcore-api-jquery/mysourcecode-banksystem.pdf', type: 'pdf' },
+      { title: 'Source Code Guide', titleTh: 'คู่มือ Source Code', file: 'before2021/sampleprojects/5-sourcecodeexample/netcore-api-jquery/knowledge/projecttemplate/sourcecodeguide.pdf', type: 'pdf' },
+      { title: 'API Project Template', titleTh: 'Template โปรเจกต์ API', file: 'before2021/sampleprojects/5-sourcecodeexample/netcore-api-jquery/knowledge/projecttemplate/api.pdf', type: 'pdf' },
     ],
   },
   {
     title: 'Team Knowledge Sharing',
+    titleTh: 'การแชร์ความรู้ในทีม',
     period: '2015 - 2026',
     category: 'Team Enablement',
-    summary: 'Team knowledge sharing material covering API gateway design, team leadership, Agile retrospective practice, and Agentic AI enablement.',
-    tags: ['Knowledge Sharing', 'API Gateway', 'Team Lead', 'Agile', 'Agentic AI', 'Documentation'],
+    categoryTh: 'การพัฒนาทีม',
+    summary: 'Team knowledge sharing material covering API gateway design, SignalR, SonarLint, Jira and Confluence, team leadership, Agile retrospective practice, and Agentic AI enablement.',
+    summaryTh: 'เอกสารแชร์ความรู้ในทีม ครอบคลุม API gateway design, SignalR, SonarLint, Jira และ Confluence, team leadership, Agile retrospective และการใช้ Agentic AI',
+    tags: ['Knowledge Sharing', 'API Gateway', 'SignalR', 'SonarLint', 'Jira', 'Agentic AI', 'Documentation'],
+    tagsTh: ['Knowledge Sharing', 'API Gateway', 'SignalR', 'SonarLint', 'Jira', 'Agentic AI', 'Documentation'],
     links: [
-      { title: 'Agentic AI Team Sharing 2026', file: 'before2021/sampleprojects/6-sharetoteam/Agentic_AI_TeamSharing_2026_05_JakapanK.pptx', type: 'document' },
-      { title: 'Ocelot API Gateway', file: 'before2021/sampleprojects/6-sharetoteam/ocelot-api-gateway.docx', type: 'document' },
-      { title: 'Agile Retrospective', file: 'before2021/sampleprojects/6-sharetoteam/agilerestrospective.docx', type: 'document' },
-      { title: 'Team Leader Notes', file: 'before2021/sampleprojects/6-sharetoteam/teamleader.docx', type: 'document' },
+      { title: 'Agentic AI Team Sharing 2026', titleTh: 'แชร์ความรู้ Agentic AI ปี 2026', file: 'before2021/sampleprojects/6-sharetoteam/Agentic_AI_TeamSharing_2026_05_JakapanK.pptx', type: 'document' },
+      { title: 'Ocelot API Gateway', titleTh: 'แชร์ความรู้ Ocelot API Gateway', file: 'before2021/sampleprojects/6-sharetoteam/ocelot-api-gateway.docx', type: 'document' },
+      { title: 'SignalR Team Sharing', titleTh: 'แชร์ความรู้ SignalR', file: 'before2021/sampleprojects/6-sharetoteam/sinalr.docx', type: 'document' },
+      { title: 'SonarLint Team Sharing', titleTh: 'แชร์ความรู้ SonarLint', file: 'before2021/sampleprojects/6-sharetoteam/sonarlint.docx', type: 'document' },
+      { title: 'Jira and Confluence Team Sharing', titleTh: 'แชร์ความรู้ Jira และ Confluence', file: 'before2021/sampleprojects/6-sharetoteam/jiraconfluence.docx', type: 'document' },
+      { title: 'Agile Retrospective', titleTh: 'แชร์ความรู้ Agile Retrospective', file: 'before2021/sampleprojects/6-sharetoteam/agilerestrospective.docx', type: 'document' },
+      { title: 'Team Leader Notes', titleTh: 'บันทึกการทำงาน Team Leader', file: 'before2021/sampleprojects/6-sharetoteam/teamleader.docx', type: 'document' },
     ],
   },
 ];

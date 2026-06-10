@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import App from './App';
@@ -9,6 +9,10 @@ const architectureEvidenceFiles = Object.keys(import.meta.glob('/public/before20
   .map((file) => file.replace(/^\/public\//, ''))
   .sort();
 const engineeringToolEvidenceFiles = Object.keys(import.meta.glob('/public/before2021/sampleprojects/4-tools/**/*', { query: '?url', import: 'default' }))
+  .filter((file) => !file.endsWith('/.DS_Store'))
+  .map((file) => file.replace(/^\/public\//, ''))
+  .sort();
+const teamSharingEvidenceFiles = Object.keys(import.meta.glob('/public/before2021/sampleprojects/6-sharetoteam/**/*', { query: '?url', import: 'default' }))
   .filter((file) => !file.endsWith('/.DS_Store'))
   .map((file) => file.replace(/^\/public\//, ''))
   .sort();
@@ -36,7 +40,7 @@ describe('App', () => {
 
     expect(screen.getByRole('heading', { name: 'Enterprise Software Delivery' })).toBeInTheDocument();
     expect(screen.getByText('Building smarter systems through AI integration and AI-assisted development.')).toBeInTheDocument();
-    expect(screen.getByText('Version 1.1.1')).toBeInTheDocument();
+    expect(screen.getByText('Version 1.1.2')).toBeInTheDocument();
     expect(screen.getByText('Cross-Platform Development')).toBeInTheDocument();
     expect(screen.getByText('AI Integration & Engineering')).toBeInTheDocument();
     expect(screen.getByText('Agile & DevOps Practice')).toBeInTheDocument();
@@ -46,9 +50,28 @@ describe('App', () => {
     render(<App />);
 
     await userEvent.click(screen.getAllByRole('button', { name: 'TH' })[0]);
+    await userEvent.click(screen.getAllByRole('button', { name: 'ขยาย' })[0]);
 
     expect(screen.getAllByText('จักรพันธ์ กันตา').length).toBeGreaterThan(0);
     expect(screen.getByRole('heading', { name: 'การส่งมอบซอฟต์แวร์ระดับองค์กร' })).toBeInTheDocument();
+    expect(screen.getByText(/สร้างด้วย React, Vite, TypeScript, Tailwind CSS และ GitHub Pages/)).toBeInTheDocument();
+    expect(screen.getByText('เวอร์ชัน 1.1.2')).toBeInTheDocument();
+    expect(screen.getAllByText('ประสบการณ์').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('เขียนโค้ด').length).toBeGreaterThan(0);
+    expect(screen.getByText('เก็บความต้องการ')).toBeInTheDocument();
+    expect(screen.getByText('DevOps และ Cloud')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'สถาบันบัณฑิตพัฒนบริหารศาสตร์ (NIDA)' })).toBeInTheDocument();
+    expect(screen.getByText('ปริญญาโท สาขาการจัดการเทคโนโลยีสารสนเทศ')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'วิดีโอ React Telemed ฝั่งโรงพยาบาล' })).toHaveAttribute('href', '/video/React_Telemed_Hospital.mp4');
+    expect(screen.getAllByRole('link', { name: 'ดูเดโม' }).length).toBeGreaterThan(0);
+    expect(screen.getByRole('heading', { name: 'ระบบเว็บองค์กรของ Honda Leasing' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'การแชร์ความรู้ในทีม' })).toBeInTheDocument();
+    expect(screen.getAllByText('โปรเจกต์บริษัท').length).toBeGreaterThan(0);
+    expect(screen.getByRole('link', { name: 'ระบบ IT Services' })).toHaveAttribute(
+      'href',
+      '/before2021/sampleprojects/1-company/1-hondaleasing-csharp-net/1-asp-net/itservices.pdf',
+    );
+    expect(screen.getByRole('link', { name: 'แชร์ความรู้ SignalR' })).toHaveAttribute('href', '/before2021/sampleprojects/6-sharetoteam/sinalr.docx');
     expect(document.documentElement.lang).toBe('th');
   });
 
@@ -59,6 +82,19 @@ describe('App', () => {
 
     expect(document.documentElement).toHaveClass('dark');
     expect(window.localStorage.getItem('portfolio-theme')).toBe('dark');
+  });
+
+  it('marks contact active when scrolled to the bottom of the page', async () => {
+    Object.defineProperty(document.documentElement, 'scrollHeight', { configurable: true, value: 2200 });
+    Object.defineProperty(window, 'innerHeight', { configurable: true, value: 800 });
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 1400 });
+
+    render(<App />);
+    fireEvent.scroll(window);
+
+    await waitFor(() => {
+      expect(screen.getByRole('link', { name: 'Contact' })).toHaveClass('bg-cyan-300');
+    });
   });
 
   it('links education entries to qualification and transcript files', () => {
@@ -136,13 +172,19 @@ describe('App', () => {
       'href',
       '/before2021/sampleprojects/6-sharetoteam/Agentic_AI_TeamSharing_2026_05_JakapanK.pptx',
     );
+    expect(screen.getByRole('link', { name: /SignalR Team Sharing/i })).toHaveAttribute('href', '/before2021/sampleprojects/6-sharetoteam/sinalr.docx');
+    expect(screen.getByRole('link', { name: /SonarLint Team Sharing/i })).toHaveAttribute('href', '/before2021/sampleprojects/6-sharetoteam/sonarlint.docx');
+    expect(screen.getByRole('link', { name: /Jira and Confluence Team Sharing/i })).toHaveAttribute(
+      'href',
+      '/before2021/sampleprojects/6-sharetoteam/jiraconfluence.docx',
+    );
   });
 
-  it('registers every architecture and engineering tool evidence file', () => {
+  it('registers every architecture, engineering tool, and team sharing evidence file', () => {
     const registeredFiles = new Set(legacyProjectGroups.flatMap((group) => group.links.map((link) => link.file)));
-    const expectedFiles = [...architectureEvidenceFiles, ...engineeringToolEvidenceFiles];
+    const expectedFiles = [...architectureEvidenceFiles, ...engineeringToolEvidenceFiles, ...teamSharingEvidenceFiles];
 
-    expect(expectedFiles).toHaveLength(65);
+    expect(expectedFiles).toHaveLength(72);
     expect(expectedFiles.filter((file) => !registeredFiles.has(file))).toEqual([]);
   });
 

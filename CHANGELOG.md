@@ -4,6 +4,22 @@ All notable changes to this project are documented here.
 
 This project follows a practical date-based changelog. Version numbers are tracked in `package.json`.
 
+## [1.1.2] - 2026-06-10
+
+### Changed
+
+- Expanded Thai localization coverage for footer copy, current project links, work focus labels, SDLC lifecycle labels, skill category labels, experience role metadata, and education entries.
+- Added Thai school names for the Education section while keeping recognizable NIDA and KMITL abbreviations.
+- Added Thai archive evidence link labels for key earlier sample project and team knowledge sharing files.
+- Updated localization tests to cover the new Thai UI copy and link labels.
+- Updated the portfolio footer version from `1.1.1` to `1.1.2`.
+
+### Verified
+
+- `npm test`
+- `npm run lint`
+- `npm run build`
+
 ## [1.1.1] - 2026-06-10
 
 ### Added
@@ -11,6 +27,7 @@ This project follows a practical date-based changelog. Version numbers are track
 - Added the Agentic AI Team Sharing 2026 presentation to the Team Knowledge Sharing project evidence.
 - Added an Agentic AI tag to the team sharing archive card.
 - Added every evidence file under `public/before2021/sampleprojects/3-systemarchitecturedesign` and `public/before2021/sampleprojects/4-tools` to the earlier project archive.
+- Added every evidence file under `public/before2021/sampleprojects/6-sharetoteam`, including SignalR, SonarLint, and Jira/Confluence sharing documents.
 
 ### Changed
 
@@ -18,6 +35,8 @@ This project follows a practical date-based changelog. Version numbers are track
 - Split the earlier project archive into separate Example Source Code and Team Knowledge Sharing cards.
 - Removed preview thumbnails from the System Architecture Design and Engineering Tools and Practice archive cards while keeping the files available as evidence links.
 - Renamed the transportation archive card and expanded PTGIS, PVM, and TMS labels for clearer project evidence.
+- Fixed active navigation highlighting so Contact is selected when visitors scroll to the bottom of the page.
+- Added Thai localized titles, categories, summaries, and tags for Earlier Sample Projects archive cards.
 - Updated the portfolio footer version from `1.1.0` to `1.1.1`.
 
 ### Verified

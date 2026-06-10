@@ -77,6 +77,8 @@ export type LocalizedContent = {
     linkedin: string;
     github: string;
     email: string;
+    footerBuiltWith: string;
+    version: string;
   };
   profile: {
     name: string;
@@ -212,6 +214,8 @@ const english: LocalizedContent = {
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',
+    footerBuiltWith: 'Built with React, Vite, TypeScript, Tailwind CSS, and GitHub Pages.',
+    version: 'Version',
   },
   profile: {
     name: 'Jakapan Kanta',
@@ -472,6 +476,8 @@ const thai: LocalizedContent = {
     linkedin: 'LinkedIn',
     github: 'GitHub',
     email: 'Email',
+    footerBuiltWith: 'สร้างด้วย React, Vite, TypeScript, Tailwind CSS และ GitHub Pages',
+    version: 'เวอร์ชัน',
   },
   profile: {
     name: 'จักรพันธ์ กันตา',
@@ -479,17 +485,26 @@ const thai: LocalizedContent = {
       'ผมเชี่ยวชาญ C#, .NET, ASP.NET MVC, .NET Core API, Node.js, React, Angular และ Android Development มีประสบการณ์ทำงานครอบคลุม Full SDLC ตั้งแต่ Requirements, Planning, Designing, Coding, Testing, Monitoring, Controlling, Reporting, Supporting และ Coordinating โดยทำงานผสมระหว่าง Hands-on coding, System architecture, Documentation, Team leadership และการนำเครื่องมือสมัยใหม่รวมถึง AI-assisted development มาเพิ่มคุณภาพและประสิทธิภาพในการส่งมอบงาน',
   },
   focusItems: [
-    { label: 'Coding', value: 70, icon: Code2 },
-    { label: 'Design & Documentation', value: 20, icon: BookOpenCheck },
-    { label: 'Lead & Support', value: 10, icon: Users },
+    { label: 'เขียนโค้ด', value: 70, icon: Code2 },
+    { label: 'ออกแบบและทำเอกสาร', value: 20, icon: BookOpenCheck },
+    { label: 'นำทีมและสนับสนุนงาน', value: 10, icon: Users },
   ],
-  skillCategories: english.skillCategories,
+  skillCategories: [
+    { title: 'Backend', skills: english.skillCategories[0].skills },
+    { title: 'Frontend', skills: english.skillCategories[1].skills },
+    { title: 'Mobile', skills: english.skillCategories[2].skills },
+    { title: 'DevOps และ Cloud', skills: english.skillCategories[3].skills },
+    { title: 'Database และ Reporting', skills: english.skillCategories[4].skills },
+    { title: 'Quality และ Process', skills: english.skillCategories[5].skills },
+    { title: 'UI Frameworks', skills: english.skillCategories[6].skills },
+    { title: 'Architecture', skills: english.skillCategories[7].skills },
+  ],
   experiences: [
     {
       company: 'Bumrungrad International Hospital',
-      role: 'Senior Software Developer',
-      period: 'Oct 2021 - Present',
-      location: 'Bangkok City, Thailand · Hybrid',
+      role: 'นักพัฒนาซอฟต์แวร์อาวุโส',
+      period: 'ต.ค. 2021 - ปัจจุบัน',
+      location: 'กรุงเทพมหานคร ประเทศไทย · Hybrid',
       business: 'ธุรกิจโรงพยาบาล เน้น Telemedicine',
       summary:
         'พัฒนาและดูแล Telemedicine capabilities ทั้ง API, Web, Android และ iOS พร้อมสนับสนุน Agile delivery, Azure integration และ production-grade healthcare workflows',
@@ -502,9 +517,9 @@ const thai: LocalizedContent = {
     },
     {
       company: 'Honda Leasing (Thailand) Co., Ltd.',
-      role: 'Senior Web Developer',
-      period: 'Mar 2015 - Oct 2021',
-      location: 'Bangkok City, Thailand · On-site',
+      role: 'นักพัฒนาเว็บอาวุโส',
+      period: 'มี.ค. 2015 - ต.ค. 2021',
+      location: 'กรุงเทพมหานคร ประเทศไทย · On-site',
       business: 'ธุรกิจ Hire Purchase และ Leasing',
       summary:
         'ดูแลงาน SDLC ตั้งแต่ requirements, planning, design, coding, testing, monitoring, reporting, support, coordination รวมถึง system architecture, database design และ process improvement',
@@ -517,10 +532,10 @@ const thai: LocalizedContent = {
     },
     {
       company: 'Onelink Technology',
-      role: 'Senior Programmer',
-      period: 'Jul 2013 - Mar 2015',
-      location: 'Bangkok City, Thailand · On-site',
-      business: 'Transportation management และ GPS tracking',
+      role: 'โปรแกรมเมอร์อาวุโส',
+      period: 'ก.ค. 2013 - มี.ค. 2015',
+      location: 'กรุงเทพมหานคร ประเทศไทย · On-site',
+      business: 'ระบบจัดการขนส่งและ GPS tracking',
       summary:
         'วิเคราะห์ความต้องการลูกค้า ออกแบบฐานข้อมูล พัฒนาระบบ tracking ประสานงาน UAT ส่งมอบให้ operation team และแก้ปัญหา production',
       achievements: [
@@ -539,10 +554,10 @@ const thai: LocalizedContent = {
       technologies: english.projects[0].technologies,
       icon: MonitorCog,
       links: [
-        { title: 'React Telemed Hospital', url: 'video/React_Telemed_Hospital.mp4', type: 'video' },
-        { title: 'React Telemed Patient', url: 'video/React_Telemed_Patient.mp4', type: 'video' },
-        { title: 'Android Telemed Video Call', url: 'video/Android_Telemed_Video_Call.mp4', type: 'video' },
-        { title: 'Android Telemed Booking', url: 'video/Android_Telemed_Booking_Appointment.mp4', type: 'video' },
+        { title: 'วิดีโอ React Telemed ฝั่งโรงพยาบาล', url: 'video/React_Telemed_Hospital.mp4', type: 'video' },
+        { title: 'วิดีโอ React Telemed ฝั่งผู้ป่วย', url: 'video/React_Telemed_Patient.mp4', type: 'video' },
+        { title: 'วิดีโอ Android Telemed Call', url: 'video/Android_Telemed_Video_Call.mp4', type: 'video' },
+        { title: 'วิดีโอ Android Telemed Booking', url: 'video/Android_Telemed_Booking_Appointment.mp4', type: 'video' },
       ],
     },
     {
@@ -551,7 +566,7 @@ const thai: LocalizedContent = {
       impact: 'ยกระดับคุณภาพโค้ดโดยผสาน human review discipline กับ AI-assisted analysis',
       technologies: english.projects[1].technologies,
       icon: MessageSquareCode,
-      links: [{ title: 'Live Demo', url: 'https://ligerking007.github.io/CodeReviewPilotAI', type: 'demo' }],
+      links: [{ title: 'ดูเดโม', url: 'https://ligerking007.github.io/CodeReviewPilotAI', type: 'demo' }],
     },
     {
       title: 'Dev Pilot AI',
@@ -559,7 +574,7 @@ const thai: LocalizedContent = {
       impact: 'แสดงแนวทางใช้ AI สนับสนุน workflow การพัฒนา software ในงานจริง',
       technologies: english.projects[2].technologies,
       icon: Code2,
-      links: [{ title: 'Live Demo', url: 'https://ligerking007.github.io/DevPilotAI/', type: 'demo' }],
+      links: [{ title: 'ดูเดโม', url: 'https://ligerking007.github.io/DevPilotAI/', type: 'demo' }],
     },
     {
       title: 'Automate Test Pilot AI',
@@ -567,7 +582,7 @@ const thai: LocalizedContent = {
       impact: 'แสดงแนวทางใช้ AI ช่วยออกแบบการทดสอบและยกระดับ software quality',
       technologies: english.projects[3].technologies,
       icon: ClipboardCheck,
-      links: [{ title: 'Live Demo', url: 'https://ligerking007.github.io/AutomateTestPilotAI/', type: 'demo' }],
+      links: [{ title: 'ดูเดโม', url: 'https://ligerking007.github.io/AutomateTestPilotAI/', type: 'demo' }],
     },
   ],
   strengths: [
@@ -578,25 +593,25 @@ const thai: LocalizedContent = {
     { label: 'ให้ความสำคัญกับ Code review, Testing และ Maintainability', icon: ShieldCheck },
     { label: 'ส่งมอบงานด้วย CI/CD, Docker, Kubernetes และ Azure', icon: GitBranch },
   ],
-  lifecycle: ['Requirements', 'Planning', 'Designing', 'Coding', 'Testing', 'Monitoring', 'Controlling', 'Reporting', 'Supporting', 'Coordinating'],
+  lifecycle: ['เก็บความต้องการ', 'วางแผน', 'ออกแบบ', 'เขียนโค้ด', 'ทดสอบ', 'ติดตามระบบ', 'ควบคุมงาน', 'รายงานผล', 'สนับสนุนผู้ใช้', 'ประสานงาน'],
   education: [
     {
-      school: 'National Institute of Development Administration (NIDA)',
-      degree: "Master's degree, Information Technology Management",
-      period: 'Jan 2012 - Jun 2014',
-      grade: 'GPA 3.53',
-      detail: 'Job portal project, NoSQL',
+      school: 'สถาบันบัณฑิตพัฒนบริหารศาสตร์ (NIDA)',
+      degree: 'ปริญญาโท สาขาการจัดการเทคโนโลยีสารสนเทศ',
+      period: 'ม.ค. 2012 - มิ.ย. 2014',
+      grade: 'เกรดเฉลี่ย 3.53',
+      detail: 'โปรเจกต์ Job Portal และ NoSQL',
       evidence: [
         { title: 'ปริญญาโท', file: 'before2021/certificates/3-masters/masters-qualification-en.jpg' },
         { title: 'ใบเกรด', file: 'before2021/certificates/3-masters/masters-transcript1.jpg' },
       ],
     },
     {
-      school: "King Mongkut's Institute of Technology Ladkrabang (KMITL)",
-      degree: "Bachelor's degree, Information Technology",
-      period: 'May 2006 - May 2010',
-      grade: 'GPA 3.07',
-      detail: 'Mutual fund portal management project',
+      school: 'สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL)',
+      degree: 'ปริญญาตรี สาขาเทคโนโลยีสารสนเทศ',
+      period: 'พ.ค. 2006 - พ.ค. 2010',
+      grade: 'เกรดเฉลี่ย 3.07',
+      detail: 'โปรเจกต์ระบบจัดการกองทุนรวม',
       evidence: [
         { title: 'ปริญญาตรี', file: 'before2021/certificates/4-bachelors/bachelors-qualification.jpg' },
         { title: 'ใบเกรด', file: 'before2021/certificates/4-bachelors/bachelors-transcript.jpg' },
@@ -604,12 +619,12 @@ const thai: LocalizedContent = {
     },
   ],
   metrics: [
-    { label: 'Years Experience', value: '16+', icon: BadgeCheck },
-    { label: 'Primary Stack', value: '.NET', icon: Binary },
-    { label: 'Delivery Model', value: 'Agile', icon: ClipboardCheck },
-    { label: 'Data & APIs', value: 'SQL', icon: Database },
-    { label: 'UI Delivery', value: 'React', icon: LayoutDashboard },
-    { label: 'Innovation', value: 'AI Tools', icon: Lightbulb },
+    { label: 'ประสบการณ์', value: '16+ ปี', icon: BadgeCheck },
+    { label: 'เทคโนโลยีหลัก', value: '.NET', icon: Binary },
+    { label: 'รูปแบบการทำงาน', value: 'Agile', icon: ClipboardCheck },
+    { label: 'ข้อมูลและ API', value: 'SQL', icon: Database },
+    { label: 'งาน UI', value: 'React', icon: LayoutDashboard },
+    { label: 'นวัตกรรม', value: 'AI Tools', icon: Lightbulb },
   ],
 };
 

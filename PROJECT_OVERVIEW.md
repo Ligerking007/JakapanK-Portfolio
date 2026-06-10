@@ -58,6 +58,7 @@ The current Hero direction emphasizes enterprise delivery, cross-platform engine
    - Separate archive cards for example source code and team knowledge sharing material
    - Company project evidence uses expanded labels for legacy acronyms such as PTGIS, PVM, and TMS
    - Architecture and engineering tools archive cards keep evidence in link lists without large preview thumbnails
+   - Earlier project archive titles, categories, summaries, tags, and key evidence links support English and Thai localization
 
 6. **Certificates**
    - Recent credentials
@@ -66,8 +67,8 @@ The current Hero direction emphasizes enterprise delivery, cross-platform engine
    - Expandable panels for large certificate lists
 
 7. **Education**
-   - Master's degree in Information Technology Management
-   - Bachelor's degree in Information Technology
+   - Master's degree in Information Technology Management with Thai school and degree copy
+   - Bachelor's degree in Information Technology with Thai school and degree copy
 
 8. **Contact**
    - LinkedIn
@@ -78,8 +79,10 @@ The current Hero direction emphasizes enterprise delivery, cross-platform engine
 
 - Responsive single-page portfolio
 - English / Thai language toggle
+- Thai localization covers core UI copy, footer version labels, work focus labels, SDLC lifecycle labels, skill category labels, current project links, education entries, and earlier project archive labels
 - Light / Dark theme toggle
 - Mobile-friendly header and navigation
+- Bottom-of-page active navigation fallback so Contact highlights correctly at the end of the page
 - Framer Motion hover and accordion animation
 - Hero value cards for cross-platform engineering, AI integration, and Agile / DevOps practice
 - Current and archived project evidence, including documents and presentations
@@ -142,7 +145,7 @@ Certificates section:
 - Backend: None
 - Runtime content source: static TypeScript data files
 - License: MIT
-- Current project version: `1.1.1`
+- Current project version: `1.1.2`
 - Release history: `CHANGELOG.md`
 - The current version is displayed in the site footer.
 
@@ -229,6 +232,7 @@ GitHub Pages deployment runs through:
 - Add current certificates under `public/certificates/` and register them in `src/data/certificates.ts`.
 - Add earlier project or certificate evidence under `public/before2021/` and register curated items in `src/data/before2021.ts`.
 - When adding evidence under `public/before2021/sampleprojects/3-systemarchitecturedesign` or `public/before2021/sampleprojects/4-tools`, register every non-system file in `src/data/before2021.ts`.
+- When adding evidence under `public/before2021/sampleprojects/6-sharetoteam`, register every non-system file in the Team Knowledge Sharing archive card.
 - Keep filenames URL-safe for GitHub Pages by avoiding spaces, `#`, and special characters.
 - Update Open Graph assets when the visual direction changes.
 - Keep `index.html` public asset references root-relative, for example `/favicon.svg`, so Vite can apply `base: '/JakapanK-Portfolio/'` without duplicating the path.
