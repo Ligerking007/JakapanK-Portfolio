@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 
 export type SkillCategory = {
+  id: string;
   title: string;
   skills: string[];
 };
@@ -73,34 +74,42 @@ export const focusItems: FocusItem[] = [
 
 export const skillCategories: SkillCategory[] = [
   {
+    id: 'backend',
     title: 'Backend',
     skills: ['C#.NET', '.NET Core API', 'ASP.NET MVC', 'Node.js'],
   },
   {
+    id: 'frontend',
     title: 'Frontend',
     skills: ['React', 'ASP.Net', 'Angular', 'TypeScript', 'jQuery', 'JavaScript', 'Bootstrap', 'Tailwind CSS', 'CSS'],
   },
   {
+    id: 'mobile',
     title: 'Mobile',
     skills: ['Android Kotlin', 'React Native', 'Flutter', 'iOS Swift'],
   },
   {
+    id: 'devops-cloud',
     title: 'DevOps & Cloud',
     skills: ['Azure', 'CI/CD', 'TeamCity', 'Octopus', 'GitHub Actions', 'Docker', 'Kubernetes'],
   },
   {
+    id: 'database-reporting',
     title: 'Database & Reporting',
     skills: ['Microsoft SQL Server', 'PostgreSQL', 'MongoDB', 'SQLite', 'Crystal Reports', 'RDLC', 'SSRS'],
   },
   {
+    id: 'quality-process',
     title: 'Quality & Process',
     skills: ['Agile', 'Scrum', 'Jira', 'Code Review', 'SonarQube', 'Selenium', 'UML'],
   },
   {
+    id: 'ui-frameworks',
     title: 'UI Frameworks',
     skills: ['Telerik', 'DevExpress', 'Kendo UI', 'MDBootstrap', 'jQuery UI'],
   },
   {
+    id: 'architecture',
     title: 'Architecture',
     skills: ['System Design', 'Database Design', 'Scalable APIs', 'Monitoring', 'Production Support'],
   },

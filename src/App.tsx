@@ -407,8 +407,8 @@ function Hero({ content }: { content: LocalizedContent }) {
             </div>
 
             <motion.div variants={fadeUp} transition={motionSettings.transition} className="grid gap-3 sm:grid-cols-3">
-              {content.heroHighlights.map((highlight) => (
-                <div key={highlight.title} className="rounded-lg border border-slate-200 bg-white/80 p-3 dark:border-white/10 dark:bg-white/[0.05]">
+              {content.heroHighlights.map((highlight, index) => (
+                <div key={`hero-highlight-${index}`} className="rounded-lg border border-slate-200 bg-white/80 p-3 dark:border-white/10 dark:bg-white/[0.05]">
                   <highlight.icon className="text-cyan-700 dark:text-cyan-300" size={20} />
                   <p className="mt-3 text-sm font-bold leading-tight text-navy-950 dark:text-white">{highlight.title}</p>
                   <p className="mt-2 text-xs leading-5 text-slate-600 dark:text-slate-300">{highlight.description}</p>
@@ -455,9 +455,9 @@ function Hero({ content }: { content: LocalizedContent }) {
             </div>
           </motion.div>
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-          {content.metrics.map((metric) => (
+          {content.metrics.map((metric, index) => (
             <motion.div
-              key={metric.label}
+              key={`metric-${index}`}
               variants={fadeUp}
               transition={motionSettings.transition}
               whileHover={{ y: -5 }}
@@ -511,8 +511,8 @@ function About({ content }: { content: LocalizedContent }) {
         <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
           <p className="leading-7 text-slate-700 dark:text-slate-300">{content.profile.about}</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {content.strengths.map((strength) => (
-              <div key={strength.label} className="flex items-start gap-3 rounded-lg bg-slate-50 p-3 dark:bg-slate-800/70">
+            {content.strengths.map((strength, index) => (
+              <div key={`strength-${index}`} className="flex items-start gap-3 rounded-lg bg-slate-50 p-3 dark:bg-slate-800/70">
                 <strength.icon className="mt-0.5 shrink-0 text-cyan-700 dark:text-cyan-300" size={20} />
                 <span className="text-sm font-medium leading-6 text-slate-700 dark:text-slate-300">{strength.label}</span>
               </div>
@@ -522,8 +522,8 @@ function About({ content }: { content: LocalizedContent }) {
         <motion.div variants={fadeUp} transition={motionSettings.transition} className="card p-5 sm:p-6">
           <h3 className="text-xl font-bold text-navy-950 dark:text-white">{content.labels.workFocus}</h3>
           <div className="mt-5 space-y-5">
-            {content.focusItems.map((item) => (
-              <div key={item.label}>
+            {content.focusItems.map((item, index) => (
+              <div key={`focus-${index}`}>
                 <div className="mb-2 flex items-center justify-between gap-3">
                   <span className="flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
                     <item.icon size={18} className="text-cyan-700 dark:text-cyan-300" />
@@ -539,8 +539,8 @@ function About({ content }: { content: LocalizedContent }) {
           </div>
           <h3 className="mt-7 text-xl font-bold text-navy-950 dark:text-white">{content.labels.lifecycle}</h3>
           <div className="mt-4 flex flex-wrap gap-2">
-            {content.lifecycle.map((item) => (
-              <span key={item} className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-800 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-100">
+            {content.lifecycle.map((item, index) => (
+              <span key={`lifecycle-${index}`} className="rounded-full border border-cyan-100 bg-cyan-50 px-3 py-1.5 text-xs font-semibold text-cyan-800 dark:border-cyan-400/20 dark:bg-cyan-400/10 dark:text-cyan-100">
                 {item}
               </span>
             ))}
@@ -563,7 +563,7 @@ function Skills({ content }: { content: LocalizedContent }) {
       />
       <motion.div {...motionSettings} variants={staggerContainer} className="mx-auto grid max-w-7xl gap-5 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
         {content.skillCategories.map((category) => (
-          <motion.div key={category.title} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
+          <motion.div key={category.id} variants={fadeUp} transition={motionSettings.transition} className="card p-5">
             <h3 className="text-lg font-bold text-navy-950 dark:text-white">{category.title}</h3>
             <div className="mt-4 flex flex-wrap gap-2">
               {category.skills.map((skill) => (
@@ -593,7 +593,7 @@ function Experience({ content }: { content: LocalizedContent }) {
         <div className="relative border-l-2 border-cyan-100 pl-6 dark:border-cyan-400/25 sm:pl-8">
           {content.experiences.map((item) => (
             <motion.article
-              key={`${item.company}-${item.period}`}
+              key={item.company}
               {...motionSettings}
               variants={fadeUp}
               className="relative mb-8 last:mb-0"
@@ -613,8 +613,8 @@ function Experience({ content }: { content: LocalizedContent }) {
                 <div className="mt-4 rounded-lg border border-cyan-100 bg-cyan-50/70 p-3 dark:border-cyan-400/20 dark:bg-cyan-400/10">
                   <p className="text-xs font-bold uppercase tracking-[0.14em] text-cyan-800 dark:text-cyan-200">{content.labels.keyAchievements}</p>
                   <ul className="mt-3 grid gap-2">
-                    {item.achievements.map((achievement) => (
-                      <li key={achievement} className="flex gap-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
+                    {item.achievements.map((achievement, index) => (
+                      <li key={`achievement-${index}`} className="flex gap-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
                         <CheckCircle2 className="mt-0.5 shrink-0 text-cyan-700 dark:text-cyan-300" size={17} />
                         <span>{achievement}</span>
                       </li>
@@ -660,9 +660,9 @@ function Projects({ content, language }: { content: LocalizedContent; language: 
           ]}
         >
           <div className="grid gap-5 lg:grid-cols-2">
-            {content.projects.map((project) => (
+            {content.projects.map((project, index) => (
               <motion.article
-                key={project.title}
+                key={`project-${index}`}
                 whileHover={{ y: -5 }}
                 className="rounded-lg border border-slate-200 bg-white p-5 shadow-card transition hover:border-cyan-200 dark:border-white/10 dark:bg-white/[0.08] dark:shadow-card dark:hover:bg-white/[0.12]"
               >

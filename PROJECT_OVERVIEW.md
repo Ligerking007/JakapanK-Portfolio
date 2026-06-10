@@ -85,6 +85,7 @@ The current Hero direction emphasizes enterprise delivery, cross-platform engine
 - Education uses a contrasting background from Certificates so the Academic background section has a clear visual boundary.
 - Footer uses a contrasting background from Contact to preserve the alternating section rhythm.
 - Thai localization covers core UI copy, footer version labels, work focus labels, SDLC lifecycle labels, skill category labels, current project links, education entries, and earlier project archive labels
+- Localized cards and repeated lists use stable keys so language switching does not remount visible content unexpectedly.
 - Light / Dark theme toggle
 - Mobile-friendly header and navigation
 - Bottom-of-page active navigation fallback so Contact highlights correctly at the end of the page
@@ -150,7 +151,7 @@ Certificates section:
 - Backend: None
 - Runtime content source: static TypeScript data files
 - License: MIT
-- Current project version: `1.1.3`
+- Current project version: `1.1.4`
 - Release history: `CHANGELOG.md`
 - The current version is displayed in the site footer.
 

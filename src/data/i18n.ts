@@ -194,7 +194,7 @@ const english: LocalizedContent = {
     contact: {
       eyebrow: 'Contact',
       title: 'Connect',
-      description: 'Enterprise software delivery, healthcare technology, .NET engineering, team leadership, and AI-assisted workflows.',
+      description: 'Open to professional conversations about software delivery, healthcare technology, engineering leadership, and AI-assisted development.',
     },
   },
   labels: {
@@ -237,14 +237,14 @@ const english: LocalizedContent = {
     { label: 'Lead & Support', value: 10, icon: Users },
   ],
   skillCategories: [
-    { title: 'Backend', skills: ['C#.NET', '.NET Core API', 'ASP.NET MVC', 'Node.js'] },
-    { title: 'Frontend', skills: ['React', 'ASP.Net', 'Angular', 'TypeScript', 'jQuery', 'JavaScript', 'Bootstrap', 'Tailwind CSS', 'CSS'] },
-    { title: 'Mobile', skills: ['Android Kotlin', 'React Native', 'Flutter', 'iOS Swift'] },
-    { title: 'DevOps & Cloud', skills: ['Azure', 'CI/CD', 'TeamCity', 'Octopus', 'GitHub Actions', 'Docker', 'Kubernetes'] },
-    { title: 'Database & Reporting', skills: ['Microsoft SQL Server', 'PostgreSQL', 'MongoDB', 'SQLite', 'Crystal Reports', 'RDLC', 'SSRS'] },
-    { title: 'Quality & Process', skills: ['Agile', 'Scrum', 'Jira', 'Code Review', 'SonarQube', 'Selenium', 'UML'] },
-    { title: 'UI Frameworks', skills: ['Telerik', 'DevExpress', 'Kendo UI', 'MDBootstrap', 'jQuery UI'] },
-    { title: 'Architecture', skills: ['System Design', 'Database Design', 'Scalable APIs', 'Monitoring', 'Production Support'] },
+    { id: 'backend', title: 'Backend', skills: ['C#.NET', '.NET Core API', 'ASP.NET MVC', 'Node.js'] },
+    { id: 'frontend', title: 'Frontend', skills: ['React', 'ASP.Net', 'Angular', 'TypeScript', 'jQuery', 'JavaScript', 'Bootstrap', 'Tailwind CSS', 'CSS'] },
+    { id: 'mobile', title: 'Mobile', skills: ['Android Kotlin', 'React Native', 'Flutter', 'iOS Swift'] },
+    { id: 'devops-cloud', title: 'DevOps & Cloud', skills: ['Azure', 'CI/CD', 'TeamCity', 'Octopus', 'GitHub Actions', 'Docker', 'Kubernetes'] },
+    { id: 'database-reporting', title: 'Database & Reporting', skills: ['Microsoft SQL Server', 'PostgreSQL', 'MongoDB', 'SQLite', 'Crystal Reports', 'RDLC', 'SSRS'] },
+    { id: 'quality-process', title: 'Quality & Process', skills: ['Agile', 'Scrum', 'Jira', 'Code Review', 'SonarQube', 'Selenium', 'UML'] },
+    { id: 'ui-frameworks', title: 'UI Frameworks', skills: ['Telerik', 'DevExpress', 'Kendo UI', 'MDBootstrap', 'jQuery UI'] },
+    { id: 'architecture', title: 'Architecture', skills: ['System Design', 'Database Design', 'Scalable APIs', 'Monitoring', 'Production Support'] },
   ],
   experiences: [
     {
@@ -469,7 +469,7 @@ const thai: LocalizedContent = {
     contact: {
       eyebrow: 'ติดต่อ',
       title: 'ช่องทางติดต่อ',
-      description: 'พูดคุยเรื่อง Enterprise software, Healthcare technology, .NET engineering, Team leadership และ AI-assisted workflows',
+      description: 'ยินดีพูดคุยเรื่องงานพัฒนาซอฟต์แวร์ Healthcare technology, Engineering leadership และการใช้ AI ช่วยพัฒนา',
     },
   },
   labels: {
@@ -512,14 +512,14 @@ const thai: LocalizedContent = {
     { label: 'นำทีมและสนับสนุนงาน', value: 10, icon: Users },
   ],
   skillCategories: [
-    { title: 'Backend', skills: english.skillCategories[0].skills },
-    { title: 'Frontend', skills: english.skillCategories[1].skills },
-    { title: 'Mobile', skills: english.skillCategories[2].skills },
-    { title: 'DevOps และ Cloud', skills: english.skillCategories[3].skills },
-    { title: 'Database และ Reporting', skills: english.skillCategories[4].skills },
-    { title: 'Quality และ Process', skills: english.skillCategories[5].skills },
-    { title: 'UI Frameworks', skills: english.skillCategories[6].skills },
-    { title: 'Architecture', skills: english.skillCategories[7].skills },
+    { id: 'backend', title: 'Backend', skills: english.skillCategories[0].skills },
+    { id: 'frontend', title: 'Frontend', skills: english.skillCategories[1].skills },
+    { id: 'mobile', title: 'Mobile', skills: english.skillCategories[2].skills },
+    { id: 'devops-cloud', title: 'DevOps และ Cloud', skills: english.skillCategories[3].skills },
+    { id: 'database-reporting', title: 'Database และ Reporting', skills: english.skillCategories[4].skills },
+    { id: 'quality-process', title: 'Quality และ Process', skills: english.skillCategories[5].skills },
+    { id: 'ui-frameworks', title: 'UI Frameworks', skills: english.skillCategories[6].skills },
+    { id: 'architecture', title: 'Architecture', skills: english.skillCategories[7].skills },
   ],
   experiences: [
     {

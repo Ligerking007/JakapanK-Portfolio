@@ -4,6 +4,23 @@ All notable changes to this project are documented here.
 
 This project follows a practical date-based changelog. Version numbers are tracked in `package.json`.
 
+## [1.1.4] - 2026-06-10
+
+### Changed
+
+- Kept Skill cards mounted with stable IDs so Technology stack content remains visible when switching languages.
+- Stabilized localized list keys across Hero, About, Experience, Projects, and lifecycle content to prevent remount issues when switching languages.
+- Updated Contact copy to better fit the contact section.
+- Added regression coverage for switching Skills between English and Thai.
+- Added regression coverage for other localized sections after language switching.
+- Updated the portfolio footer version from `1.1.3` to `1.1.4`.
+
+### Verified
+
+- `npm test`
+- `npm run lint`
+- `npm run build`
+
 ## [1.1.3] - 2026-06-10
 
 ### Changed

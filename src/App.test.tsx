@@ -40,7 +40,7 @@ describe('App', () => {
 
     expect(screen.getByRole('heading', { name: 'Enterprise Software Delivery' })).toBeInTheDocument();
     expect(screen.getByText('Building smarter systems through AI integration and AI-assisted development.')).toBeInTheDocument();
-    expect(screen.getByText('Version 1.1.3')).toBeInTheDocument();
+    expect(screen.getByText('Version 1.1.4')).toBeInTheDocument();
     expect(screen.getByText('Cross-Platform Development')).toBeInTheDocument();
     expect(screen.getByText('AI Integration & Engineering')).toBeInTheDocument();
     expect(screen.getByText('Agile & DevOps Practice')).toBeInTheDocument();
@@ -58,7 +58,7 @@ describe('App', () => {
     expect(screen.getAllByText('จักรพันธ์ กันตา').length).toBeGreaterThan(0);
     expect(screen.getByRole('heading', { name: 'การส่งมอบซอฟต์แวร์ระดับองค์กร' })).toBeInTheDocument();
     expect(screen.getByText(/สร้างด้วย React, Vite, TypeScript, Tailwind CSS และ GitHub Pages/)).toBeInTheDocument();
-    expect(screen.getByText('เวอร์ชัน 1.1.3')).toBeInTheDocument();
+    expect(screen.getByText('เวอร์ชัน 1.1.4')).toBeInTheDocument();
     expect(screen.getAllByText('ประสบการณ์').length).toBeGreaterThan(0);
     expect(screen.getAllByText('เขียนโค้ด').length).toBeGreaterThan(0);
     expect(screen.getByText('เก็บความต้องการ')).toBeInTheDocument();
@@ -101,6 +101,42 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: 'Academic background' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'National Institute of Development Administration (NIDA)' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Job Portal' })).toBeInTheDocument();
+  });
+
+  it('keeps skill cards visible when switching languages back and forth', async () => {
+    render(<App />);
+
+    await userEvent.click(screen.getAllByRole('button', { name: 'TH' })[0]);
+
+    expect(screen.getByRole('heading', { name: 'ชุดเทคโนโลยี' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'DevOps และ Cloud' })).toBeInTheDocument();
+    expect(screen.getAllByText('GitHub Actions').length).toBeGreaterThan(0);
+    expect(screen.getByText('ยินดีพูดคุยเรื่องงานพัฒนาซอฟต์แวร์ Healthcare technology, Engineering leadership และการใช้ AI ช่วยพัฒนา')).toBeInTheDocument();
+
+    await userEvent.click(screen.getAllByRole('button', { name: 'EN' })[0]);
+
+    expect(screen.getByRole('heading', { name: 'Technology stack' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'DevOps & Cloud' })).toBeInTheDocument();
+    expect(screen.getAllByText('GitHub Actions').length).toBeGreaterThan(0);
+    expect(screen.getByText('Open to professional conversations about software delivery, healthcare technology, engineering leadership, and AI-assisted development.')).toBeInTheDocument();
+  });
+
+  it('keeps other localized sections visible when switching languages back and forth', async () => {
+    render(<App />);
+
+    await userEvent.click(screen.getAllByRole('button', { name: 'TH' })[0]);
+
+    expect(screen.getByText('ประสบการณ์ 16+ ปีในการสร้าง production software')).toBeInTheDocument();
+    expect(screen.getByText('ส่งมอบ Telemedicine workflows ครอบคลุม API, Web, Android และ iOS')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Telehealth / Telemedicine Platform' })).toBeInTheDocument();
+    expect(screen.getByText('เก็บความต้องการ')).toBeInTheDocument();
+
+    await userEvent.click(screen.getAllByRole('button', { name: 'EN' })[0]);
+
+    expect(screen.getByText('16+ years building production software')).toBeInTheDocument();
+    expect(screen.getByText('Delivered telemedicine workflows across API, web, Android, and iOS channels.')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Telehealth / Telemedicine Platform' })).toBeInTheDocument();
+    expect(screen.getByText('Requirements')).toBeInTheDocument();
   });
 
   it('toggles the dark theme class', async () => {
