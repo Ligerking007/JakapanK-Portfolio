@@ -21,6 +21,8 @@ import {
   Video,
   X,
 } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { legacyCredentials, legacyProjectGroups, type ArchiveLink, type ArchiveLinkType } from './data/before2021';
@@ -187,6 +189,8 @@ function App() {
         <Contact content={content} />
       </main>
       <Footer content={content} />
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 }

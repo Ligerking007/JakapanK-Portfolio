@@ -94,6 +94,7 @@ The current Hero direction emphasizes enterprise delivery, cross-platform engine
 - Current and archived project evidence, including documents and presentations
 - Current and archived certificate evidence
 - Open Graph metadata for link sharing
+- Vercel Analytics and Speed Insights instrumentation
 - Favicon and site icon
 - Vite base-path-safe public asset handling for GitHub Pages and Vercel
 - MIT License
@@ -150,12 +151,13 @@ Certificates section:
 - Styling: Tailwind CSS
 - Icons: Lucide React
 - Animation: Framer Motion
+- Analytics: Vercel Analytics and Vercel Speed Insights
 - Testing: Vitest with React Testing Library
 - Deployment: GitHub Actions to GitHub Pages and Vercel Free Hobby
 - Backend: None
 - Runtime content source: static TypeScript data files
 - License: MIT
-- Current project version: `1.1.4`
+- Current project version: `1.1.5`
 - Release history: `CHANGELOG.md`
 - The current version is displayed in the site footer.
 

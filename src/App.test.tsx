@@ -4,6 +4,14 @@ import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { legacyProjectGroups } from './data/before2021';
 
+vi.mock('@vercel/analytics/react', () => ({
+  Analytics: () => <div data-testid="vercel-analytics" />,
+}));
+
+vi.mock('@vercel/speed-insights/react', () => ({
+  SpeedInsights: () => <div data-testid="vercel-speed-insights" />,
+}));
+
 const architectureEvidenceFiles = Object.keys(import.meta.glob('/public/before2021/sampleprojects/3-systemarchitecturedesign/**/*', { query: '?url', import: 'default' }))
   .filter((file) => !file.endsWith('/.DS_Store'))
   .map((file) => file.replace(/^\/public\//, ''))
@@ -40,10 +48,12 @@ describe('App', () => {
 
     expect(screen.getByRole('heading', { name: 'Enterprise Software Delivery' })).toBeInTheDocument();
     expect(screen.getByText('Building smarter systems through AI integration and AI-assisted development.')).toBeInTheDocument();
-    expect(screen.getByText('Version 1.1.4')).toBeInTheDocument();
+    expect(screen.getByText('Version 1.1.5')).toBeInTheDocument();
     expect(screen.getByText('Cross-Platform Development')).toBeInTheDocument();
     expect(screen.getByText('AI Integration & Engineering')).toBeInTheDocument();
     expect(screen.getByText('Agile & DevOps Practice')).toBeInTheDocument();
+    expect(screen.getByTestId('vercel-analytics')).toBeInTheDocument();
+    expect(screen.getByTestId('vercel-speed-insights')).toBeInTheDocument();
     expect(screen.getAllByRole('button', { name: 'EN' })[0]).toHaveAttribute('title', 'English language');
     expect(screen.getAllByRole('button', { name: 'TH' })[0]).toHaveAttribute('title', 'ภาษาไทย');
     expect(screen.getByRole('contentinfo')).toHaveClass('bg-slate-50');
@@ -58,7 +68,7 @@ describe('App', () => {
     expect(screen.getAllByText('จักรพันธ์ กันตา').length).toBeGreaterThan(0);
     expect(screen.getByRole('heading', { name: 'การส่งมอบซอฟต์แวร์ระดับองค์กร' })).toBeInTheDocument();
     expect(screen.getByText(/สร้างด้วย React, Vite, TypeScript, Tailwind CSS และ GitHub Pages/)).toBeInTheDocument();
-    expect(screen.getByText('เวอร์ชัน 1.1.4')).toBeInTheDocument();
+    expect(screen.getByText('เวอร์ชัน 1.1.5')).toBeInTheDocument();
     expect(screen.getAllByText('ประสบการณ์').length).toBeGreaterThan(0);
     expect(screen.getAllByText('เขียนโค้ด').length).toBeGreaterThan(0);
     expect(screen.getByText('เก็บความต้องการ')).toBeInTheDocument();

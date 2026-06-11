@@ -12,6 +12,7 @@ Built for GitHub Pages and Vercel with:
 - English / Thai language toggle
 - Light / Dark theme toggle
 - AI integration and AI-assisted development messaging
+- Vercel Analytics and Speed Insights
 - GitHub Actions deployment
 - Vercel Free Hobby deployment
 
@@ -20,7 +21,7 @@ Built for GitHub Pages and Vercel with:
 Current project version:
 
 ```text
-1.1.4
+1.1.5
 ```
 
 Release history is tracked in [CHANGELOG.md](CHANGELOG.md).

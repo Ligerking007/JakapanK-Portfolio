@@ -4,7 +4,7 @@ All notable changes to this project are documented here.
 
 This project follows a practical date-based changelog. Version numbers are tracked in `package.json`.
 
-## Unreleased
+## [1.1.5] - 2026-06-11
 
 ### Added
 
@@ -12,10 +12,14 @@ This project follows a practical date-based changelog. Version numbers are track
 - Updated README asset documentation for the resume QR code.
 - Added Vercel Free Hobby deployment configuration.
 - Added Vercel deployment documentation.
+- Added Vercel Analytics instrumentation.
+- Added Vercel Speed Insights instrumentation.
+- Added tests covering Vercel instrumentation mounting.
 
 ### Changed
 
 - Updated Vite base path handling so Vercel builds use `/` while GitHub Pages builds keep `/JakapanK-Portfolio/`.
+- Updated the portfolio footer version from `1.1.4` to `1.1.5`.
 
 ### Verified
 
