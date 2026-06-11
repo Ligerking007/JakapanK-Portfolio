@@ -4,7 +4,7 @@
 
 This project is a professional portfolio website for **Jakapan Kanta**, a Senior Software Developer with 16+ years of experience across web, backend, mobile, healthcare, finance, and transportation systems.
 
-The site is designed for interviewer presentation, resume sharing, professional networking, and GitHub Pages hosting.
+The site is designed for interviewer presentation, resume sharing, professional networking, GitHub Pages hosting, and Vercel Free Hobby hosting.
 
 ## Audience
 
@@ -95,9 +95,9 @@ The current Hero direction emphasizes enterprise delivery, cross-platform engine
 - Current and archived certificate evidence
 - Open Graph metadata for link sharing
 - Favicon and site icon
-- Vite base-path-safe public asset handling for GitHub Pages
+- Vite base-path-safe public asset handling for GitHub Pages and Vercel
 - MIT License
-- Static GitHub Pages deployment without backend services
+- Static GitHub Pages and Vercel deployment without backend services
 
 ## Visual Assets
 
@@ -151,7 +151,7 @@ Certificates section:
 - Icons: Lucide React
 - Animation: Framer Motion
 - Testing: Vitest with React Testing Library
-- Deployment: GitHub Actions to GitHub Pages
+- Deployment: GitHub Actions to GitHub Pages and Vercel Free Hobby
 - Backend: None
 - Runtime content source: static TypeScript data files
 - License: MIT
@@ -194,7 +194,9 @@ Test coverage is intentionally focused on high-value smoke behavior:
 ```mermaid
 flowchart TD
   visitor[Visitor browser] --> pages[GitHub Pages static hosting]
+  visitor --> vercel[Vercel static hosting]
   pages --> app[React + Vite single-page app]
+  vercel --> app
   app --> ui[App sections and reusable UI components]
   app --> data[Static TypeScript data files]
   app --> assets[Public assets]
@@ -207,9 +209,10 @@ flowchart TD
   repo[Push to main] --> actions[GitHub Actions]
   actions --> build[Vite production build]
   build --> pages
+  repo --> vercel
 ```
 
-The site is intentionally static: React renders from local TypeScript data and files under `public/`, while GitHub Actions publishes the built `dist` output to GitHub Pages.
+The site is intentionally static: React renders from local TypeScript data and files under `public/`, while GitHub Actions publishes the built `dist` output to GitHub Pages and Vercel can publish the same app from the `main` branch.
 
 ## Deployment
 
@@ -228,13 +231,28 @@ https://ligerking007.github.io/JakapanK-Portfolio/
 The Vite base path is set to:
 
 ```ts
-base: '/JakapanK-Portfolio/'
+base: process.env.VERCEL === '1' ? '/' : '/JakapanK-Portfolio/'
 ```
 
 GitHub Pages deployment runs through:
 
 ```text
 .github/workflows/deploy.yml
+```
+
+Vercel deployment uses:
+
+```text
+vercel.json
+```
+
+Vercel Free Hobby settings:
+
+```text
+Framework Preset: Vite
+Build Command: npm run build
+Output Directory: dist
+Node.js Version: 22.x
 ```
 
 ## Maintenance Notes
@@ -245,7 +263,7 @@ GitHub Pages deployment runs through:
 - When adding evidence under `public/before2021/sampleprojects/6-sharetoteam`, register every non-system file in the Team Knowledge Sharing archive card.
 - Keep filenames URL-safe for GitHub Pages by avoiding spaces, `#`, and special characters.
 - Update Open Graph assets when the visual direction changes.
-- Keep `index.html` public asset references root-relative, for example `/favicon.svg`, so Vite can apply `base: '/JakapanK-Portfolio/'` without duplicating the path.
+- Keep `index.html` public asset references root-relative, for example `/favicon.svg`, so Vite can apply the GitHub Pages base path without duplicating the path and still build at root for Vercel.
 - Use `PROJECT_GENERATION_PROMPT.md` as the reusable prompt when creating a similar portfolio for another person.
 - Follow `AGENTS.md` for contributor workflow rules. Every code or content change should update relevant tests and Markdown documentation.
 - Update `CHANGELOG.md` and `package.json` when preparing a visible release or notable portfolio update.

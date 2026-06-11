@@ -10,6 +10,19 @@ This project follows a practical date-based changelog. Version numbers are track
 
 - Added SVG and PNG portfolio QR code assets for resume documents.
 - Updated README asset documentation for the resume QR code.
+- Added Vercel Free Hobby deployment configuration.
+- Added Vercel deployment documentation.
+
+### Changed
+
+- Updated Vite base path handling so Vercel builds use `/` while GitHub Pages builds keep `/JakapanK-Portfolio/`.
+
+### Verified
+
+- `npm test`
+- `npm run lint`
+- `npm run build`
+- `VERCEL=1 npm run build`
 
 ## [1.1.4] - 2026-06-10
 

@@ -2,7 +2,7 @@
 
 Professional single-page portfolio website for **Jakapan Kanta**, Senior Software Developer.
 
-Built for GitHub Pages with:
+Built for GitHub Pages and Vercel with:
 
 - React
 - Vite
@@ -13,6 +13,7 @@ Built for GitHub Pages with:
 - Light / Dark theme toggle
 - AI integration and AI-assisted development messaging
 - GitHub Actions deployment
+- Vercel Free Hobby deployment
 
 ## Version
 
@@ -34,15 +35,17 @@ Expected GitHub Pages URL:
 https://ligerking007.github.io/JakapanK-Portfolio/
 ```
 
-The Vite base path is configured in `vite.config.ts`:
+The Vite base path is configured in `vite.config.ts`. GitHub Pages production builds use the repository base path:
 
 ```ts
-base: '/JakapanK-Portfolio/'
+base: '/JakapanK-Portfolio/';
 ```
 
-If the repository name changes, update this value before deploying.
+Vercel builds automatically use `/` because Vercel sets the `VERCEL=1` environment variable during build.
 
-Public assets such as the favicon, profile photo, certificates, and archived project evidence are resolved through the Vite base path so the same build works locally and on GitHub Pages.
+If the repository name changes, update the GitHub Pages base path before deploying.
+
+Public assets such as the favicon, profile photo, certificates, and archived project evidence are resolved through the Vite base path so the same app works locally, on GitHub Pages, and on Vercel.
 
 ## Screenshots
 
@@ -127,6 +130,30 @@ Deployment steps:
 3. Set **Source** to **GitHub Actions**.
 4. Push to the `main` branch.
 5. GitHub Actions will build the Vite app and deploy the `dist` artifact.
+
+## Vercel Free Hobby Deployment
+
+This project also supports Vercel Free Hobby deployment from the same repository.
+
+Vercel settings:
+
+```text
+Framework Preset: Vite
+Build Command: npm run build
+Output Directory: dist
+Install Command: npm install
+Node.js Version: 22.x
+```
+
+Deployment steps:
+
+1. Import the GitHub repository into Vercel.
+2. Select the Vite framework preset.
+3. Keep the build command as `npm run build`.
+4. Keep the output directory as `dist`.
+5. Deploy from the `main` branch.
+
+The included `vercel.json` keeps SPA fallback routing pointed to `index.html`. Vercel builds use the root base path `/`, while GitHub Pages builds keep `/JakapanK-Portfolio/`.
 
 ## Content Updates
 
@@ -230,6 +257,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ├── index.html
 ├── AGENTS.md
 ├── CHANGELOG.md
+├── vercel.json
 ├── tailwind.config.ts
 ├── vite.config.ts
 └── PROJECT_OVERVIEW.md
