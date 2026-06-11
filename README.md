@@ -19,7 +19,7 @@ Built for GitHub Pages with:
 Current project version:
 
 ```text
-1.1.1
+1.1.4
 ```
 
 Release history is tracked in [CHANGELOG.md](CHANGELOG.md).
@@ -61,6 +61,23 @@ Projects section:
 Certificates section:
 
 ![Certificates section](public/screenshots/certificates-section.png)
+
+## Resume QR Code
+
+Portfolio QR code assets for resume documents:
+
+```text
+public/resume-qr-jakapank-portfolio.svg
+public/resume-qr-jakapank-portfolio.png
+```
+
+The QR code points to:
+
+```text
+https://ligerking007.github.io/JakapanK-Portfolio/
+```
+
+Use the SVG for sharp A4 print output when the resume editor supports SVG. Use the PNG for broad compatibility with Word, Google Docs, and PDF export tools.
 
 ## Local Setup
 
@@ -169,6 +186,8 @@ Profile and share assets are stored in:
 public/profile.jpg
 public/favicon.svg
 public/og-image.png
+public/resume-qr-jakapank-portfolio.svg
+public/resume-qr-jakapank-portfolio.png
 public/screenshots/
 ```
 
@@ -178,6 +197,7 @@ Browser tab and share assets:
 
 - `public/favicon.svg` is used as the browser tab icon.
 - `public/og-image.png` is used for LinkedIn, GitHub, LINE, and other Open Graph previews.
+- `public/resume-qr-jakapank-portfolio.svg` and `public/resume-qr-jakapank-portfolio.png` are portfolio QR code assets for resume documents.
 - `index.html` references public assets with root-relative paths so Vite can apply the GitHub Pages base path correctly.
 
 ## License
@@ -195,6 +215,8 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 │   ├── og-image.svg
 │   ├── profile-avatar.svg
 │   ├── profile.jpg
+│   ├── resume-qr-jakapank-portfolio.png
+│   ├── resume-qr-jakapank-portfolio.svg
 │   ├── before2021/
 │   └── certificates/
 ├── src/

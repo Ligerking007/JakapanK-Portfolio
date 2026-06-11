@@ -107,8 +107,12 @@ Primary visual assets are stored in `public/`:
 public/profile.jpg
 public/favicon.svg
 public/og-image.png
+public/resume-qr-jakapank-portfolio.svg
+public/resume-qr-jakapank-portfolio.png
 public/screenshots/
 ```
+
+Portfolio QR code assets for resume documents point to the GitHub Pages portfolio URL. Use the SVG for sharp A4 print output and the PNG for broad document editor compatibility.
 
 Generated project screenshots are stored in:
 

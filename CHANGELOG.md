@@ -4,6 +4,13 @@ All notable changes to this project are documented here.
 
 This project follows a practical date-based changelog. Version numbers are tracked in `package.json`.
 
+## Unreleased
+
+### Added
+
+- Added SVG and PNG portfolio QR code assets for resume documents.
+- Updated README asset documentation for the resume QR code.
+
 ## [1.1.4] - 2026-06-10
 
 ### Changed
